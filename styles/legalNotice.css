@@ -1,0 +1,128 @@
+
+/* ================================================================= LEGAL NOTICE / HELP PAGE ============================================================= */
+.legalNoticeContainer *, .helpContainer * {
+    box-sizing: border-box;
+    font-family: 'Inter';
+    color: black;
+}
+
+.legalNoticeContainer h1, .helpContainer h1, .helpContainer h2, .legalNoticeContainer h2, .helpContainer h3, .legalNoticeContainer h3, .helpContainer p, .legalNoticeContainer p, .helpContainer li, .legalNoticeContainer li {
+    hyphens: auto;
+}
+
+.legalNoticeContainer h1, .helpContainer h1 {
+    font-size: 61px;
+}
+
+.h1Back {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exitLegalNotice {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.legalNoticeContainer h2, .helpContainer h2 {
+    font-size: 27px;
+    margin-bottom: 0;
+}
+
+.legalNoticeContainer h3, .helpContainer h3 {
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.legalNoticeContainer p, .helpContainer p {
+    font-size: 16px;
+    color: black;
+}
+
+.legalNoticeContainer, .helpContainer {
+    width: 100%;
+    height: calc(100vh - 89px);
+    overflow: hidden;
+    padding: 1rem 0rem 1rem 1rem;  
+}
+
+.innerLegalNoticeContainerLogin {
+    overflow: auto;
+}
+
+.innerHelpContainer, .innerLegalNoticeContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: auto;
+    padding: 1rem;
+}
+
+.legalNoticeContainer ul li, .helpContainer ul li {
+    color: black;
+    display: list-item;
+    list-style-type: circle;
+}
+
+/* ================================================================= RESPONSIVENESS ============================================================= */
+@media(max-width: 950px) {
+    .legalNoticeContainer h1, .helpContainer h1 {
+        font-size: 50px;
+    }
+}
+
+@media(max-width: 720px) {
+    .legalNoticeContainer, .helpContainer {
+        height: calc(100vh - 154px);
+    }
+
+    .legalNoticeContainer h1, .helpContainer h1 {
+    font-size: 40px;
+    }
+
+    .legalNoticeContainer h2,.helpContainer h2 {
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+
+    .legalNoticeContainer h3, .helpContainer h3 {
+        font-size: 17px;
+        margin-bottom: 0;
+    }
+
+    .legalNoticeContainer p, .helpContainer p, .legalNoticeContainer li, .helpContainer li {
+        font-size: 15px;
+    }
+}
+
+@media(max-width: 480px) {
+    .legalNoticeContainer, .helpContainer {
+        position: relative;
+        top: 0;
+    }
+
+    .legalNoticeContainer h1, .helpContainer h1 {
+        font-size: 35px;
+        }
+    
+    .legalNoticeContainer h2, .helpContainer h2 {
+        font-size: 17px;
+        margin-bottom: 0;
+    }
+
+    .legalNoticeContainer h3, .helpContainer h3 {
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+
+    .legalNoticeContainer p, .helpContainer p, .legalNoticeContainer li, .helpContainer li {
+        font-size: 13px;
+    }
+}

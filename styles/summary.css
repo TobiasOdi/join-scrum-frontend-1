@@ -1,0 +1,433 @@
+/* =========================================================================== MAIN ============================================================= */
+.summaryMainContainer {
+  height: calc(100vh - 89px);
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 1rem;
+  padding-right: 0;
+  overflow: hidden;
+}
+
+.summaryLeftContainer {
+  height:  100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding-right: 0.5rem;
+  overflow: hidden;
+}
+
+.summaryBothContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 30px;
+  overflow: auto;
+  padding-top: 5px;
+}
+
+.summaryLeftHeadline {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.summaryHeadline {
+  font-weight: 700;
+  font-size: 61px;
+  color: #000000;
+}
+
+.summaryLineDescription {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.summaryLine, .summaryLine2 {
+  width: 3px;
+  background-color: #29abe2;
+  height: 59px;
+ }
+
+.summaryLine2 {
+  display: none;
+}
+
+.summaryDescription {
+  font-weight: 400;
+  font-size: 27px;
+  color: #2a3647;
+}
+
+/* =========================================================================== CARDS ============================================================= */
+.summaryLeftCards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.positionInsideAllCards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.allCardsBorderRadius {
+  background: #ffffff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+}
+
+.allCardsNumberFontSize {
+  font-size: 64px;
+}
+
+.allTopCards {
+  display: flex;
+  gap: 35px;
+}
+
+.topCard {
+  width: 160px;
+  height: 160px;
+  cursor: pointer;
+}
+
+.middleCard {
+  width: 550px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  cursor: pointer;
+}
+
+.allBottomCards {
+  display: flex;
+  gap: 35px;
+}
+
+.bottomCardsDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottomCard {
+  width: 260px;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32.5px;
+  cursor: pointer;
+}
+
+.bottomCardsImgTodo {
+  background: url("../img/todo.svg");
+  width: 70px;
+  height: 70px;
+}
+
+.bottomCardsImgDone {
+  background: url("../img/done.svg");
+  width: 70px;
+  height: 70px;
+}
+
+.bottomCard:hover .bottomCardsImgTodo {
+  background: url("../img/todo_white.svg");
+}
+
+.bottomCard:hover .bottomCardsImgDone {
+  background: url("../img/done_white.svg");
+}
+
+.cardNumberTopBottom {
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 120%;
+  text-align: center;
+  color: #000000;
+}
+
+.topCardText {
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 120%;
+  text-align: center;
+  color: #2a3647;
+}
+
+.middleCardUrgent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+.middleCardUrgentNumber {
+  font-weight: 600;
+  font-size: 47px;
+  text-align: center;
+  color: #000000;
+}
+
+.middleCardUrgentText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.middleCardUrgentText > span {
+  font-weight: 400;
+  font-size: 16px;
+  color: #2a3647;
+}
+
+.middleCardBorder {
+  width: 0px;
+  height: 102.02px;
+  border: 2px solid #d1d1d1;
+}
+
+.middleCardDeadline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.middleCardDeadlineDate {
+  font-weight: 700;
+  font-size: 21px;
+  color: #2a3647;
+}
+
+.middleCardDeadlineText {
+  font-weight: 400;
+  font-size: 16px;
+  color: #2a3647;
+}
+
+.summaryRightContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+}
+
+.greeting {
+  text-align: left;
+  font-size: 47px;
+  color: #2a3647;
+}
+
+.greetingName {
+  font-size: 64px;
+  color: #29abe2;
+}
+
+.topCard:hover, .middleCard:hover, .bottomCard:hover {
+  background-color: #2a3647;
+}
+
+.topCard:hover div, .middleCard:hover div, .middleCard:hover span, .bottomCard:hover div {
+  color: white;
+}
+
+/* =========================================================================== RESPONSIVENESS ============================================================= */
+@media (max-width: 1100px){
+  .summaryDescription {
+    font-size: 20.25px;
+  }
+
+  .allCardsNumberFontSize {
+    font-size: 48px;
+  }
+
+  .allTopCards{
+    gap: 26.25px;
+  }
+
+  .topCard {
+    width: 127.5px;
+    height: 127.5px;
+  }
+
+  .topCardText {
+    font-size: 15.75px;
+  }
+
+  .middleCard {
+    width: 435px;
+    height: 112.5px;
+  }
+
+  .bottomCard {
+    width: 204.5px;
+    height: 112.5px;
+  }
+
+  .summaryBothContainer {
+    gap: 20px;
+  }
+
+  .greeting {
+    font-size: 30px;
+  }
+  
+  .greetingName {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 900px){
+  .summaryRightContainer{
+    display: none;
+  }
+
+  .summaryMainContainer {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 720px){
+  .summaryMainContainer {
+    justify-content: center;
+    height: calc(100vh - 154px);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  .summaryHeadline {
+    font-size: 47px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topCardText {
+    width: 150px;
+  }
+
+  .summaryMainContainer {
+    height: calc(100vh - 154px );
+    align-items: flex-start;
+    padding-top: 0;
+    padding: 1rem;
+    padding-right: 0;
+    overflow-y: hidden;
+  }
+
+  .summaryLeftContainer {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+
+  .summaryBothContainer {
+    gap: 0;
+    width: 100%;
+  }
+
+  .summaryLeftCards {
+    width: 100%;
+  }
+
+  .summaryLeftHeadline {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 15px;
+  } 
+
+  .summaryLine {
+    display: none;
+  }
+
+  .summaryLine2 {
+    display: block;
+    width: 59px;
+    height: 3px;
+  }
+
+  .allTopCards {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .topCard{
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 100px;
+    padding: 10px;
+  }
+
+  .middleCard {
+    width: 100%;
+    gap: 20px;
+    padding: 10px;
+  }
+
+  .middleCardUrgent {
+    gap: 10px;
+  }
+
+  .middleCardUrgent > img {
+    height: 50px;
+    width: 50px;
+  }
+
+  .middleCardDeadlineDate {
+    font-size: 18px;
+  }
+
+  .middleCardDeadlineText {
+    font-size: 14px;
+  }
+  .allBottomCards {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .bottomCard{
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+
+  .bottomCard img {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+@media (max-width: 380px) {
+  .middleCard {
+    gap: 10px;
+  }
+
+  .middleCardDeadlineDate {
+    font-size: 16px;
+  }
+
+  .middleCardDeadlineText {
+    font-size: 12px;
+  }
+}
+

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp</title>
+    
+    <!-- ============================== CSS FILES ================================= -->
+    <link rel="stylesheet" href="./mainStyle.css" />
+    <link rel="stylesheet" href="./styles/login.css" />
+    <link rel="stylesheet" href="./styles/legalNotice.css">
+    <link rel="stylesheet" href="./styles/fonts.css">
+
+    <!-- ============================== SCRIPTS ================================= -->
+    <script src="./mainScript.js"></script>
+    <script src="./js/contacts.js"></script>
+
+    <!-- ============================ Favicon =========================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="./img/favicon/safari-pinned-tab.svg" color="#2a3647">
+    <meta name="msapplication-TileColor" content="#2a3647">
+    <meta name="theme-color" content="#2a3647">
+
+  </head>
+
+  <body onload="init()">
+    <div class="mainContainerSignUp">
+
+      <div class="header">
+        <!-- ================================== LOGO  ==================================== -->
+        <div class="loginLogo">
+          <img src="./img/blacklogo.svg">
+        </div>
+      </div>
+
+      <!--============================== SIGN UP SECTION ================================-->
+      <div class="contentContainer" id="contentContainerLogin2">
+        <!-- == Legal Notice - w3-include-html ==-->
+        <div class="mainLegalNoticeContainerDisplay" id="mainLegalNoticeContainerDisplay2">
+          <div w3-include-html="./templates/legalNotice.html"></div>
+        </div>
+        <!-- =================================== -->
+
+        <div class="loginScreen signUpScreen" id="loginScreen2">
+          <div id="loginScreenLoading" class="loginScreenLoading">
+            <div>Logging in please wait...</div>
+          </div>
+          
+          <div class="arrowBack" onclick="backToLoginScreen()">
+            <img src="./img/arrowLeft.svg">
+          </div>
+
+          <div class="loginHeading">
+            <h1>Sign up</h1>
+            <div class="blueLigne"></div>
+          </div>
+
+          <form onsubmit="addUser();return false">
+            <div class="inputContainer">
+              <div class="inputFieldContainer">
+                <input id="name" class="inputFields" type="text" placeholder="Name" required/>
+                <img src="./img/name.svg" class="img" />
+              </div>
+            </div>
+  
+            <div class="inputContainer">
+              <div class="inputFieldContainer">
+                <input id="surname" class="inputFields" type="text" placeholder="Surname" required/>
+                <img src="./img/name.svg" class="img" />
+              </div>
+            </div>
+  
+            <div class="inputContainer">
+              <div class="inputFieldContainer">
+                <input id="email" class="inputFields" type="email" placeholder="Email" required/>
+                <img src="./img/letter.svg" class="img" />
+              </div>
+            </div>
+  
+            <div class="inputContainer">
+              <div class="inputFieldContainer">
+                <input id="password" class="inputFields" type="password" placeholder="Password" required/>
+                <img src="./img/lock.svg" class="img" />
+              </div>
+            </div>
+  
+            <div class="inputContainer">
+              <div class="inputFieldContainer">
+                <select class="inputFields selectColor" id="userColor" required>
+                  <option style="color: #d1d1d1;" value="" disabled selected hidden>Choose your favorite color</option>
+                  <option value="#ff0000" style="color: #ff0000;">
+                    Red
+                  </option>
+                  <option value="#008000" style="color: #008000;">
+                    Green
+                  </option>
+                  <option value="#0000ff" style="color: #0000ff;">
+                    Blue
+                  </option>
+                  <option value="#ffff00" style="color: #ffff00;">
+                    Yellow
+                  </option>
+                  <option value="#ffa500" style="color: #ffa500;">
+                    Orange
+                  </option>
+                  <option value="#800080" style="color: #800080;">
+                    Purple
+                  </option>
+                  <option value="#a52a2a" style="color: #a52a2a;">
+                    Brown
+                  </option>
+                  <option value="#808080" style="color: #808080;">
+                    Grey
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="privacyPolicyContainer">
+              <input type="checkbox" required>
+              <div>
+                <div>I accept the</div>
+                <div class="privacyPolicy">Privacy Policy</div></div>
+            </div>
+
+            <button class="buttonDark" type="submit">
+              <div class="buttonDarkText">Sign up</div>
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+      <div class="policies" id="policies2">
+        <div onclick="displayPageLegalNotice()">
+          Legal notice
+        </div>
+      </div>
+    </div>
+
+  <!-- ================================== SNACKBAR ALREADY SIGNE UP ======================================= -->
+  <div id="alreadySignedUp">You have already signed up, go back to login</div>
+
+  <!-- ================================== SNACKBAR SUCCESSFULLY SIGNED UP ======================================= -->
+  <div id="successfullySignedUp">You have successfully signed up!</div>
+
+  <script>includeHTMLLogin();</script>
+</body>
+</html>
+

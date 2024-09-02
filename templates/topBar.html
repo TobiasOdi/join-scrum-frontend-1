@@ -1,0 +1,21 @@
+<div class="placeholderTop">
+    <div>
+        <img src="./img/blacklogo.svg" class="blackLogo" />
+    </div>
+    <div class="topNavBarLeftText">Kanban Project Management Tool</div>
+    <div class="topNavBarRightImg">
+        <a id="legalNoticeTopTab" class="tab" onclick="displayPageLegalNotice(), activeHelp('legalNoticeTopTab')">
+            <img src="./img/legalnotice.svg" class="topNavBarRightImgExclamationmark">
+        </a>
+        <a id="pageHelpTab" class="tab" onclick="displayPageHelp(), activeHelp('pageHelpTab')">
+            <img src="./img/questionmark.svg" class="topNavBarRightImgQuestionmark">
+        </a>
+        <img src="./img/user.svg" id="topNavBarRightImgPicture" class="topNavBarRightImgPicture" onclick="toggleLogoutButton()">
+        <div id="logoutButton" class="logoutButton" onclick="logout(event)">
+            <form id="logout_form" onsubmit="logout()">
+                <input id="csrfToken" name="csrfmiddleware" type="hidden" value="getCookie("csrftoken")"/>
+                <button type="submit">Log Out</button>
+            </form>
+        </div>
+    </div>
+</div>

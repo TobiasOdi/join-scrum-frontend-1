@@ -1,0 +1,491 @@
+/* =============================================================== CREATE TASK MAIN =================================================================== */
+.titleInput ,
+.selectWrapper,
+.date {
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  font-size: 21px;
+  font-weight: 400;
+  padding: 13px 21px;
+  background-color: white;
+  outline: none;
+}
+
+.subtaskContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  font-size: 21px;
+  font-weight: 400;
+  padding: 13px 21px;
+  background-color: white;
+  outline: none;
+  padding-right: 15px;
+}
+
+.subtaskContainer > input {
+  height: 100%;
+  width: 100%;
+  font-size: 21px;
+}
+
+.selectWrapperHeight {
+  padding: 0px;
+}
+
+textarea {
+  min-height: 119px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px 10px 2px 10px;
+  padding: 1rem;
+  outline: none;
+  resize: vertical;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.selectionContainer > span,
+.featuresContainer > span {
+  font-weight: 400;
+  font-size: 21px;
+}
+
+.addTaskMainContainer {
+  height: calc(100vh - 89px);
+  width: 100%;
+  overflow: hidden;
+  padding: 1rem;
+  padding-top: 2rem;
+}
+
+.addTaskMainSubContainer {
+  height: 100%;
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow: auto;
+}
+
+.addTaskMainSubContainer h1 {
+  font-size: 61px;
+  margin: 0;
+}
+
+.createTaskForm {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 100%;
+}
+
+.createTaskForm ::placeholder {
+  font-family: 21px;
+}
+
+.addTaskContainer {
+  display: flex;
+  gap: 30px;
+}
+
+.addTaskLeftandRightContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.selectionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.preventSelect {
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
+}
+
+.assignedToWrapper {
+  margin-bottom: 30px;
+}
+
+.sectorTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  padding: 5px 20px;
+  cursor: pointer;
+  height: 50px;
+}
+
+.sectorTop > div {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  min-width: 40px;
+  width: auto;
+}
+
+.sectorTopSelectedUsers {
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.selectionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.categoryChoices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  padding: 0px 20px 7px 20px;
+}
+
+.category {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 3px;
+}
+
+.category:hover {
+  background-color: lightgray;
+}
+
+.category img {
+  width: 15px;
+  height: 15px;
+}
+
+.date {
+  cursor: pointer;
+}
+
+.circle {
+  height: 12px;
+  width: 12px;
+  border-radius: 100%;
+  border: white;
+}
+
+.middleGap {
+  border-left: 1px solid #d1d1d1;
+}
+
+.clearAndCreateButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.clearAndCreateButton > .buttonLight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110px;
+}
+
+.clearAndCreateButton > .buttonDark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+
+}
+
+
+.clearAndCreateButton button {
+  font-size: 1.5rem;
+  border-radius: 10px;
+  padding: 10px 10px;
+  transition: background 255ms ease-in-out;
+}
+
+/* ======================================================= ASSIGN USER  ========================================================== */
+.assignedToChoices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 5px 20px 7px 20px;
+  height: 200px;
+  gap: 5px;
+  overflow-y: scroll;
+}
+
+.avatarContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.3;
+  cursor: pointer;
+  margin-left: -10px;
+}
+
+.avatarContainerSelected {
+  opacity: 1;
+}
+
+.avatarContainer:hover {
+  opacity: 1;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 4px solid transparent;
+}
+
+.avatar > div {
+  color: white;
+  font-size: 16px;
+}
+
+.nameText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nameText > div {
+  font-size: 12px;
+}
+
+.avatarSelected {
+  opacity: 1;
+}
+
+.avatarSelectedIcon {
+  box-shadow: 0 0 2px 2px black;
+}
+
+.avatarSelectedIconPlaceholder {
+  border: 2px solid #fff;
+  box-shadow: none;
+}
+
+/* ======================================================= DATE / PRIO / SUBTASK  ========================================================== */
+.dueDateAndClearCreateButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 0px;
+  gap: 25px;
+}
+
+.prioButtons {
+  display: flex;
+  gap: 10px;
+  border-radius: 10px;
+}
+
+.prioButton,
+.prioButtonEdit {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+  gap: 10px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  font-size: 21px;
+  font-weight: 400;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  position: relative;
+  transition: all 100ms ease-in-out;
+  cursor: pointer;
+}
+
+.prioButton:hover,
+.prioButtonEdit:hover {
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
+}
+
+.featuresContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.subtaskInput {
+  border: 0px;
+  outline: none;
+  width: 80%;
+}
+
+.plusIcon {
+  cursor: pointer;
+}
+
+.subtaskImgContainer {
+  width: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.subTaskIcons {
+  cursor: pointer;
+}
+
+.gapImgSubtask {
+  height: 25px;
+  width: 1px;
+  background-color:  #d1d1d1;
+}
+
+.subtaskList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+}
+
+.subtask {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 21px;
+  padding-right: 21px;
+}
+
+.subtask img {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+/* =============================================================== CLASSES ADD/REMOVE =================================================================== */
+.d-none {
+  display: none;
+}
+
+.redBorder {
+  border: 2px solid red;
+}
+
+/* =============================================================== RESPONSIVENESS =================================================================== */
+@media (max-width: 1100px) {
+  .middleGap {
+    display: none;
+  }
+
+  .addTaskContainer {
+    flex-direction: column;
+  }
+
+  .addTaskMainSubContainer > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 720px) {
+  .addTaskMainContainer {
+    height: calc(100vh - 163px);
+  }
+
+  .addTaskMainSubContainer h1 {
+    font-size: 47px;
+  }
+}
+
+@media(max-width: 480px) {
+  .titleInput,
+  textarea,
+  .sectorTop p,
+  .date,
+  .prioButton,
+  .assignedToHeader,
+  .clearAndCreateButton > button > div,
+  .subtaskContainer > input {
+    font-size: 18px;
+  }
+}
+
+@media(max-width: 450px) {
+  .addTaskMainSubContainer > form, .addTaskMainSubContainer > form > div {
+    width: 100%;
+  }
+
+  .addTaskMainSubContainer {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .prioButtons {
+    flex-wrap: wrap;
+  }
+
+  .subtaskContainer > input{
+    width: 100%;
+  }
+
+  .addTaskMainContainer {
+    padding-right: 0;
+  }
+}
+
+@media(max-width: 400px) {
+  .clearAndCreateButton > div:first-of-type {
+    display: none;
+  }
+}
+
+@media(max-width: 350px) {
+  .clearAndCreateButton {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .clearAndCreateButton > .buttonLight,
+  .clearAndCreateButton > .buttonDark {
+    width: 100%;
+  }
+
+  .titleInput,
+  textarea,
+  .sectorTop p,
+  .date,
+  .prioButton,
+  .assignedToHeader,
+  .clearAndCreateButton > button > div,
+  .subtaskContainer > input {
+    font-size: 16px;
+  }
+}

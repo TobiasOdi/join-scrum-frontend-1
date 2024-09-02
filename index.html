@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <!-- ============================== CSS FILES ================================= -->
+    <link rel="stylesheet" href="./mainStyle.css" />
+    <link rel="stylesheet" href="./styles/summary.css" />
+    <link rel="stylesheet" href="./styles/board.css" />
+    <link rel="stylesheet" href="./styles/createTask.css" />
+    <link rel="stylesheet" href="./styles/contacts.css" />
+    <link rel="stylesheet" href="./styles/legalNotice.css" />
+    <link rel="stylesheet" href="./styles/fonts.css" />
+
+    <!-- ============================== SCRIPTS ================================= -->
+    <script src="./mainScript.js"></script>
+    <script src="./js/summary.js"></script>
+    <script src="./js/board.js"></script>
+    <script src="./js/createTask.js"></script>
+    <script src="./js/contacts.js"></script>
+    <script src="./js/template.js"></script>
+
+    <!-- ============================ Favicon =========================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon/favicon-16x16.png"/>
+    <link rel="manifest" href="./img/favicon/site.webmanifest" />
+    <link rel="mask-icon" href="./img/favicon/safari-pinned-tab.svg" color="#2a3647"/>
+    <meta name="msapplication-TileColor" content="#2a3647" />
+    <meta name="theme-color" content="#2a3647" />
+  </head>
+
+  <body onload="displayPage('mainSummaryContainerDisplay'), activeTab('summary'), setUserColor()">
+    <div id="isUserAuthenticatedContainer" class="isUserAuthenticatedContainer">
+      <div>Checking...</div>
+    </div>
+    <div class="mainContainer">
+      <!-- Sidebar -->
+      <div class="placeholderLeft">
+        <!-- LogoTopLeftCorner -->
+        <div class="sideNavBarLogo" onclick="displayPage('mainSummaryContainerDisplay'), activeTab('summary')">
+          <img id="startScreenLogo" src="./img/whitelogo.svg" class="whiteLogo" />
+        </div>
+
+        <div w3-include-html="templates\sideNavBar.html">
+
+        </div>
+      </div>
+
+      <div class="placeholderRight">
+        <!-- Topbar -->
+        <div w3-include-html="templates\topBar.html"></div>
+
+        <div class="placeholderBottom">
+          <!-- Board -->
+          <div class="mainBoardContainerDisplay" id="mainBoardContainerDisplay">
+            <div w3-include-html="templates\board.html"></div>
+          </div>
+          <!-- Summary -->
+          <div class="mainSummaryContainerDisplay" id="mainSummaryContainerDisplay">
+            <div w3-include-html="templates\summary.html"></div>
+          </div>
+          <!-- createTask -->
+          <div class="mainAddTaskContainerDisplay" id="mainAddTaskContainerDisplay">
+            <div w3-include-html="templates\createTask.html"></div>
+          </div>
+
+          <!-- contacts -->
+          <div class="mainContactsContainerDisplay" id="mainContactsContainerDisplay">
+            <div w3-include-html="templates\contacts.html"></div>
+          </div>
+
+          <!-- legalNotice -->
+          <div class="mainLegalNoticeContainerDisplay" id="mainLegalNoticeContainerDisplay">
+            <div w3-include-html="templates\legalNotice.html"></div>
+          </div>
+
+          <!-- help -->
+          <div class="mainhelpContainerDisplay" id="mainhelpContainerDisplay">
+            <div w3-include-html="templates\help.html"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =============================================== OPEN TASK =============================================== -->
+
+    <div id="openTaskBackground" class="openTaskBackground" onclick="closeTask()">
+        <div id="openTaskContainer" class="openTaskContainer" onclick="doNotClose(event)">
+        </div>
+    </div>
+
+    <!-- ======================== AddContacts Overlay ======================== -->
+    <div id="addContactBackground" class="addContactBackground" onclick="closePopup()">
+      <div class="addContactContainer" onclick="doNotClose(event)">
+        <div class="addContactLeftSide">
+          <img src="./img/logo.svg" />
+          <h1>Add contact</h1>
+          <span>Task are better with a Team!</span>
+          <div></div>
+        </div>
+
+        <div class="addContactRightSide">
+          <div class="contactImg">
+            <div>
+              <img src="./img/addUserIcon.svg" />
+            </div>
+          </div>
+          <div class="contactInfo">
+            <div>
+              <div onclick="closePopup()">
+                <img src="./img/close.svg" />
+              </div>
+            </div>
+            <form name="addContactForm" onsubmit="createContact();return false">
+              <div class="inputContainer">
+                <div class="inputFieldContainer">
+                  <input id="contactName" class="inputFields" type="text" placeholder="Name" required/>
+                  <img src="./img/userIcon.svg" class="img" />
+                </div>
+              </div>
+              <div class="inputContainer">
+                <div class="inputFieldContainer">
+                  <input id="contactSurname" class="inputFields" type="text" placeholder="Surname" required/>
+                  <img src="./img/userIcon.svg" class="img" />
+                </div>
+              </div>
+              <div class="inputContainer">
+                <div class="inputFieldContainer">
+                  <input id="contactEmail" class="inputFields" type="email" placeholder="Email" required/>
+                  <img src="./img/letter.svg" class="img" />
+                </div>
+              </div>
+              <div class="inputContainer">
+                <div class="inputFieldContainer">
+                  <input id="contactPhone" class="inputFields" type="number" placeholder="Phone"/>
+                  <img src="./img/phone.svg" class="img" />
+                </div>
+              </div>
+
+              <div class="buttons">
+                <button type="button" class="cancleButton" onclick="closePopup()">
+                  <span>Cancle</span>
+                  <img src="./img/cancel.svg" />
+                </button>
+                <button type="submit" class="createContact">
+                  <span>Create contact</span>
+                  <img src="./img/tick.svg" />
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== Edit Contacts Overlay ======================== -->
+    <div id="editContactBackground" class="addContactBackground" onclick="closePopup()">
+      <div class="addContactContainer" onclick="doNotClose(event)">
+        <div class="addContactLeftSide">
+          <img src="./img/logo.svg" />
+          <h1>Edit contact</h1>
+          <span>Task are better with a Team!</span>
+          <div></div>
+        </div>
+
+        <div class="addContactRightSide">
+          <div id="contactImg" class="contactImg"></div>
+          <div class="contactInfo" id="contactInfo">
+            <div>
+              <div onclick="closePopup()">
+                <img src="./img/close.svg" />
+              </div>
+            </div>
+
+            <div id="saveChangesFormContainer"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================== NEW CATEGORY ADDED =============================================  -->
+    <div id="contactAllreadyExists">Contact allready exists</div>
+
+    <!-- ================================== SNACKBAR CONTACT CREATED =======================================  -->
+    <div id="contactCreated">Contact succesfully created</div>
+
+    <!-- ================================== SNACKBAR CONTACT CHANGES SAVED =======================================  -->
+    <div id="contactChangesSaved">Changes saved</div>
+
+    <!-- ================================== TASK INPUT REQUIRED =============================================  -->
+    <div id="missingInput">Input required</div>
+
+    <!-- ================================== NEW SUBTASK ADDED =============================================  -->
+    <div id="newSubtaskAdded">New subtask added</div>
+
+    <!-- ================================== TASK CREATED =============================================  -->
+    <div id="taskCreated">Task created</div>
+
+    <!-- ================================== NEW CATEGORY ADDED =============================================  -->
+    <div id="newCategoryAdded">New category added</div>
+
+    <!-- ================================== NEW CATEGORY ADDED =============================================  -->
+    <div id="activeUser">Active user! You can't make changes.</div>
+
+    <script>
+      checkForLoggedInUser();
+      includeHTML();
+    </script>
+  </body>
+</html>
+
+<!-- 
+
+    missingSignedUpTask
+
+
+ -->

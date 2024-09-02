@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forgot Password</title>
+
+    <!-- ============================== CSS FILES ================================= -->
+    <link rel="stylesheet" href="../mainStyle.css">
+    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <!-- ============================== SCRIPTS ================================= -->
+    <script src="../mainScript.js"></script>
+    <script src="../js/contacts.js"></script>
+    <script src="../js/mini_backend.js"></script>
+
+    <!-- ============================ Favicon =========================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="../img/favicon/safari-pinned-tab.svg" color="#2a3647">
+    <meta name="msapplication-TileColor" content="#2a3647">
+    <meta name="theme-color" content="#2a3647">
+  </head>
+
+  <body onload="init()">
+    <div class="mainContainerForgotPw">
+
+      <div class="header">
+        <!-- ================================== LOGO  ==================================== -->
+        <div class="loginLogo">
+          <img src="../img/blacklogo.svg">
+        </div>
+      </div>
+
+      <div class="contentContainer">
+        <div class="loginScreen loginScreenPw">
+
+            <div class="arrowBack" onclick="backToLoginScreen()">
+              <img src="../img/arrowLeft.svg">
+            </div>       
+                    
+            <div class="loginHeading">
+              <h1>I forgot my password</h1>
+              <div class="blueLigne"></div>
+            </div>
+
+            <span>Don't worry! We will send you an email with the instructions to reset your password.</span>
+            
+            <!-- action="https://tobias-odermatt.developerakademie.net/Projekte/Join/send_mail.php" -->
+
+            <form id="forgotPwForm" name="forgotPwForm" class="inputContainer" onsubmit="checkForCorrectEmail(event)">
+              <div class="inputFieldContainer">
+                  <input id="sendEmailToResetPw" name="sendEmailToResetPw" class="inputFields" type="email" placeholder="Email" required/>
+                  <img src="../img/letter.svg" class="img" />
+              </div>
+
+              <input id="submitButton" type="submit" class="buttonDark" value="Send email">
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================== SNACKBAR USER DOES NOT EXIST ======================================= -->
+    <div id="userDoesNotExist2">User does not exist, please sign up</div>
+    
+    <!-- ================================== SNACKBAR E-MAIL SENT ======================================= -->
+    <div id="sendEmail">
+      <img src="../img/emailSent.svg">
+      <div></div>An E-Mail has been sent to you</div>
+    </div>
+
+  </body>
+</html>

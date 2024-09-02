@@ -1,0 +1,107 @@
+<div class="addTaskMainContainer" onclick="closeDropdown()">
+    <div class="addTaskMainSubContainer">
+        <form class="createTaskForm" onsubmit="createTask();return false">
+            <h1>Add Task</h1>
+            <div class="addTaskContainer">
+                <div class="addTaskLeftandRightContainer">
+                    <div class="selectionContainer preventSelect">
+                        <span class="">Title</span>
+                        <input placeholder="Enter a title" id="title" class="titleInput">
+                    </div>
+
+                    <div class="selectionContainer preventSelect">
+                        <span>Description</span>
+                       <textarea placeholder="Enter a description" id="description"></textarea>
+                    </div>
+
+                    <div class="selectionContainer preventSelect">
+                        <span>Category</span>
+                        <div class="selectWrapper selectWrapperHeight" id="selectCategoryForm" onclick="openDropdown('categoryChoices'); doNotClose(event)">
+
+                        </div>
+
+                        <div class="subtaskContainer">
+                            <input class="subtaskInput" onclick="inputChangeNewCatIcons()" placeholder="Add new category" id="newCategory" maxlength="10">
+                            <div class="subtaskImgContainer">
+                                <img id="clearNewCategoryImg" src="./img/icon_cancel_subtask.svg" onclick="clearNewCategory()" class="subtaskIcons d-none">
+                                <div class="gapImgSubtask"></div>
+                                <img id="plusNewCategoryImg" class="plusIcon" src="./img/plus-icon.png" onclick="changeNewCatIcon()">
+                                <img id="addNewCategoryImg" src="./img/icon_check_subtask.svg" onclick="addNewCategory()" class="subTaskIcons d-none">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="middleGap"></div>
+
+                <div class="dueDateAndClearCreateButton">
+                    <div class="addTaskLeftandRightContainer">
+                        <div class="selectionContainer preventSelect">
+                            <span>Due date</span>
+                            <input class="date" type="date" id="dueDate">
+                        </div>
+
+                        <div class="selectionContainer preventSelect">
+                            <span>Prio</span>
+                            <div class="prioButtons" id="priority">
+                                <button class="urgent prioButton" id="urgent" type="button" onclick="selectUrgent()">
+                                    Urgent
+                                    <img id="imgUrgent" src="./img/urgent.svg">
+                                </button>
+                                <button class="medium prioButton" id="medium" type="button"onclick="selectMedium()">
+                                    Medium
+                                    <img id="imgMedium" src="./img/medium.svg">
+                                </button>
+                                <button class="low prioButton" id="low" type="button" onclick="selectLow()">
+                                    Low
+                                    <img id="imgLow" src="./img/low.svg">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="featuresContainer">
+                            <span>Subtasks</span>
+                            <div class="subtaskContainer">
+                                <input class="subtaskInput" onclick="inputChangeSubIcons()" placeholder="Add new subtask" id="subtask" maxlength="30">
+                                <div class="subtaskImgContainer">
+                                    <img id="clearSubtaskImg" src="./img/icon_cancel_subtask.svg" onclick="clearSubtask()" class="subtaskIcons d-none">
+                                    <div class="gapImgSubtask"></div>
+                                    <img id="plusSubtaskImg" class="plusIcon" src="./img/plus-icon.png" onclick="changeSubIcon()">
+                                    <img id="addSubtaskImg" src="./img/icon_check_subtask.svg" onclick="addSubtask()" class="subTaskIcons d-none">
+                                </div>
+                            </div>
+                            <div class="subtaskList" id="subtaskList">
+                                
+                            </div>
+                        </div>
+                        <div class="selectionContainer preventSelect">
+                            <span>Assigned To</span>
+                            <div class="selectWrapper selectWrapperHeight assignedToWrapper" id="assignedToForm" onclick="openDropdown('avatarPicker'); doNotClose(event)">
+    
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="clearAndCreateButton">
+                        <button type="button" class="buttonLight" onclick="clearAllInputs()">
+                            <div class="buttonLightText">
+                                Clear
+                            </div> 
+                            <img class="clear-img" src="./img/iconoir_cancel.svg">
+                        </button>
+                        <button type="submit" onsubmit="createTask()" class="buttonDark">
+                            <div class="buttonDarkText">
+                                Create Task
+                            </div> 
+                            <img src="./img/akar-icons_check.svg">
+                        </button></div>
+                        <button class="addTaskMobile d-none"><img src="./img/add_task_btn_mob.svg" alt="Create task button"></button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

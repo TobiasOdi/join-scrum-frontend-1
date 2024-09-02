@@ -1,0 +1,36 @@
+<!-- Desktop:SidebarLeft Mobil:SidebarBottom -->
+<div class="sideNavBar">
+    <div class="sideNavBarList">
+        <div id="summaryTab" class="tab" onclick="displayPage('mainSummaryContainerDisplay'), counters(), activeTab('summary')">
+            <a class="sideNavBarTask">
+                <img src="./img/summary.svg" class="svg">
+                <span>Summary</span>
+            </a>
+        </div>
+        <div id="boardTab" class="tab" onclick="displayPage('mainBoardContainerDisplay'), initBoard(), activeTab('board')" >
+            <a class="sideNavBarTask">
+                <img src="./img/board.svg" class="svg">
+                <span>Board</span>
+            </a>
+        </div>
+        <div id="addTaskTab" class="tab" onclick="displayPage('mainAddTaskContainerDisplay'), initCreateTask(), activeTab('addTask')">
+            <a class="sideNavBarTask">
+                <img src="./img/addtask.svg" class="svg">
+                <span>Add Task</span>
+            </a>
+        </div>
+        <div id="contactsTab" class="tab" onclick="displayPage('mainContactsContainerDisplay'), initContacts(), activeTab('contacts')">
+            <a class="sideNavBarTask">
+                <img src="./img/contacts.svg" class="svg">
+                <span>Contacts</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="legalNoticeTab" class="sideNavBarLegalNotice, tab" onclick="displayPageLegalNotice(), activeLegalNotice()" >
+        <a class="sideNavBarTask">
+            <img src="./img/legalnotice.svg" class="svg">
+            <span>Legal Notice</span>
+        </a>
+    </div>
+</div>

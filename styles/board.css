@@ -1,0 +1,1005 @@
+/* =============================================================== BOARD TOP =================================================================== */
+.placeholderBoard {
+  height: calc(100vh - 89px);
+  padding: 1rem 0rem 1rem 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-start;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.placeholderBoardTop {
+  width: 100%;
+  height: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.placeholderBoardTop h1 {
+  font-size: 61px;
+}
+
+.placeholderBoardTopLeft > h1  {
+  margin: 0;
+}
+
+.placeholderBoardTopRight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.placeholderBoardTopRight .inputContainer {
+  width: 300px;
+  height: 45px;
+}
+
+.placeholderBoardTopRight .inputFields {
+  height: 45px;
+}
+
+.addTaskButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 10px;
+  gap: 10px;
+
+  width: 120px;
+  height: 45px;
+
+  background: #2a3647;
+  border: 1px solid #2a3647;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 21px;
+  color: #ffffff;
+}
+
+.addTaskButton:hover {
+  box-shadow: 0 0 4px 2px rgba(0,0,0,0.5);
+}
+
+.addTaskButton > span {
+  font-size: 16px;
+}
+
+/* =============================================================== TASK CATEGORIES =================================================================== */
+.boardParts {
+  width: 23%;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 24px;
+  margin-bottom: 1rem;
+}
+
+.dragAreahighlight {
+  box-shadow:  0 0 5px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.placeholderBoardBottom {
+  height: calc(100vh - 235px);
+  padding: 1rem 1rem 0 1rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  gap: 25px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow: auto;
+}
+
+.boardTask {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-weight: 700;
+  font-size: 21px;
+}
+
+.boardTask > div:last-of-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.boardTask img {
+  height: 24px;
+  width: auto;
+  border-radius: 5px;
+  color: #2a3647;
+}
+
+.boardTask img:hover {
+  box-shadow: 0 0 2px 2px rgba(0,0,0,0.3);
+}
+
+.boardCategoryContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  border-radius: 15px;
+}
+
+.emptyCategory {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  background-color: #E7E7E7;
+  border: 1px dashed #A8A8A8;
+  border-radius: 10px;
+}
+
+.emptyCategoryText{
+  text-align: center;
+  font-size: 16px;
+  color: #A8A8A8;
+}
+
+/* =========================================================================== TASKS ============================================================================= */
+.boardContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 15px;
+  padding: 18px 20.5px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  gap: 10px;
+}
+
+.boardContainer:hover {
+  box-shadow: 0 0 4px 2px rgba(0,0,0,0.5);
+}
+
+.boardContainerTop {
+  width: 100%;
+  height: 27px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.boardContainerTop > div:first-of-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 110px;
+  background-color: #ff7a00;
+  border-radius: 8px;
+}
+
+.boardContainerTop > div:first-of-type > div {
+  color: white;
+}
+
+.boardContainerTop > div:first-of-type img {
+  height: 15px;
+  width: auto;
+  cursor: pointer;
+}
+
+.boardContainerTop > div:first-of-type img:hover {
+  scale: 1.1; 
+}
+
+.boardContainerTop > div:last-of-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+.boardContainerTop > div:last-of-type > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 5px;
+}
+
+.boardContainerTop > div:last-of-type > div:hover {
+  box-shadow: 0 0 2px 2px rgba(0,0,0,0.3);
+}
+
+
+.boardContainerTop > div:last-of-type img {
+  width: 20px;
+  height: 20px;
+}
+
+.boardContainerHeadline h2 {
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.boardContainerDescripton span {
+  font-weight: 400;
+  font-size: 16px;
+  color: #a8a8a8;
+}
+
+.boardContainerProgress {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.progress {
+  height: 7px;
+  background-color: #F4F4F4;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: #4589FF;
+  width: 0%;
+  border-radius: 5px;
+  transition: width 0.5s ease-in-out;
+}
+
+.progressInNumbers {
+  display: flex;
+  min-width: 60px;
+  font-size: 12px;
+}
+
+.noSubtasks {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.boardContainerUserBubbles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.userBubble {
+  display: flex;
+  position: relative;
+  margin-left: 10px;
+}
+
+.userBubbleOne {
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+/*   background-color: #0190e0;
+ */  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 2px solid white;
+  font-size: 12px;
+  margin-left: -10px;
+}
+
+/* =========================================================================== OPEN/EDIT TASKS ============================================================================= */
+.openTaskBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.2);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.openTaskContainer {
+  position: relative;
+  width: 500px;
+  height: 100%;
+  border-radius: 30px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow: auto;
+}
+
+.openTask {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: #ffffff;
+  padding: 2rem;
+  gap: 20px;
+  border-radius: 30px;
+}
+
+.openTaskTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.openTaskTop > div:first-of-type {
+  width: 142px;
+  height: 40px;
+  border-radius: 8px;
+  padding: 4px 37px;
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.openTaskTop > div:first-of-type > p {
+  font-size: 22px;
+  color: white;
+  margin: 0;
+}
+
+.selectCategoryContainer {
+  position: relative;
+  width: 150px;
+  height: 40px;
+  border-radius: 8px;
+  padding: 0;
+}
+
+.selectCategory {
+  width: 150px;
+  height: inherit;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+/*   padding: 5px;
+ */  z-index: 2;
+  outline: none;
+}
+
+.selectArrow {
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  z-index: 1;
+}
+
+.openTaskTop > div:last-of-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.openTaskTop > div:last-of-type:hover {
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.openTaskHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  hyphens: auto;
+}
+
+.openTaskHeader > h1 {
+  font-size: 45px;
+  color: #2a3647;
+  margin: 0;
+  padding: 0;
+}
+
+#titleEdit  {
+  font-weight: 400;
+  font-size: 35px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+#descriptionEdit {
+  font-size: 24px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.openTaskHeader p {
+  color: #2a3647;
+  font-size: 22px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+#editDueDate {
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.openTaskHeader input {
+  padding-left: 0;
+  color: #2a3647;
+  width: 100%;
+}
+
+.openTaskHeader input:first-of-type {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.openTaskHeader > div > div:first-of-type {
+  font-weight: bold;
+  font-size: 21px;
+  width: 160px;
+}
+
+.openTaskMain {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow: auto;
+}
+
+.openTaskMain > div > div:first-of-type {
+  font-weight: bold;
+  font-size: 21px;
+  width: 160px;
+}
+
+.openTaskMain > div:last-of-type > div:first-of-type {
+  width: 100%;
+}
+
+.openTaskDate,
+.openTaskPriority {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.openTaskDate > div:last-of-type {
+  font-size: 20px;
+}
+
+.openTaskDate > input {
+  border: none;
+}
+
+.openTaskPriorityEdit {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.prioButtonsEdit > button:hover {
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
+}
+
+.prioButton2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+  gap: 10px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  font-size: 21px;
+  font-weight: 400;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  position: relative;
+  transition: all 100ms ease-in-out;
+}
+
+.openTaskSubtask {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
+  gap: 5px;
+}
+
+#openTaskSubtask > div:first-of-type {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.openTaskSubtaskEdit > div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#subtaskContainerEdit > div {
+  justify-content: flex-start;
+}
+
+.openTaskSubtaskEdit > div > div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.openTaskSubtaskEdit > div > div > .addSubtaskEdit {
+  width: 150px;
+  min-width: 80px;
+  height: 25px;
+  border-radius: 10px 0 0 10px;
+  border: 1px solid #d1d1d1;
+  padding: 5px;
+  margin-left: 10px;
+  outline: none;
+}
+
+.openTaskSubtaskEdit > div > div > button {
+  width: 50px;
+  height: 25px;
+  border-radius: 0 10px 10px 0;
+  border: 1px solid #d1d1d1;
+  cursor: pointer;
+}
+
+.boardSubtaskContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow: auto;
+}
+
+.boardSubtaskContainer > div {
+  width: 100%;
+}
+
+.openTaskAssigned {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
+  gap: 15px;
+}
+
+.assignedToContainer {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 3px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow: auto;
+}
+
+.assignedToContainer > .avatarContainer {
+  margin: 0;
+}
+
+.openTaskAssignedPerson,
+.openSubtask {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.openSubtask {
+  position: relative;
+  padding-right: 10px;
+}
+
+.openTaskAssignedPerson > div:first-of-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.openTaskAssignedPerson span {
+  color: white;
+}
+
+.openSubtask > div:last-of-type {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.openSubtask > img {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.coverCheckbox {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+}
+
+.openTaskButtonContainer {
+  position: absolute;
+  right: 40px;
+  bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.openTaskEditButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 57px;
+  height: 57px;
+  border-radius: 0 10px 10px 0;
+  background-color: #2a3647;
+  border: 1px solid #2a3647;
+  cursor: pointer;
+}
+
+.openTaskEditButton:hover {
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.deleteTaskButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 57px;
+  height: 57px;
+  border-radius: 10px 0 0 10px;
+  background-color: white;
+  border: 1px solid #2a3647;
+  cursor: pointer;
+}
+
+.deleteTaskButton:hover {
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.cancelTaskEditButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 45px;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid #2a3647;
+  font-weight: bold;
+  cursor: pointer;
+  gap: 15px;
+  margin-right: 10px;
+}
+
+.saveChangesTask {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 45px;
+  border-radius: 10px;
+  background-color: #2a3647;
+  border: 1px solid #2a3647;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.priorityImg {
+  width: 17px;
+  height: 12px;
+}
+
+/* =============================================================== RESPONSIVENESS =================================================================== */
+/* ================================ WIDTH =============================== */
+@media (max-width: 880px) {
+  .placeholderBoardTop {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .placeholderBoardTopLeft > h1{
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  .placeholderBoardTopRight {
+    width: 100%;
+  }
+
+  .inputFields {
+    width: 200px;
+    height: 40px;
+  }
+
+  .inputFieldContainer .inputFieldVerticalLine {
+    height: 25px;
+  }
+
+  .img {
+    right: 16px;
+  }
+
+  .boardParts {
+    width: 100%;
+  }
+
+  .placeholderBoardTopRight {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 720px) {
+  .placeholderBoard {
+    height: calc(100vh - 154px);
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .placeholderBoardTopLeft > h1 {
+    margin-right: 1rem;
+    font-size: 47px;
+  }
+  .placeholderBoardTop {
+    padding-right: 0.5rem;
+  }
+  .placeholderBoardTopRight .inputFields {
+    height: 45px;
+  }
+  
+  .addTaskButton {
+    width: 45px;
+  }
+
+  .addTaskButton > span {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .openTaskBackground {
+    padding: 0;
+    top: 89px;
+    height: calc(100vh - 154px);
+  }
+
+  .openTaskContainer {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .openTask {
+    padding: 15px;
+    border-radius: 0;
+    gap: 10px;
+  }
+  .placeholderBoardTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .placeholderBoardTopRight {
+    gap: 0;
+  }
+
+  .placeholderBoardTopRight .inputFieldContainer {
+    width: 200px;
+  }
+
+  .placeholderBoardTopRight .inputContainer {
+    width: 200px;
+  }
+
+  .placeholderBoardTopRight {
+    width: 100%;
+  }
+
+  .openTaskMain > div > div:first-of-type {
+    width: 100px;
+    margin-right: 20px;
+  }
+
+  .openTaskPriorityEdit > div {
+    width: 100%;
+  }
+
+  .openTaskHeader {
+    gap: 0;
+  }
+
+  .openTaskHeader > h1,
+  #titleEdit {
+    font-size: 31px;
+  }
+
+  .prioButton2 {
+    height: 35px;
+  }
+
+  .deleteTaskButton, .openTaskEditButton {
+    height: 45px;
+    width: 45px;
+  } 
+
+  .openTaskButtonContainer {
+   right: 30px; 
+   bottom: 10px;
+   display: flex;
+  }
+
+  .openTaskTop > div:first-of-type,
+  .selectCategory {
+    width: 140px;
+    height: 30px;
+  }
+
+  .openTaskTop > div:first-of-type > p,
+  .openTaskHeader > div > div:first-of-type, 
+  .prioButton2 > span {
+    font-size: 18px;
+  }
+
+  .boardSubtaskContainer,
+  .openTaskAssigned {
+    gap: 5px;
+  }
+
+  .openTaskPriorityEdit {
+    flex-direction: row;
+  }
+
+  .prioButtonsEdit {
+    gap: 5px;
+  }
+  .prioButtonsEdit > button {
+    width: 40px;
+  }
+  .prioButtonEdit > div:first-of-type{
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .openTaskHeader > h1,
+  #titleEdit {
+    font-size: 25px;
+  }
+
+  .openTaskTop > div:first-of-type > p {
+    font-size: 22px;
+  }
+
+  .openTaskHeader > p,
+  #descriptionEdit,
+  .openTaskMain > div > div:first-of-type,
+  .openTaskDate > div:last-of-type {
+    font-size: 18px;
+  }
+
+  .openTaskSubtaskEdit > div:first-of-type {
+    align-items: flex-start;
+  }
+
+  .openTaskSubtaskEdit > div > div > .addSubtaskEdit {
+    margin: 0;
+  }
+
+  .openTaskMain > div > div:first-of-type {
+    margin-right: 0;
+  }
+
+  .placeholderBoardBottom {
+    padding: 0.5rem;
+    padding-right: 0;
+  }
+
+  .openTaskSubtaskEdit > div > div > .addSubtaskEdit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 320px) {
+  .placeholderBoardTopRight {
+    width: 100%;
+  }
+
+  .placeholderBoardTopRight .addTaskButton {
+    display: none;
+  }
+
+  .openTaskHeader > div > div:first-of-type {
+    width: 120px;
+  }
+
+  .prioButton2 > span {
+    font-size: 16px;
+  }
+
+  .openTaskHeader > div > div:first-of-type {
+    width: 100px;
+  }
+}
+
+/* ================================ HEIGHT =============================== */
+@media (max-height: 570px) {
+  .openTask {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .openTaskSubtask {
+    min-height: 75px;
+  }
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+
+    <!-- ============================== CSS FILES ================================= -->
+    <link rel="stylesheet" href="./mainStyle.css" />
+    <link rel="stylesheet" href="./styles/login.css" />
+    <link rel="stylesheet" href="./styles/legalNotice.css" />
+    <link rel="stylesheet" href="./styles/fonts.css" />
+    <!-- ============================== SCRIPTS ================================= -->
+    <script src="./mainScript.js"></script>
+    <script src="./js/contacts.js"></script>
+
+    <!-- ============================ Favicon =========================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon/favicon-16x16.png"/>
+    <link rel="manifest" href="./img/favicon/site.webmanifest" />   
+    <link rel="mask-icon" href="./img/favicon/safari-pinned-tab.svg" color="#2a3647"/>
+    <meta name="msapplication-TileColor" content="#2a3647" />
+    <meta name="theme-color" content="#2a3647" />
+  </head>
+
+  <body>
+  <!-- body onload="init()" -->
+
+    <!-- ================================== STARTSCREEN  ==================================== -->
+    <div class="startScreen">
+      <img id="startScreenLogo" class="logo" src="./img/blacklogo.svg" />
+    </div>
+    <!-- ==================================================================================== -->
+
+    <div class="mainContainerLogin">
+      <div class="header">
+        <!-- ================================== LOGO  ==================================== -->
+        <div class="loginLogo">
+          <img src="./img/blacklogo.svg">
+        </div>
+
+        <!--============================== SIGN UP BANNER ================================-->
+        <div class="signUpContainer">
+          <div class="signUpField">
+            <div>Not a Join user?</div>
+            <button class="buttonDark" onclick="goToSignup()">
+              <a>Sign Up</a>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!--============================== LOGIN SECTION ================================-->
+      <div class="contentContainer" id="contentContainerLogin1">
+
+        <!-- == Legal Notice - w3-include-html ==-->
+        <div class="mainLegalNoticeContainerDisplay" id="mainLegalNoticeContainerDisplay1" >
+          <div w3-include-html="./templates/legalNotice.html"></div>
+        </div>
+        <!-- =================================== -->
+
+        <div class="loginScreen" id="loginScreen1">
+          <div id="loginScreenLoading" class="loginScreenLoading">
+            <div>Logging in please wait...</div>
+          </div>
+          <div class="loginHeading">
+            <h1>Log in</h1>
+            <div class="blueLigne"></div>
+          </div>
+
+          <form name="login_form" onsubmit="login();return false">
+            <input id="csrfTokenfield" type="hidden" name="csrfmiddlewaretoken">
+            <div class="inputContainer">
+              <div class="inputFieldContainer">
+                <input id="emailLog" class="inputFields" type="text" name="email" placeholder="Email" required/>
+                <img src="img/letter.svg" class="img" />
+              </div>
+            </div>
+
+            <div class="inputContainer">
+              <div class="inputFieldContainer">
+                <input id="passwordLog" class="inputFields" type="password" name="password" placeholder="Password" required/>
+                <img src="img/lock.svg" class="img" />
+              </div>
+            </div>
+
+            <div class="rememberOrForgetFields">
+              <div class="checkboxContainer">
+                <input type="checkbox" />
+                <p>Remember me</p>
+              </div>
+              <a class="forgotMyPassword" href="./templates/forgotPw.html"
+                >Forgot my Password</a
+              >
+            </div>
+
+            <div class="loginButtons">
+              <button type="submit" class="buttonDark" id="loginButton">
+                <div class="buttonDarkText">Log in</div>
+              </button>
+              <button type="button" onclick="guestLogin()" class="buttonLight">
+                <div class="buttonLightText">Guest Log in</div>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="policies" id="policies1">
+          <div onclick="displayPageLegalNotice()">
+            Legal notice
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================================== SNACKBAR USER DOES NOT EXIST ======================================= -->
+    <div id="userDoesNotExist">User does not exist, please sign up!</div>
+
+    <!-- ================================== SNACKBAR PW/EMAIL INCORRECT ======================================= -->
+    <div id="pwEmailIncorrect">Password incorrect!</div>
+
+    <script>includeHTMLLogin();</script>
+  </body>
+</html>

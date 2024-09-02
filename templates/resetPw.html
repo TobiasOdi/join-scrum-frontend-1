@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+
+    <!-- ============================== CSS FILES ================================= -->
+    <link rel="stylesheet" href="../mainStyle.css">
+    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+
+    <!-- ============================== SCRIPTS ================================= -->
+    <script src="../mainScript.js"></script>
+    <script src="../js/contacts.js"></script>
+    <script src="../js/mini_backend.js"></script>
+
+    <!-- ============================ Favicon =========================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="../img/favicon/safari-pinned-tab.svg" color="#2a3647">
+    <meta name="msapplication-TileColor" content="#2a3647">
+    <meta name="theme-color" content="#2a3647">
+
+  </head>
+  <body onload="init()">
+
+    <div class="mainContainerLogin">
+      <div class="header">
+        <!-- ================================== LOGO  ==================================== -->
+        <div class="loginLogo">
+          <img src="../img/blacklogo.svg">
+        </div>
+      </div>
+    
+      <div class="contentContainer">
+
+        <div class="loginScreen loginScreen2">
+
+          <div class="loginHeading loginHeading2">
+            <h1>Reset your password</h1>
+            <div class="blueLigne"></div>
+          </div>
+
+          <span>Change your account password</span>
+
+          <div class="inputContainer">
+            <form class="inputFieldContainer2" onsubmit="resetPassword(); return false">
+              <div class="inputContainer">
+                <div class="inputFieldContainer">
+                  <input id="newPassword" class="inputFields" type="password" placeholder="New password" required />
+                </div>
+              </div>
+
+              <div class="inputContainer">
+                <div class="inputFieldContainer">
+                  <input id="confirmPassword" class="inputFields" type="password" placeholder="Confirm password" required />
+                </div>
+              </div>
+
+              <button class="buttonDark" type="submit">
+                <div class="buttonDarkText">Continue</div>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================================== SNACKBAR USER DOES NOT EXIST ======================================= -->
+    <div id="userDoesNotExist3">User does not exist</div>
+
+    <!-- ================================== SNACKBAR PW RESET/INCORRECT ======================================= -->
+    <div id="passwordReset">Your password has succesfully been reset!</div>
+
+    <!-- ================================== SNACKBAR PASSWORD NOT IDENTICAL ======================================= -->
+    <div id="passwordsNotIdentical">Passwords are not identical</div>
+
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<div class="placeholderBoard">
+    <div class="placeholderBoardTop">
+        <div class="placeholderBoardTopLeft">
+            <h1>Board</h1>
+        </div>
+        <div class="placeholderBoardTopRight">
+
+            <div class="inputContainer">
+                <div class="inputFieldContainer">
+                    <input class="inputFields" placeholder="Find Task" id="searchValue" onkeyup="searchFunction()"/>
+                    <div class="inputFieldVerticalLine"></div>
+                    <img src="./img/searchicon.svg" class="img"/>
+                </div>
+            </div>
+
+            <button class="addTaskButton" onclick="displayPage('mainAddTaskContainerDisplay'), initCreateTask(), activeTab('addTask')">
+                <span>Add task</span>
+                <img src="./img/whiteplus.svg">
+            </button>
+
+        </div>
+    </div>
+
+    <div class="placeholderBoardBottom">
+        <div class="boardParts" ondrop="moveTo('toDo'); removeHighlight('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')">
+            <div class="boardTask">
+                <div>To do</div>
+                <div onclick="displayPage('mainAddTaskContainerDisplay'), initCreateTask(), setStatusCategory('toDo'), activeTab('addTask')"><img src="./img/plusbuttonv1.svg" style="height: 15px;"></div>
+            </div>
+            <div id="toDo" class="boardCategoryContainer"></div>
+        </div>
+
+        <div class="boardParts" ondrop="moveTo('inProgress'); removeHighlight('inProgress')" ondragleave="removeHighlight('inProgress')" ondragover="allowDrop(event); highlight('inProgress')">
+            <!-- inProgress -->
+            <div class="boardTask">
+                <div>In Progress</div>
+                <div onclick="displayPage('mainAddTaskContainerDisplay'), initCreateTask(), setStatusCategory('inProgress'), activeTab('addTask')"><img src="./img/plusbuttonv1.svg" style="height: 15px;"></div>
+            </div>
+            <div id="inProgress" class="boardCategoryContainer"></div>
+        </div>
+
+        <div class="boardParts" ondrop="moveTo('awaitingFeedback'); removeHighlight('awaitingFeedback')" ondragleave="removeHighlight('awaitingFeedback')" ondragover="allowDrop(event); highlight('awaitingFeedback')">
+            <!-- AwaitingFeedback -->
+            <div class="boardTask">
+                <div>Awaiting Feedback</div>
+                <div onclick="displayPage('mainAddTaskContainerDisplay'), initCreateTask(), setStatusCategory('awaitingFeedback'), activeTab('addTask')"><img src="./img/plusbuttonv1.svg" style="height: 15px;"></div>
+            </div>
+            <div id="awaitingFeedback" class="boardCategoryContainer"></div>
+        </div>
+
+        <div class="boardParts" ondrop="moveTo('done'); removeHighlight('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
+            <!-- Done -->
+            <div class="boardTask">
+                <div>Done</div>
+                <div onclick="displayPage('mainAddTaskContainerDisplay'), initCreateTask(), setStatusCategory('done'), activeTab('addTask')"><img src="./img/plusbuttonv1.svg" style="height: 15px;"></div>
+            </div>
+            <div id="done" class="boardCategoryContainer"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,849 @@
+/* ============================================================================= GENERAL ================================================================== */
+* {
+  font-family: "Inter";
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background-color: #f6f7f8;
+  font-size: 16px;
+  font-style: normal;
+}
+
+.isUserAuthenticatedContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(50px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.isUserAuthenticatedContainer > div {
+  font-size: 18px;
+  font-family: "Inter";
+}
+
+li {
+  text-decoration: none;
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.buttonDark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2a3647;
+  width: 110px;
+  height: 48px;
+  border: 1px solid #2a3647;
+  border-radius: 8px;
+  gap: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.buttonDark:hover {
+  box-shadow: 0 0 4px 2px rgba(0,0,0,0.5);
+}
+
+.buttonDarkText {
+  cursor: pointer;
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 21px;
+  color: white;
+  text-align: center;
+}
+
+.buttonLight {
+  background-color: #fff;
+  width: 110px;
+  height: 48px;
+  border: 1px solid #2a3647;
+  border-radius: 8px;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.buttonLight:hover {
+  box-shadow: 0 0 4px 2px rgba(0,0,0,0.5);
+}
+
+.buttonLightText {
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 21px;
+  color: #2a3647;
+  text-align: center;
+}
+
+.inputContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.inputContainer img {
+  width: 20px;
+  height: 18px;
+}
+
+.inputFieldContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.inputFieldContainer img {
+  position: absolute;
+  width: 20px;
+  height: 18px;
+  bottom: 15px;
+  right: 15px;
+}
+
+.inputFieldContainer .img {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 18px;
+}
+
+.inputFieldContainer2 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.inputFields{
+  padding: 10px 10px;
+  gap: 10px;
+  width: 422px;
+  height: 48px;
+  background: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  font-size: 21px;
+}
+
+::placeholder {
+  width: 100%;
+  height: 25px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 120%;
+  color: #d1d1d1;
+}
+
+.inputFieldContainer .inputFieldVerticalLine {
+  position: absolute;
+  top: 20%;
+  right: 3.15rem;
+  width: 0px;
+  height: 31px;
+  border: 1px solid #d1d1d1;
+}
+
+/* ================================================================ SIDEBAR / TOPBAR / MAIN CONTAINER ====================================================== */
+.mainBoardContainerDisplay,
+.mainSummaryContainerDisplay,
+.mainAddTaskContainerDisplay,
+.mainContactsContainerDisplay,
+.mainLegalNoticeContainerDisplay,
+.mainhelpContainerDisplay {
+  display: none;
+}
+
+.mainhelpContainerDisplay,
+.mainLegalNoticeContainerDisplay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 187px);
+  background-color: #F6F7F8;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.mainContainer {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+}
+
+.placeholderLeft {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: #2a3647;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.placeholderLeft > div:last-of-type {
+  width: 100%;
+  height: 100%;
+}
+
+.sideNavBar {
+  height: 100%;
+  width: 232px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 2;
+}
+
+.sideNavBarList {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+  padding-top: 4rem;
+}
+
+.sideNavBarList > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.sideNavBarList > div:hover {
+  background-color: rgb(9, 25, 49);
+  cursor: pointer;
+}
+
+.sideNavBarTask {
+  display: flex;
+  align-items: center;
+  width: 150px;
+  gap: 25px;
+}
+
+.sideNavBarTask span {
+  color: white;
+}
+
+#legalNoticeTab {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  cursor: pointer;
+}
+
+#legalNoticeTab:hover {
+  background-color: rgb(9, 25, 49);
+}
+
+.placeholderRight {
+  position: relative;
+  width: calc(100vw - 232px);
+}
+
+.placeholderTop {
+  position: relative;
+  top: 0px;
+  height: 89px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem 1rem 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.placeholderTop > div:first-of-type {
+  display: none;
+}
+
+.topNavBarRightImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.topNavBarRightImg a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.topNavBarRightImg a > img {
+  border-radius: 50%;
+
+}
+
+.topNavBarRightImgQuestionmark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.topNavBarRightImgPicture {
+  border-radius: 50%;
+  border: 3px solid white;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+}
+
+.topNavBarRightImgPicture:hover,
+.topNavBarRightImgQuestionmark:hover,
+.topNavBarRightImgExclamationmark:hover {
+  box-shadow: 0 0 4px 2px rgba(0,0,0,0.5);
+}
+
+
+.topNavBarRightImgExclamationmark {
+  height: 33px;
+  width: 33px;
+  cursor: pointer;
+  display: none;
+}
+
+.logoutButton {
+  position: absolute;
+  right: 65px;
+  top: 70px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 35px;
+  border-radius: 10px 0 10px 10px;
+  padding: 15px;
+  background-color: rgba(42, 54, 71, 1);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.logoutButton > span {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.placeholderBottom {
+  position: relative;
+  height: 100%;
+}
+
+.placeholderBottom > div {
+  width: 100%;
+  height: 100%;
+}
+
+.sideNavBarLogo {
+  width: 100%;
+  height: 200px;
+  z-index: 3;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.whiteLogo {
+  position: relative;
+  width: 100px;
+  height: 121px;
+}
+
+.blackLogo {
+  display: none;
+}
+
+.svg {
+  width: 25px;
+  height: 25px;
+}
+
+.legalnotice {
+  margin-top: 100px;
+  margin-bottom: 25px;
+}
+
+/* ================================================================ CLASSES ADD/REMOVE ====================================================== */
+.activeTab {
+  background-color: rgb(9, 25, 49);
+}
+
+.activeLegalNoticeTab {
+  background-color: rgb(9, 25, 49);
+}
+
+.acitveHelpPage {
+  box-shadow: 0 0 4px 4px grey; 
+}
+
+/* ================================================================ SNACKBAR ====================================================== */
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#alreadySignedUp, 
+#successfullySignedUp, 
+#userDoesNotExist, 
+#userDoesNotExist2,
+#userDoesNotExist3, 
+#pwEmailIncorrect, 
+#sendEmail, 
+#passwordReset, 
+#passwordsNotIdentical, 
+#contactCreated, 
+#contactChangesSaved,
+#missingSignedUpTask, 
+#taskCreated, 
+#newSubtaskAdded,
+#newCategoryAdded,
+#missingInput,
+#missingSignedUp,
+#contactAllreadyExists,
+#activeUser {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 280px; /* Set a default minimum width */
+  margin-left: -140px; /* Divide value of min-width by 2 */
+  background-color: #2A3647; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 10px; /* Rounded borders */
+  padding: 16px 8px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 10; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+#sendEmail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#sendEmail > img {
+  width: 25px;
+  height: 25px;
+}
+
+#missingInput, #missingSignedUp, #contactAllreadyExists, #activeUser {
+  background-color: red;
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#alreadySignedUp.show, 
+#successfullySignedUp.show, 
+#userDoesNotExist.show, 
+#userDoesNotExist2.show,
+#userDoesNotExist3.show, 
+#pwEmailIncorrect.show, 
+#sendEmail.show, 
+#passwordReset.show, 
+#passwordsNotIdentical.show, 
+#contactCreated.show, 
+#contactChangesSaved.show,
+#missingSignedUpTask.show, 
+#taskCreated.show,
+#newSubtaskAdded.show,
+#newCategoryAdded.show,
+#missingInput.show,
+#missingSignedUp.show,
+#contactAllreadyExists.show,
+#activeUser.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+/* ================================================================ SCROLLBAR ====================================================== */
+/* 
+  Container Class: 
+    -   height: calc(100vh - 89px); => absolute height
+    -   overflow: hidden;
+
+  Subcontainer Class: 
+    -  height: 100%;
+    -  overflow-x: hidden;
+    -  overflow-y: scroll;
+    -  overflow: auto;
+*/
+
+.placeholderBoardBottom::-webkit-scrollbar,
+.assignedToContainer::-webkit-scrollbar,
+.boardSubtaskContainer::-webkit-scrollbar,
+.openTaskMain::-webkit-scrollbar,
+.contactList::-webkit-scrollbar,
+.contactDetails::-webkit-scrollbar,
+.addTaskMainSubContainer::-webkit-scrollbar,
+.innerHelpContainer::-webkit-scrollbar, 
+.innerLegalNoticeContainer::-webkit-scrollbar,
+.summaryBothContainer::-webkit-scrollbar,
+.openTaskBackground::-webkit-scrollbar,
+.assignedToChoices::-webkit-scrollbar  {
+  width: 10px;
+  scrollbar-gutter: stable;
+}
+
+.placeholderBoardBottom::-webkit-scrollbar-thumb,
+.assignedToContainer::-webkit-scrollbar-thumb,
+.boardSubtaskContainer::-webkit-scrollbar-thumb,
+.openTaskMain::-webkit-scrollbar-thumb,
+.contactList::-webkit-scrollbar-thumb,
+.contactDetails::-webkit-scrollbar-thumb,
+.addTaskMainSubContainer::-webkit-scrollbar-thumb,
+.innerHelpContainer::-webkit-scrollbar-thumb, 
+.innerLegalNoticeContainer::-webkit-scrollbar-thumb,
+.summaryBothContainer::-webkit-scrollbar-thumb,
+.openTaskBackground::-webkit-scrollbar-thumb,
+.assignedToChoices::-webkit-scrollbar-thumb {
+  background-color: #a8a8a8;
+  border: 2px solid white;
+  border-radius: 6px;
+}
+
+.placeholderBoardBottom::-webkit-scrollbar-button,
+.assignedToContainer::-webkit-scrollbar-button,
+.boardSubtaskContainer::-webkit-scrollbar-button,
+.openTaskMain::-webkit-scrollbar-button,
+.contactList::-webkit-scrollbar-button,
+.addTaskMainSubContainer::-webkit-scrollbar-button,
+.innerHelpContainer::-webkit-scrollbar-button, 
+.innerLegalNoticeContainer::-webkit-scrollbar-button,
+.summaryBothContainer::-webkit-scrollbar-button,
+.openTaskBackground::-webkit-scrollbar-button,
+.assignedToChoices::-webkit-scrollbar-button  {
+  color: #a8a8a8;
+}
+
+.placeholderBoardBottom::-webkit-scrollbar-button,
+.assignedToContainer::-webkit-scrollbar-button,
+.boardSubtaskContainer::-webkit-scrollbar-button,
+.openTaskMain::-webkit-scrollbar-button,
+.contactList::-webkit-scrollbar-button,
+.addTaskMainSubContainer::-webkit-scrollbar-button,
+.innerHelpContainer::-webkit-scrollbar-button, 
+.innerLegalNoticeContainer::-webkit-scrollbar-button,
+.summaryBothContainer::-webkit-scrollbar-button,
+.openTaskBackground::-webkit-scrollbar-button,
+.assignedToChoices::-webkit-scrollbar-button {
+  display: block;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+}
+
+/* .placeholderBoardBottom::-webkit-scrollbar-button:vertical:start:increment,
+.assignedToContainer::-webkit-scrollbar-button:vertical:start:increment,
+.contactList::-webkit-scrollbar-button:vertical:start:increment,
+.addTaskMainSubContainer::-webkit-scrollbar-button:vertical:start:increment,
+.innerHelpContainer::-webkit-scrollbar-button:vertical:start:increment, 
+.innerLegalNoticeContainer::-webkit-scrollbar-button:vertical:start:increment,
+.summaryLeftContainer::-webkit-scrollbar-button:vertical:start:increment {
+  background-image: url(../img/upArrow.svg);
+  background-size: 10px 4px;
+} */
+
+.placeholderBoardBottom::-webkit-scrollbar-button:vertical:start:decrement,
+.assignedToContainer::-webkit-scrollbar-button:vertical:start:decrement,
+.boardSubtaskContainer::-webkit-scrollbar-button:vertical:start:decrement,
+.openTaskMain::-webkit-scrollbar-button:vertical:start:decrement,
+.contactList::-webkit-scrollbar-button:vertical:start:decrement,
+.addTaskMainSubContainer::-webkit-scrollbar-button:vertical:start:decrement,
+.innerHelpContainer::-webkit-scrollbar-button:vertical:start:decrement, 
+.innerLegalNoticeContainer::-webkit-scrollbar-button:vertical:start:decrement,
+.summaryBothContainer::-webkit-scrollbar-button:vertical:start:decrement,
+.openTaskBackground::-webkit-scrollbar-button:vertical:start:decrement,
+.assignedToChoices::-webkit-scrollbar-button:vertical:start:decrement {
+  display: none;
+}
+
+.placeholderBoardBottom::-webkit-scrollbar-button:vertical:end:increment,
+.assignedToContainer::-webkit-scrollbar-button:vertical:end:increment,
+.boardSubtaskContainer::-webkit-scrollbar-button:vertical:end:increment,
+.openTaskMain::-webkit-scrollbar-button:vertical:end:increment,
+.contactList::-webkit-scrollbar-button:vertical:end:increment,
+.addTaskMainSubContainer::-webkit-scrollbar-button:vertical:end:increment,
+.innerHelpContainer::-webkit-scrollbar-button:vertical:end:increment, 
+.innerLegalNoticeContainer::-webkit-scrollbar-button:vertical:end:increment,
+.summaryBothContainer::-webkit-scrollbar-button:vertical:end:increment,
+.openTaskBackground::-webkit-scrollbar-button:vertical:end:increment,
+.assignedToChoices::-webkit-scrollbar-button:vertical:end:increment {
+  display: none;
+}
+
+/* .placeholderBoardBottom::-webkit-scrollbar-button:vertical:end:decrement,
+.assignedToContainer::-webkit-scrollbar-button:vertical:end:decremen,
+.contactList::-webkit-scrollbar-button:vertical:end:decrement,
+.addTaskMainSubContainer::-webkit-scrollbar-button:vertical:end:decrement,
+.innerHelpContainer::-webkit-scrollbar-button:vertical:end:decrement, 
+.innerLegalNoticeContainer::-webkit-scrollbar-button:vertical:end:decrement,
+.summaryLeftContainer::-webkit-scrollbar-button:vertical:end:decrement {
+  background-image: url(../img/downArrow.svg);
+  background-size: 10px 4px;
+} */
+
+/* ================================================================ RESPONSIVENESS ====================================================== */
+@media (max-width: 900px) {
+  .placeholderTop {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 780px) {
+  .inputFields {
+    width: 350px;
+  }
+}
+
+@media (max-width: 720px) {
+  .topNavBarLeftText {
+    display: none;
+  }
+
+  .topNavBarRightImgExclamationmark {
+    display: flex;
+  }
+
+  .placeholderTop {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .placeholderTop > div:first-of-type {
+    display: flex;
+  }
+
+  .mainContainer {
+    flex-direction: column-reverse;
+  }
+
+  .placeholderLeft {
+    height: 65px; 
+    padding: 0;
+  }
+
+  .sideNavBar {
+    height: 100%;
+    width: 100%;
+    display: flex;
+  }
+
+  .sideNavBarList {
+    padding: 0;
+  }
+
+  .sideNavBarLogo {
+    display: none;
+  }
+
+  .placeholderRight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 65px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .placeholderBottom {
+    height: 100%;
+  }
+
+  .whiteLogo {
+    display: none;
+  }
+
+  .blackLogo {
+    display: flex;
+    z-index: 2;
+    width: 32px;
+    height: 39px;
+  }
+
+  .sideNavBarList {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+  }
+
+  .sideNavBarList >.tab {
+    height: 100%;
+  }
+
+  .sideNavBarTask {
+    flex-direction: column;
+    gap: 10px;
+    width: auto;
+  }
+
+  .sideNavBarTask img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .sideNavBarTask span {
+    font-size: 14px;
+  }
+
+  #legalNoticeTab {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .inputFields {
+    gap: 10px;
+    width: 327px;
+    height: 41px;
+  }
+  
+  ::placeholder {
+    width: 100%;
+    height: 25px;
+    font-size: 21px;
+    line-height: 120%;
+  }
+}
+
+@media (max-width: 480px) {
+  .topNavBarRightImgExclamationmark,
+  .topNavBarRightImgQuestionmark {
+    height: 28px;
+    width: 28px;
+  }
+
+  .inputContainer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 100%;
+  }
+
+  .inputFieldContainer {
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }  
+
+  .inputFields, .inputContainer   {
+    width: 100%;
+  }
+
+  .inputFields {
+    font-size: 16px;
+  }
+
+  ::placeholder {
+    font-size: 16px;
+  }
+
+  .privacyPolicyContainer > div,
+  .privacyPolicyContainer > div > div {
+    font-size: 12px;
+  }
+  
+  .privacyPolicyContainer > input {
+    width: 14px;
+    height: 14px;
+  }
+
+  .buttonDark {
+    width: 90px;
+    height: 45px;
+  }
+
+  .buttonDarkText {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 380px) {
+  .inputContainer {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+   }
+
+   .sideNavBarTask span {
+    display: none;
+  }
+
+  .topNavBarRightImgExclamationmark,
+  .topNavBarRightImgQuestionmark {
+    height: 25px;
+    width: 25px;
+  }
+}
+
+@media (max-width: 300px) {
+  .inputFieldContainer {
+    margin-left: 10px;
+    margin-right: 10px;
+  }  
+}
