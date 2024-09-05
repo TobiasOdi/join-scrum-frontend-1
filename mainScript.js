@@ -12,9 +12,18 @@ let green = "#7AE229";
 
 /* ======================================================= INCLUDE HTML ========================================================== */
 
-
+/**
+ * Checks if a token is stored in the local storage. If not, the user is not logged in and is getting
+ * redirected to the login page.
+ */
 async function checkForLoggedInUser() {
-    document.getElementById('isUserAuthenticatedContainer').classList.display = 'flex';
+    if(localStorage.getItem("token")) {
+        console.log("User is authenticated");
+    } else {
+        window.location.href = "login.html";
+    }
+
+    /*document.getElementById('isUserAuthenticatedContainer').classList.display = 'flex';
     let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     try {
@@ -38,7 +47,7 @@ async function checkForLoggedInUser() {
     } catch(error) {
         console.log('An error occured', error);
         document.getElementById('isUserAuthenticatedContainer').classList.display = 'none';
-    }    
+    } */  
 }
 
 /**
@@ -79,6 +88,17 @@ async function includeHTML() {
 }
 
 // ================================================ INIT FUNCTION ==========================================================
+
+//window.addEventListener('load', clearStorage);
+/* function clearStorage() {
+    let session = sessionStorage.getItem('register');
+    if (session == null) {
+    
+        localStorage.removeItem('remove');
+    }
+    sessionStorage.setItem('register', 1);
+} */
+
 /**
  * This function accesses the database and fetches the data form the tasks, subtasks, assignedContacts, Categories and contacts.
  */
@@ -101,55 +121,77 @@ async function includeHTML() {
 }
 
 async function loadTasks() {
+    let token = localStorage.getItem('token', data.token);
+    console.log(token);
+    debugger;
     const csrfToken = getCookie("csrftoken");
     const url = 'http://127.0.0.1:8000/tasks/';
     response = await fetch(url, {
         method: 'GET',
-        headers:{"X-CSRFToken": csrfToken}
+        headers:{
+            "X-CSRFToken": csrfToken,
+            "Authorization": `Token ${token}`
+        }
     });
     let data = await response.json();
     return data;
 }
 
 async function loadSubtasks() {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     const url = 'http://127.0.0.1:8000/subtasks/';
     response = await fetch(url, {
         method: 'GET',
-        headers:{"X-CSRFToken": csrfToken}
+        headers:{
+            "X-CSRFToken": csrfToken,
+            "Authorization": `Token ${token}`
+        }
     });
     let data = await response.json();
     return data;
 }
 
 async function loadAssignedContacts() {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     const url = 'http://127.0.0.1:8000/assignedTo/';
     response = await fetch(url, {
         method: 'GET',
-        headers:{"X-CSRFToken": csrfToken}
+        headers:{
+            "X-CSRFToken": csrfToken,
+            "Authorization": `Token ${token}`
+        }
     });
     let data = await response.json();
     return data;
 }
 
 async function loadCategories() {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     const url = 'http://127.0.0.1:8000/categories/';
     response = await fetch(url, {
         method: 'GET',
-        headers:{"X-CSRFToken": csrfToken}
+        headers:{
+            "X-CSRFToken": csrfToken,
+            "Authorization": `Token ${token}`
+        }
     });
     let data = await response.json();
     return data;
 }
 
 async function loadContacts() {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     const url = 'http://127.0.0.1:8000/contacts/';
     response = await fetch(url, {
         method: 'GET',
-        headers:{"X-CSRFToken": csrfToken}
+        headers:{
+            "X-CSRFToken": csrfToken,
+            "Authorization": `Token ${token}`
+        }
     });
     let data = await response.json();
     return data;
@@ -428,11 +470,79 @@ function guestLogin() {
     //localStorage.setItem('userIdLogin', userIdLogin);
 }
 
+async function guestLogin() {
+    document.getElementById('loginScreenLoading').style.display = 'flex';
+    disableFields();
+    const csrfToken = getCookie("csrftoken");
+    let fd = new FormData();
+    fd.append('email', "guest@guest.com");
+    fd.append('password', "Hallo_123");
+    fd.append('csrfmiddlewaretoken', csrfToken);
+    try {
+        let response = await fetch('http://127.0.0.1:8000/login/', {
+            method: 'POST',
+            headers: {"X-CSRFToken": csrfToken},
+            body: fd
+        });
+        let data = await response.json();
+        if(response.ok) {
+            console.log("response.ok", response.ok);
+            localStorage.setItem('userColor', data.userColor);
+            localStorage.setItem('userName', data.firstname);
+            localStorage.setItem('token', data.token);
+            window.location.href = "http://127.0.0.1:5500/index.html";
+            enableFields();      
+        }
+    } catch(error) {
+        console.log('An error occured', error);
+        enableFields(); 
+    }    
+    document.getElementById('loginScreenLoading').style.display = 'none';
+}
+
+
 /* ================================================================= FORGOT PASSWORD ================================================================= */
 /**
  * This function validates the forgot password form and throws an error if necessary.
  */
-async function checkForCorrectEmail(event) {
+async function checkForCorrectEmail() {
+    let userEmail = document.getElementById('sendEmailToResetPw');
+    let token = localStorage.getItem('token', data.token);
+
+    let fd = new FormData();
+    fd.append('email', userEmail.value);
+
+    const csrfToken = getCookie("csrftoken");
+    try {
+        let response = await fetch('http://127.0.0.1:8000/resetPassword/', {
+            method: 'POST',
+            headers: {
+                "X-CSRFToken": csrfToken,
+                "Accept":"application/json", 
+                "Content-Type":"application/json",
+                "Authorization": `Token ${token}`
+            },
+            body: fd
+        });
+        let data = await response.json();
+        
+        if(data.status == 1) {
+            console.log("OK - user ist authenticated");
+            document.getElementById('isUserAuthenticatedContainer').classList.display = 'none';
+        } else {
+            document.getElementById('isUserAuthenticatedContainer').classList.display = 'none';
+            window.location.href = "http://127.0.0.1:5500/login.html";
+        }
+    } catch(error) {
+        console.log('An error occured', error);
+        document.getElementById('isUserAuthenticatedContainer').classList.display = 'none';
+    } 
+}
+
+
+
+
+/*async function checkForCorrectEmail(event) {
     event.preventDefault(); // Prevent default Form Action
     let sendEmailToResetPw = document.getElementById('sendEmailToResetPw').value;
     let formData = new FormData(event.target) // create a FormData based on our Form Element in HTML
@@ -462,7 +572,7 @@ function action(formData) {
         input,
         requestInit
     );
-}
+}*/
 
 /* ================================================================= RESET PASSWORD ================================================================= */
 /**
@@ -513,10 +623,18 @@ function toggleLogoutButton() {
     }
 }
 
+async function logout(){
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userColor");
+    localStorage.removeItem("token");
+    window.location.href = 'login.html';
+}
+
+
 /**
  * This function logs the current user out and returns the user to the login page.
  */
-async function logout(event){
+/*async function logout(event){
     event.preventDefault(); // Prevent default Form Action
     const csrfToken = getCookie("csrftoken");
     let csrfInput = document.getElementById('csrfToken');
@@ -549,8 +667,6 @@ async function logout(event){
         console.log('An error occured', error);
     }
 
-
-
 /* try {
         let response = await fetch('http://127.0.0.1:8000/logout/', {
           method: 'POST',
@@ -564,21 +680,11 @@ async function logout(event){
       } catch(error) {
         console.log('An error occured', error);
     }  
-*/  
+*/ 
+/* 
 }
+*/
 
-function logoutAction(formData) {
-    const input = "http://127.0.0.1:8000/logout/"; // => immer anpassen!!
-    const requestInit = {
-        method: 'post',
-        body: formData
-    };
-
-    return fetch(
-        input,
-        requestInit
-    );
-}
 
 
 

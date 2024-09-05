@@ -11,11 +11,8 @@
             <img src="./img/questionmark.svg" class="topNavBarRightImgQuestionmark">
         </a>
         <img src="./img/user.svg" id="topNavBarRightImgPicture" class="topNavBarRightImgPicture" onclick="toggleLogoutButton()">
-        <div id="logoutButton" class="logoutButton" onclick="logout(event)">
-            <form id="logout_form" onsubmit="logout()">
-                <input id="csrfToken" name="csrfmiddleware" type="hidden" value="getCookie("csrftoken")"/>
-                <button type="submit">Log Out</button>
-            </form>
+        <div id="logoutButton" class="logoutButton" onclick="logout()">
+            <div>Log out<div/>
         </div>
     </div>
 </div>

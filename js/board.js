@@ -288,6 +288,7 @@ function doNotOpenTask(event) {
  * This function saves the task data in the "tasks" array on the ftp server.
  */
 async function saveTaskCategory(id) {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     let currentTask = tasks.find(i => i.id == id);
     let currentTaskAsString = JSON.stringify(currentTask);
@@ -297,7 +298,8 @@ async function saveTaskCategory(id) {
             headers: {
                 "X-CSRFToken": csrfToken,
                 "Accept":"application/json", 
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization": `Token ${token}`
             },
             body: currentTaskAsString
           });
@@ -451,6 +453,7 @@ async function deleteTask(currentTaskIndex) {
 }
 
 async function deleteTaskFromServer(currentTask) {
+    let token = localStorage.getItem('token', data.token);
     let taskAsString = JSON.stringify(currentTask);
     const csrfToken = getCookie("csrftoken");
     try {
@@ -459,7 +462,8 @@ async function deleteTaskFromServer(currentTask) {
             headers: {
                 "Accept":"application/json", 
                 "Content-Type":"application/json",
-                "X-CSRFToken": csrfToken
+                "X-CSRFToken": csrfToken,
+                "Authorization": `Token ${token}`
             },
             body: taskAsString
             });
@@ -730,6 +734,7 @@ function setEditedTaskParameters(index, currentTaskId) {
 
 
 async function saveEditedTaskToServer() {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     let editedTaskAsString = JSON.stringify(editedData);
     try {
@@ -738,7 +743,8 @@ async function saveEditedTaskToServer() {
             headers: {
                 "X-CSRFToken": csrfToken,
                 "Accept":"application/json", 
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization": `Token ${token}`
             },
             body: editedTaskAsString
           });

@@ -681,6 +681,7 @@ function generateCategoryColor() {
  * This function saves the "categories" array on the server.
  */
 async function saveCategories(categoryData) {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     let newCategoryAsString = JSON.stringify(categoryData);
     try {
@@ -689,7 +690,8 @@ async function saveCategories(categoryData) {
             headers: {
                 "X-CSRFToken": csrfToken,
                 "Accept":"application/json", 
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization": `Token ${token}`
             },
             body: newCategoryAsString
           });
@@ -703,6 +705,7 @@ async function saveCategories(categoryData) {
  * This function deletes an added category.
  */
 async function deleteNewCategory(i) {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     if(categoryValue == categories[i]['categoryName']) {
         categoryValue = "";
@@ -719,7 +722,8 @@ async function deleteNewCategory(i) {
             headers: {
                 "X-CSRFToken": csrfToken,
                 "Accept":"application/json", 
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization": `Token ${token}`
             },
             body: deleteCategoryAsString
           });

@@ -188,6 +188,7 @@ function randomBackgroundColor() {
  * This function saves the contact data on the ftp server.
  */
 async function saveContact() {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     let contactsAsString = JSON.stringify(contactData);
     try {
@@ -196,7 +197,8 @@ async function saveContact() {
             headers: {
                 "X-CSRFToken": csrfToken,
                 "Accept":"application/json", 
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization": `Token ${token}`
             },
             body: contactsAsString
           });
@@ -347,6 +349,7 @@ async function saveChanges(i) {
 }
 
 async function saveChangesToServer() {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     let editedContactAsString = JSON.stringify(editedContactData);
     try {
@@ -355,7 +358,8 @@ async function saveChangesToServer() {
             headers: {
                 "X-CSRFToken": csrfToken,
                 "Accept":"application/json", 
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization": `Token ${token}`
             },
             body: editedContactAsString
           });
@@ -395,6 +399,7 @@ function checkForPhoneNumberEdit(i) {
  * @param {index} i - index of the current contact
  */
 async function deleteContact(c) {
+    let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     let currentContact = contacts[c];
     activeUserContact = currentContact['active_user']
@@ -410,7 +415,8 @@ async function deleteContact(c) {
                 headers: {
                     "X-CSRFToken": csrfToken,
                     "Accept":"application/json", 
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
+                    "Authorization": `Token ${token}`
                 },
                 body: contactToDeleteAsString
               });
