@@ -507,7 +507,7 @@ async function guestLogin() {
  */
 async function checkForCorrectEmail() {
     let userEmail = document.getElementById('sendEmailToResetPw');
-    let token = localStorage.getItem('token', data.token);
+    //let token = localStorage.getItem('token', data.token);
 
     let fd = new FormData();
     fd.append('email', userEmail.value);
@@ -519,23 +519,23 @@ async function checkForCorrectEmail() {
             headers: {
                 "X-CSRFToken": csrfToken,
                 "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "Authorization": `Token ${token}`
+                "Content-Type":"application/json"
+                //"Authorization": `Token ${token}`
             },
             body: fd
         });
         let data = await response.json();
         
         if(data.status == 1) {
-            console.log("OK - user ist authenticated");
-            document.getElementById('isUserAuthenticatedContainer').classList.display = 'none';
+            displaySnackbar("userDoesNotExist2");
         } else {
-            document.getElementById('isUserAuthenticatedContainer').classList.display = 'none';
-            window.location.href = "http://127.0.0.1:5500/login.html";
+            displaySnackbar("sendEmail");
+            setTimeout(() => {
+                window.location.href = "http://127.0.0.1:5500/login.html";
+            }, 1500);
         }
     } catch(error) {
         console.log('An error occured', error);
-        document.getElementById('isUserAuthenticatedContainer').classList.display = 'none';
     } 
 }
 
