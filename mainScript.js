@@ -507,27 +507,26 @@ async function guestLogin() {
  */
 async function checkForCorrectEmail() {
     let userEmail = document.getElementById('sendEmailToResetPw');
-    //let token = localStorage.getItem('token', data.token);
-
+    const csrfToken = getCookie("csrftoken");
     let fd = new FormData();
     fd.append('email', userEmail.value);
+    fd.append('csrfmiddlewaretoken', csrfToken);
 
-    const csrfToken = getCookie("csrftoken");
     try {
         let response = await fetch('http://127.0.0.1:8000/resetPassword/', {
             method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json"
-                //"Authorization": `Token ${token}`
-            },
+            //headers: {
+            //    "X-CSRFToken": csrfToken
+            //},
             body: fd
         });
         let data = await response.json();
+        console.log(data);
         
         if(data.status == 1) {
-            displaySnackbar("userDoesNotExist2");
+            displaySnackbar('userDoesNotExist2');
+        } else if(data.status == 2) {
+            displaySnackbar('sendingMailNotPossible');
         } else {
             displaySnackbar("sendEmail");
             setTimeout(() => {

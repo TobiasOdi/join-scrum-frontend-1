@@ -13,7 +13,6 @@
     <!-- ============================== SCRIPTS ================================= -->
     <script src="../mainScript.js"></script>
     <script src="../js/contacts.js"></script>
-    <script src="../js/mini_backend.js"></script>
 
     <!-- ============================ Favicon =========================== -->
     <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png">
@@ -25,7 +24,7 @@
     <meta name="theme-color" content="#2a3647">
   </head>
 
-  <body onload="init()">
+  <body>
     <div class="mainContainerForgotPw">
 
       <div class="header">
@@ -51,7 +50,7 @@
             
             <!-- action="https://tobias-odermatt.developerakademie.net/Projekte/Join/send_mail.php" -->
 
-            <form id="forgotPwForm" name="forgotPwForm" class="inputContainer" onsubmit="checkForCorrectEmail()">
+            <form id="forgotPwForm" name="forgotPwForm" class="inputContainer" onsubmit="checkForCorrectEmail(); return false">
               <div class="inputFieldContainer">
                   <input id="sendEmailToResetPw" name="sendEmailToResetPw" class="inputFields" type="email" placeholder="Email" required/>
                   <img src="../img/letter.svg" class="img" />
@@ -66,6 +65,9 @@
     <!-- ================================== SNACKBAR USER DOES NOT EXIST ======================================= -->
     <div id="userDoesNotExist2">User does not exist, please sign up</div>
     
+    <!-- ================================== SNACKBAR USER DOES NOT EXIST ======================================= -->
+    <div id="sendingMailNotPossible">Sending E-Mail was not successfull</div>
+
     <!-- ================================== SNACKBAR E-MAIL SENT ======================================= -->
     <div id="sendEmail">
       <img src="../img/emailSent.svg">
@@ -74,3 +76,5 @@
 
   </body>
 </html>
+
+
