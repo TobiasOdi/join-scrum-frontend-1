@@ -192,7 +192,7 @@ async function saveContact() {
     const csrfToken = getCookie("csrftoken");
     let contactsAsString = JSON.stringify(contactData);
     try {
-        let response = await fetch('http://127.0.0.1:8000/saveCreatedContact/', {
+        let response = await fetch('http://127.0.0.1:8000/contacts/save_created_contact/', {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,
@@ -353,7 +353,7 @@ async function saveChangesToServer() {
     const csrfToken = getCookie("csrftoken");
     let editedContactAsString = JSON.stringify(editedContactData);
     try {
-        let response = await fetch('http://127.0.0.1:8000/saveEditedContact/', {
+        let response = await fetch('http://127.0.0.1:8000/contacts/save_edited_contact/', {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,
@@ -409,7 +409,7 @@ async function deleteContact(c) {
         contacts.splice(c, 1);  
         let contactToDeleteAsString = JSON.stringify(currentContact);
         try {
-            let response = await fetch('http://127.0.0.1:8000/deleteContact/', {
+            let response = await fetch('http://127.0.0.1:8000/contacts/delete_contact/', {
                 method: 'POST',
                 headers: {
                     "X-CSRFToken": csrfToken,

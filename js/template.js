@@ -478,10 +478,10 @@ function defaultCategoryTemplate(categoryName, categoryColor){
  * @param {index} i - index of the category
  * @returns 
  */
-function newCategoryTemplate(categoryName, categoryColor, i){
+function newCategoryTemplate(categoryName, categoryColor, i, categoryId){
     return `
         <div class="category" onclick="saveSelectedCategory('${categoryName}', '${categoryColor}'), doNotAdd(event)">
-            <div>${categoryName} <img src="./img/delete.svg" onclick="deleteNewCategory(${i}), doNotAdd(event)">
+            <div>${categoryName} <img src="./img/delete.svg" onclick="deleteNewCategory(${i}, '${categoryName}', ${categoryId}), doNotAdd(event)">
             </div>
             <div class="circle" style="background: ${categoryColor};"></div>
         </div>

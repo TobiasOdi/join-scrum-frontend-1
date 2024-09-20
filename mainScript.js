@@ -11,7 +11,6 @@ let lightorange = "#FFA800";
 let green = "#7AE229";  
 
 /* ======================================================= INCLUDE HTML ========================================================== */
-
 /**
  * Checks if a token is stored in the local storage. If not, the user is not logged in and is getting
  * redirected to the login page.
@@ -72,7 +71,6 @@ async function includeHTML() {
     }
     sessionStorage.setItem('register', 1);
 } */
-
 
 /**
  * This function accesses the database and fetches the data form the tasks, subtasks, assignedContacts, categories and contacts.
@@ -166,7 +164,7 @@ async function validateSignup(userData) {
     let userDataString = JSON.stringify(userData);
 
     try {
-        let response = await fetch('http://127.0.0.1:8000/signUp/', {
+        let response = await fetch('http://127.0.0.1:8000/user/sign_up/', {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,
@@ -290,7 +288,7 @@ async function login() {
         displaySnackbar('missingSignedUp');
     } else {
         try {
-            let response = await fetch('http://127.0.0.1:8000/login/', {
+            let response = await fetch('http://127.0.0.1:8000/user/login/', {
               method: 'POST',
               headers: {"X-CSRFToken": csrfToken},
               body: fd
@@ -416,7 +414,7 @@ async function checkForCorrectEmail() {
     fd.append('csrfmiddlewaretoken', csrfToken);
 
     try {
-        let response = await fetch('http://127.0.0.1:8000/resetPassword/', {
+        let response = await fetch('http://127.0.0.1:8000/user/reset_password/', {
             method: 'POST',
             //headers: {
             //    "X-CSRFToken": csrfToken
@@ -468,7 +466,7 @@ async function validatePassword(newPassword, confirmPassword, ikey, tkey) {
         fd.append('uid', ikey);
 
         try {
-            let response = await fetch('http://127.0.0.1:8000/setNewPassword/', {
+            let response = await fetch('http://127.0.0.1:8000/user/set_new_password/', {
                 method: 'POST',
                 headers: {
                     "X-CSRFToken": csrfToken,

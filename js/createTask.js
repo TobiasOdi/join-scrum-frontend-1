@@ -182,7 +182,7 @@ async function saveCreatedTask() {
     let token = localStorage.getItem('token', data.token);
     let newTaskAsString = JSON.stringify(data);
     try {
-        let response = await fetch('http://127.0.0.1:8000/saveCreatedTask/', {
+        let response = await fetch('http://127.0.0.1:8000/tasks/save_created_task/', {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,
@@ -573,14 +573,18 @@ function renderCategories() {
     selectCategoryForm.innerHTML += categoryPlaceholderTemplate();
     let categoryConatiner = document.getElementById('categoryChoices');
     categoryConatiner.innerHTML = "";
+    
+    
     for (let i = 0; i < categories.length; i++) {
         let categoryName = categories[i]['categoryName'];
         let categoryColor = categories[i]['color'];
-        let categoryType = categories[i]['categoryType']
+        let categoryType = categories[i]['categoryType'];
+        let categoryId = categories[i]['id'];
+    
         if(categoryType == 'default') {
             categoryConatiner.innerHTML += defaultCategoryTemplate(categoryName, categoryColor);
         } else {
-            categoryConatiner.innerHTML += newCategoryTemplate(categoryName, categoryColor, i);
+            categoryConatiner.innerHTML += newCategoryTemplate(categoryName, categoryColor, i, categoryId);
         }
     }
 }
@@ -626,6 +630,7 @@ async function addNewCategory() {
         let categoryData = {'categoryName': newCategory, 'color': categoryColor, 'categoryType': 'custom'};
         categories.push(categoryData);
         await saveCategories(categoryData);
+        await loadData();
         renderCategories();
         document.getElementById('newCategory').value = '';
         displaySnackbar('newCategoryAdded');
@@ -655,7 +660,7 @@ async function saveCategories(categoryData) {
     const csrfToken = getCookie("csrftoken");
     let newCategoryAsString = JSON.stringify(categoryData);
     try {
-        let response = await fetch('http://127.0.0.1:8000/saveCreatedCategory/', {
+        let response = await fetch('http://127.0.0.1:8000/tasks/save_created_category/', {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,
@@ -673,20 +678,21 @@ async function saveCategories(categoryData) {
 /**
  * This function deletes an added category.
  */
-async function deleteNewCategory(i) {
+async function deleteNewCategory(i, categoryName, categoryId) {
     let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
-    if(categoryValue == categories[i]['categoryName']) {
+    if(categoryValue == categoryName) {
         categoryValue = "";
         categoryColorValue = "";
     }
 
     categories.splice(i, 1);
     let currentCategory = categories[i];
+    console.log('currentCategory', currentCategory);
     let deleteCategoryAsString = JSON.stringify(currentCategory);
 
     try {
-        let response = await fetch('http://127.0.0.1:8000/deleteCategory/', {
+        let response = await fetch(`http://127.0.0.1:8000/tasks/delete_category/${categoryId}/`, {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,
@@ -703,7 +709,7 @@ async function deleteNewCategory(i) {
               <img src="./img/arrow.svg">
               </div>`;
           renderCategories();
-    } catch(e) {
+    } catch(error) {
         console.log('Creating category was not possible', error);
     }
 }

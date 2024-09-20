@@ -280,7 +280,7 @@ async function saveTaskCategory(id) {
     let currentTask = tasks.find(i => i.id == id);
     let currentTaskAsString = JSON.stringify(currentTask);
     try {
-        let response = await fetch('http://127.0.0.1:8000/saveTaskCategory/', {
+        let response = await fetch(`http://127.0.0.1:8000/tasks/save_task_category/${id}/`, {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,
@@ -438,10 +438,10 @@ async function deleteTask(currentTaskIndex) {
 
 async function deleteTaskFromServer(currentTask) {
     let token = localStorage.getItem('token', data.token);
-    let taskAsString = JSON.stringify(currentTask);
+    //let taskAsString = JSON.stringify(currentTask);
     const csrfToken = getCookie("csrftoken");
     try {
-        let response = await fetch('http://127.0.0.1:8000/deleteTask/', {
+        let response = await fetch(`http://127.0.0.1:8000/tasks/delete_task/${currentTask.id}/`, {
             method: 'POST',
             headers: {
                 "Accept":"application/json", 
@@ -449,7 +449,7 @@ async function deleteTaskFromServer(currentTask) {
                 "X-CSRFToken": csrfToken,
                 "Authorization": `Token ${token}`
             },
-            body: taskAsString
+            //body: taskAsString
             });
     } catch(e) {
         console.log('Deleting task was not possible', error);
@@ -671,7 +671,7 @@ async function saveEditedTask(currentTaskId, currentCategoryColor) {
     let index = tasks.indexOf(currentTask);
     if(document.getElementById('titleEdit').value !== "" && selectedUsersEdit.length !== 0) {
         setEditedTaskParameters(index, currentTaskId);
-        await saveEditedTaskToServer();
+        await saveEditedTaskToServer(currentTaskId);
         updateHTML();
         priority = "";
         selectedUsersEdit = [];
@@ -714,12 +714,12 @@ function setEditedTaskParameters(index, currentTaskId) {
  */
 
 
-async function saveEditedTaskToServer() {
+async function saveEditedTaskToServer(currentTaskId) {
     let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     let editedTaskAsString = JSON.stringify(editedData);
     try {
-        let response = await fetch('http://127.0.0.1:8000/saveEditedTask/', {
+        let response = await fetch(`http://127.0.0.1:8000/tasks/save_edited_task/${currentTaskId}/`, {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,
