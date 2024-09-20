@@ -122,8 +122,6 @@ async function includeHTML() {
 
 async function loadTasks() {
     let token = localStorage.getItem('token', data.token);
-    console.log(token);
-    debugger;
     const csrfToken = getCookie("csrftoken");
     const url = 'http://127.0.0.1:8000/tasks/';
     response = await fetch(url, {
@@ -375,7 +373,6 @@ async function login() {
     let emailLog = document.getElementById('emailLog');
     let passwordLog = document.getElementById('passwordLog');
     const csrfToken = getCookie("csrftoken");
-
     let fd = new FormData();
     fd.append('email', emailLog.value);
     fd.append('password', passwordLog.value);
@@ -578,13 +575,14 @@ function action(formData) {
  * This function validates the reset password form and throws an error if necessary.
  */
 function resetPassword() {
-    let urlParams = new URLSearchParams(window.location.search);
-    let userEmail = urlParams.get('email');
+    let urlParams = new URLSearchParams(window.location.search); 
+    let ikey = urlParams.get('ikey');
+    let tkey = urlParams.get('tkey');
     let newPassword = document.getElementById('newPassword');
     let confirmPassword = document.getElementById('confirmPassword');
     let existingEmail = users.find(u => u.email == userEmail)
     let currentUser = users.indexOf(existingEmail);
-    validatePassword(newPassword, confirmPassword, existingEmail, currentUser);
+    validatePassword(newPassword, confirmPassword, ikey, tkey);
 }
 
 /**
@@ -594,15 +592,33 @@ function resetPassword() {
  * @param {*} existingEmail - email adress of an existing user
  * @param {*} currentUser - index of the current user
  */
-function validatePassword(newPassword, confirmPassword, existingEmail, currentUser) {
+async function validatePassword(newPassword, confirmPassword, ikey, tkey) {
     if (newPassword.value == confirmPassword.value) {
-        if (existingEmail) {
-            users[currentUser]['password'] = confirmPassword.value;
-            saveUsers();
-            displaySnackbar('passwordReset');
-            setInterval(backToLoginScreen, 1200);
-        } else {
-            displaySnackbar('userDoesNotExist3');
+        let token = tkey;
+        const csrfToken = getCookie("csrftoken");
+        let fd = new FormData();
+        fd.append('newPw', newPassword);
+        fd.append('uid', ikey);
+
+        try {
+            let response = await fetch('http://127.0.0.1:8000/setNewPassword/', {
+                method: 'POST',
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                    "Authorization": `Token ${token}`
+                },
+                body: fd
+            });
+            let data = await response.json();
+            console.log(data);
+            if(data.status == 1) {
+                displaySnackbar('passwordReset');
+                setTimeout(() => {
+                    window.location.href = "http://127.0.0.1:5500/login.html";
+                }, 1500);
+            }
+        } catch (e) {
+            console.log('An error occured', error);
         }
     } else {
         displaySnackbar('passwordsNotIdentical');
