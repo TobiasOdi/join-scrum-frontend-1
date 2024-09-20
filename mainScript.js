@@ -21,33 +21,7 @@ async function checkForLoggedInUser() {
         console.log("User is authenticated");
     } else {
         window.location.href = "login.html";
-    }
-
-    /*document.getElementById('isUserAuthenticatedContainer').classList.display = 'flex';
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
-    try {
-        let response = await fetch('http://127.0.0.1:8000/isLoggedIn/', {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "Authorization": `Token ${token}`
-            }
-        });
-        let data = await response.json();
-        if(data.status == 1) {
-            console.log("OK - user ist authenticated");
-            document.getElementById('isUserAuthenticatedContainer').classList.display = 'none';
-        } else {
-            document.getElementById('isUserAuthenticatedContainer').classList.display = 'none';
-            window.location.href = "http://127.0.0.1:5500/login.html";
-        }
-    } catch(error) {
-        console.log('An error occured', error);
-        document.getElementById('isUserAuthenticatedContainer').classList.display = 'none';
-    } */  
+    } 
 }
 
 /**
@@ -133,7 +107,6 @@ async function loadData() {
 
 function setUserColor() {
     userColor = localStorage.getItem('userColor');
-    console.log(userColor);
     setTimeout(() => {
         document.getElementById('topNavBarRightImgPicture').style.borderColor = userColor;
     }, 200);
@@ -322,10 +295,7 @@ async function login() {
               headers: {"X-CSRFToken": csrfToken},
               body: fd
             });
-            //localStorage.setItem('token', response['token']);
-            console.log(response);
             let data = await response.json();
-            console.log(data);
             if(data.status == 1) {
               displaySnackbar('pwEmailIncorrect');
             } else if(data.status == 2) {
@@ -453,9 +423,7 @@ async function checkForCorrectEmail() {
             //},
             body: fd
         });
-        let data = await response.json();
-        console.log(data);
-        
+        let data = await response.json();        
         if(data.status == 1) {
             displaySnackbar('userDoesNotExist2');
         } else if(data.status == 2) {
@@ -471,41 +439,6 @@ async function checkForCorrectEmail() {
     } 
 }
 
-
-
-
-/*async function checkForCorrectEmail(event) {
-    event.preventDefault(); // Prevent default Form Action
-    let sendEmailToResetPw = document.getElementById('sendEmailToResetPw').value;
-    let formData = new FormData(event.target) // create a FormData based on our Form Element in HTML
-    let response = await action(formData);
-    if ((users.find(u => u.email == sendEmailToResetPw)) == null) {
-        displaySnackbar('userDoesNotExist2');
-        return false;
-    }
-    if(response.ok) {   
-        displaySnackbar('sendEmail');
-        document.getElementById('sendEmailToResetPw').value = '';
-        setInterval(backToLoginScreen, 1200);
-        console.log('Email was sent!');
-    } else {
-        console.log('Email not sent!');
-    }
-}
-
-function action(formData) {
-    const input = "https://join.tobias-odermatt.ch/send_mail.php"; // => immer anpassen!!
-    const requestInit = {
-        method: 'post',
-        body: formData
-    };
-
-    return fetch (
-        input,
-        requestInit
-    );
-}*/
-
 /* ================================================================= RESET PASSWORD ================================================================= */
 /**
  * This function validates the reset password form and throws an error if necessary.
@@ -514,10 +447,8 @@ function resetPassword() {
     let urlParams = new URLSearchParams(window.location.search); 
     let ikey = urlParams.get('ikey');
     let tkey = urlParams.get('tkey');
-    let newPassword = document.getElementById('newPassword');
-    let confirmPassword = document.getElementById('confirmPassword');
-    let existingEmail = users.find(u => u.email == userEmail)
-    let currentUser = users.indexOf(existingEmail);
+    let newPassword = document.getElementById('newPassword').value;
+    let confirmPassword = document.getElementById('confirmPassword').value;
     validatePassword(newPassword, confirmPassword, ikey, tkey);
 }
 
@@ -529,7 +460,7 @@ function resetPassword() {
  * @param {*} currentUser - index of the current user
  */
 async function validatePassword(newPassword, confirmPassword, ikey, tkey) {
-    if (newPassword.value == confirmPassword.value) {
+    if (newPassword == confirmPassword) {
         let token = tkey;
         const csrfToken = getCookie("csrftoken");
         let fd = new FormData();
@@ -546,7 +477,6 @@ async function validatePassword(newPassword, confirmPassword, ikey, tkey) {
                 body: fd
             });
             let data = await response.json();
-            console.log(data);
             if(data.status == 1) {
                 displaySnackbar('passwordReset');
                 setTimeout(() => {
@@ -580,64 +510,6 @@ async function logout(){
     localStorage.removeItem("token");
     window.location.href = 'login.html';
 }
-
-
-/**
- * This function logs the current user out and returns the user to the login page.
- */
-/*async function logout(event){
-    event.preventDefault(); // Prevent default Form Action
-    const csrfToken = getCookie("csrftoken");
-    let csrfInput = document.getElementById('csrfToken');
-    csrfInput.value = csrfToken;
-    let formData = new FormData(event.csrfInput); // create a FormData based on our Form Element in HTML
-    //let fd = new FormData();
-    //fd.append('csrfmiddlewaretoken', csrfToken);
-    try {
-        let response = await logoutAction(formData);
-
-        //let response = await fetch('http://127.0.0.1:8000/logout/', {
-        //    method: 'POST',
-        //    headers: {"X-CSRFToken": csrfToken},
-        //    body: formData
-        //});
-        //if(response.status == 200) {
-        //    localStorage.removeItem("userName");
-        //    localStorage.removeItem("userColor");
-        //    localStorage.setItem("token");
-        //    window.location.href = 'login.html';
-        //}
-
-        if(response.ok) {
-            localStorage.removeItem("userName");
-            localStorage.removeItem("userColor");
-            localStorage.setItem("token");
-            window.location.href = 'login.html';
-        }
-    } catch (e) {
-        console.log('An error occured', error);
-    }
-
-/* try {
-        let response = await fetch('http://127.0.0.1:8000/logout/', {
-          method: 'POST',
-          headers: {"X-CSRFToken": csrfToken},
-        });
-        //let data = await response.json();
-        //console.log("Logout response", data);
-        localStorage.removeItem("userName");
-        localStorage.removeItem("userColor");
-        //window.location.href = 'login.html'; 
-      } catch(error) {
-        console.log('An error occured', error);
-    }  
-*/ 
-/* 
-}
-*/
-
-
-
 
 /* ================================================================= SIDE BAR FUNCTIONS ================================================================= */
 /**

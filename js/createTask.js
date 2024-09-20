@@ -157,7 +157,6 @@ function setTaskParameters() {
     let assignedToData = selectedUsers;
     let subtaskData = subtasks;
     data = [{"taskData": taskData, "assignedToData": assignedToData, "subtaskData": subtaskData}];
-    console.log(data);
 }
 
 /* function compileAssigendToData() {
@@ -281,35 +280,6 @@ function highlightEmptySelectedUsersInput() {
         document.getElementById('assignedToForm').classList.remove('redBorder');
     } 
 }
-
-/**
- * This function returns a ramndly generated number.
- * @returns 
- */
-/* function generateTaskId() {
-    taskId = Math.floor((Math.random() * 1000000) + 1);
-    return taskId;
-} */
-
-/**
- * This function saves the task data in the "tasks" array on the ftp server.
- */
-/* async function saveTasks(id) {
-    let currentTask = tasks.find(i => i.id == id);
-    let currentTaskAsString = JSON.stringify(currentTask);
-    try {
-        let response = await fetch('http://127.0.0.1:8000/saveTask/', {
-            method: 'POST',
-            headers: {
-                "Accept":"application/json", 
-                "Content-Type":"application/json"
-            },
-            body: currentTaskAsString
-          });
-    } catch(e) {
-        console.log('Saving task was not possible', error);
-    }
-} */
 
 /**
  * This function resets all the parameters.
@@ -695,7 +665,6 @@ async function saveCategories(categoryData) {
             },
             body: newCategoryAsString
           });
-          console.log('categoryData', categoryData);
     } catch(e) {
         console.log('Creating category was not possible', error);
     }
@@ -727,9 +696,6 @@ async function deleteNewCategory(i) {
             },
             body: deleteCategoryAsString
           });
-          console.log('currentCategory', currentCategory);
-
-
           let placeholderCategory = document.getElementById('placeholderCategory')
           placeholderCategory.innerHTML = `
               <div class="sectorTop" id='placeholderCategory'>

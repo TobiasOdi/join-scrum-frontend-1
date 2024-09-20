@@ -306,11 +306,8 @@ async function saveTaskCategory(id) {
  * @param {number} taskId - id of the task
  */
 async function pushToPreviousCategory(category, taskId) {
-    console.log(category, taskId)
     let currentTaskId = tasks.find(t => t.id == taskId);
     let currentTask = tasks.indexOf(currentTaskId);
-    console.log(currentTaskId);
-    console.log(currentTask);
     if(category == 'done') {
         tasks[currentTask]['statusCategory'] = 'awaitingFeedback';
     } else if(category == 'awaitingFeedback') {
@@ -432,10 +429,10 @@ async function deleteTask(currentTaskIndex) {
     } else {
         tasks.splice(currentTaskIndex, 1);
         deleteTaskFromServer(currentTask);
+        document.getElementById('openTaskBackground').style.display = 'none';
         await includeHTML();
         await loadData();
         updateHTML();
-        document.getElementById('openTaskBackground').style.display = 'none';
     }
 }
 
@@ -454,7 +451,6 @@ async function deleteTaskFromServer(currentTask) {
             },
             body: taskAsString
             });
-            console.log(currentTask);
     } catch(e) {
         console.log('Deleting task was not possible', error);
     }
@@ -590,8 +586,6 @@ function deleteSubtaskEdit(currentTaskId, subtaskId) {
 function renderAssignedUsersEdit(currentTaskId) {
     selectedUsersEdit = [];
     selectedUsersEdit = assignedContacts.filter(c => c.parent_task_id == currentTaskId);
-    console.log("selectedUsersEdit", selectedUsersEdit);
-
     for (let i = 0; i < contacts.length; i++) {
         const assignedContact = contacts[i];
         getName(assignedContact);
@@ -735,7 +729,6 @@ async function saveEditedTaskToServer() {
             },
             body: editedTaskAsString
           });
-          console.log(editedData);
     } catch(e) {
         console.log('Creating task was not possible', error);
     }
@@ -808,8 +801,8 @@ function searchFunction() {
             return task.title.toLowerCase().includes(document.getElementById('searchValue').value) || task.description.toLowerCase().includes(document.getElementById('searchValue').value) || task.category.toLowerCase().includes(document.getElementById('searchValue').value);
         });
         tasks = newSearchArray;
-        console.log(newSearchArray);
-        console.log(tasks);
+        //console.log(newSearchArray);
+        //console.log(tasks);
         updateHTML();
         tasks = originalTasks;
     } else {

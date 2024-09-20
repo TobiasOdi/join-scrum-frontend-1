@@ -151,7 +151,7 @@ async function createContact() {
             active_user: null
         };
         await saveContact();
-        contacts = await loadContacts();
+        await loadData();
         document.getElementById('contactName').value = '';
         document.getElementById('contactSurname').value = '';
         document.getElementById('contactEmail').value = '';
@@ -202,7 +202,6 @@ async function saveContact() {
             },
             body: contactsAsString
           });
-          console.log(contactData);
     } catch(e) {
         console.log('Creating task was not possible', error);
     }
@@ -317,7 +316,7 @@ async function saveChanges(i) {
             //activeUser: contacts[i]['activeUser']
         };
         await saveChangesToServer();
-        contacts = await loadContacts();
+        await loadData();
         renderLetters();
         displaySnackbar('contactChangesSaved');
         document.getElementById('editContactBackground').style.display = 'none';
@@ -338,7 +337,8 @@ async function saveChanges(i) {
                     phone: document.getElementById('editContactPhone').value
                 };
                 await saveChangesToServer();
-                contacts = await loadContacts();
+                await loadData();
+                //contacts = await loadData();
                 renderLetters();
                 displaySnackbar('contactChangesSaved');
                 document.getElementById('editContactBackground').style.display = 'none';
@@ -363,7 +363,6 @@ async function saveChangesToServer() {
             },
             body: editedContactAsString
           });
-          console.log(editedContactData);
     } catch(e) {
         console.log('Creating task was not possible', error);
     }
@@ -420,10 +419,9 @@ async function deleteContact(c) {
                 },
                 body: contactToDeleteAsString
               });
-              console.log(currentContact);
               document.getElementById('contactsContent').innerHTML = '';
               renderLetters();
-              await loadContacts();
+              await loadData();
         } catch(e) {
             console.log('Deleting contact was not possible', error);
         }
