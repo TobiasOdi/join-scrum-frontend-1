@@ -13,21 +13,21 @@
         <div class="summaryBothContainer">
             <div class="summaryLeftCards">
                 <div class="allTopCards">
-                    <div class="topCardLeft positionInsideAllCards allCardsBorderRadius topCard" onclick="displayPage('mainBoardContainerDisplay'), initBoard(), activeTab('board')">
+                    <div class="topCardLeft positionInsideAllCards allCardsBorderRadius topCard" onclick="displayPage('mainBoardContainerDisplay'), updateHTML(), activeTab('board')">
                         <div class="topCardNumber cardNumberTopBottom allCardsNumberFontSize" id="taskCounter"></div>
                         <div class="topCardText cardTextTopBottom">Tasks in Board</div>
                     </div>
-                    <div class="topCardmiddle positionInsideAllCards allCardsBorderRadius topCard" onclick="displayPage('mainBoardContainerDisplay'), initBoard(), activeTab('board')">
+                    <div class="topCardmiddle positionInsideAllCards allCardsBorderRadius topCard" onclick="displayPage('mainBoardContainerDisplay'), updateHTML(), activeTab('board')">
                         <div class="topCardNumber cardNumberTopBottom allCardsNumberFontSize" id="inProgressCounter"></div>
                         <div class="topCardText cardTextTopBottom">Tasks in Progress</div>
                     </div>
-                    <div class="topCardRight positionInsideAllCards allCardsBorderRadius topCard" onclick="displayPage('mainBoardContainerDisplay'), initBoard(), activeTab('board')">
+                    <div class="topCardRight positionInsideAllCards allCardsBorderRadius topCard" onclick="displayPage('mainBoardContainerDisplay'), updateHTML(), activeTab('board')">
                         <div class="topCardNumber cardNumberTopBottom allCardsNumberFontSize" id="awaitingFeedbackCounter"></div>
                         <div class="topCardText cardTextTopBottom">Awaiting Feedback</div>
                     </div>
                 </div>
 
-                <div class="middleCard allCardsBorderRadius" onclick="displayPage('mainBoardContainerDisplay'), initBoard(), activeTab('board')">
+                <div class="middleCard allCardsBorderRadius" onclick="displayPage('mainBoardContainerDisplay'), updateHTML(), activeTab('board')">
                     <div class="middleCardUrgent">
                         <img src="./img/urgent1.svg">
                         <div class="positionInsideAllCards">
@@ -48,14 +48,14 @@
                 </div>
 
                 <div class="allBottomCards">
-                    <div class="bottomCardLeft allCardsBorderRadius bottomCard" onclick="displayPage('mainBoardContainerDisplay'), initBoard(), activeTab('board')">
+                    <div class="bottomCardLeft allCardsBorderRadius bottomCard" onclick="displayPage('mainBoardContainerDisplay'), updateHTML(), activeTab('board')">
                         <div class="bottomCardsImg bottomCardsImgTodo"></div>
                         <div class="positionInsideAllCards">
                             <div class="bottomCardNumber cardNumberTopBottom allCardsNumberFontSize"id="todoCounter"></div>
                             <div class="bottomCardText cardTextTopBottom">To-Do</div>
                         </div>
                     </div>
-                    <div class="bottomCardRight allCardsBorderRadius bottomCard" onclick="displayPage('mainBoardContainerDisplay'), initBoard(), activeTab('board')">
+                    <div class="bottomCardRight allCardsBorderRadius bottomCard" onclick="displayPage('mainBoardContainerDisplay'), iupdateHTML(), activeTab('board')">
                         <div class="bottomCardsImg bottomCardsImgDone"></div>
                         <div class="bottomCardsDetails">
                             <div class="bottomCardNumber cardNumberTopBottom allCardsNumberFontSize" id="doneCounter"></div>

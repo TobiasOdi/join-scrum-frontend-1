@@ -83,7 +83,7 @@ async function includeHTML() {
             element.innerHTML = 'Page not found';
         }
     }
-    await init();
+    await loadData();
     counters();
 }
 
@@ -99,100 +99,36 @@ async function includeHTML() {
     sessionStorage.setItem('register', 1);
 } */
 
+
 /**
- * This function accesses the database and fetches the data form the tasks, subtasks, assignedContacts, Categories and contacts.
+ * This function accesses the database and fetches the data form the tasks, subtasks, assignedContacts, categories and contacts.
  */
- async function init() {
-    try {
-        tasks = await loadTasks();
+async function loadData() {
+    let token = localStorage.getItem('token', data.token);
+    const csrfToken = getCookie("csrftoken");
+    try{
+        response = await fetch('http://127.0.0.1:8000/data/', {
+            method: 'GET',
+            headers:{
+                "X-CSRFToken": csrfToken,
+                "Authorization": `Token ${token}`
+            }
+        });
+        let data = await response.json();
+        tasks = data['tasks'];
         console.log("Tasks", tasks);
-        subtasksLoad = await loadSubtasks();
+        subtasksLoad = data['subtasks'];
         console.log("Subtasks", subtasksLoad);
-        assignedContacts = await loadAssignedContacts();
+        assignedContacts = data['assignedContacts'];
         console.log("Assigned Contacts", assignedContacts);
-        categories = await loadCategories();
+        categories = data['categories'];
         console.log("Categories", categories);
-        contacts = await loadContacts();
-        console.log("Contacts", contacts);
-    } catch(e) {
+        contacts = data['contacts'];
+        console.log("Contacts", contacts);   
+    } catch {
         let error = 'Fehler beim Laden!';
         console.log(error);
     }
-}
-
-async function loadTasks() {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
-    const url = 'http://127.0.0.1:8000/tasks/';
-    response = await fetch(url, {
-        method: 'GET',
-        headers:{
-            "X-CSRFToken": csrfToken,
-            "Authorization": `Token ${token}`
-        }
-    });
-    let data = await response.json();
-    return data;
-}
-
-async function loadSubtasks() {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
-    const url = 'http://127.0.0.1:8000/subtasks/';
-    response = await fetch(url, {
-        method: 'GET',
-        headers:{
-            "X-CSRFToken": csrfToken,
-            "Authorization": `Token ${token}`
-        }
-    });
-    let data = await response.json();
-    return data;
-}
-
-async function loadAssignedContacts() {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
-    const url = 'http://127.0.0.1:8000/assignedTo/';
-    response = await fetch(url, {
-        method: 'GET',
-        headers:{
-            "X-CSRFToken": csrfToken,
-            "Authorization": `Token ${token}`
-        }
-    });
-    let data = await response.json();
-    return data;
-}
-
-async function loadCategories() {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
-    const url = 'http://127.0.0.1:8000/categories/';
-    response = await fetch(url, {
-        method: 'GET',
-        headers:{
-            "X-CSRFToken": csrfToken,
-            "Authorization": `Token ${token}`
-        }
-    });
-    let data = await response.json();
-    return data;
-}
-
-async function loadContacts() {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
-    const url = 'http://127.0.0.1:8000/contacts/';
-    response = await fetch(url, {
-        method: 'GET',
-        headers:{
-            "X-CSRFToken": csrfToken,
-            "Authorization": `Token ${token}`
-        }
-    });
-    let data = await response.json();
-    return data;
 }
 
 function setUserColor() {

@@ -12,28 +12,15 @@ let editedData = [];
 let backupSubtasks = [];
 let backupAssignedContacts = [];
 
-/* ============================================================================ INIT BOARD ======================================================================== */
-/**
- * This function runs the function to render the tasks.
- */
-function initBoard() {
-    updateHTML();
-}
-
 /* ============================================================================ BOARD FUNCTIONS ======================================================================== */
 /**
  * This function renders the tasks to the correct category.
  */
 function updateHTML() {
-    //filterToDo();
-    //filterInProgress();
-    //filterAwaitingFeedback();
-    //filterDone();
     filterTasks('toDo');
     filterTasks('inProgress');
     filterTasks('awaitingFeedback');
     filterTasks('done');
-    //createBubbles();
     checkForEmptyCategories();
 }
 
@@ -439,15 +426,15 @@ async function deleteTask(currentTaskIndex) {
         tasks.splice(currentTaskIndex, 1);
         deleteTaskFromServer(currentTask);
         await includeHTML();
-        await init();
-        await initBoard();
+        await loadData();
+        updateHTML();
         document.getElementById('openTaskBackground').style.display = 'none';
     } else {
         tasks.splice(currentTaskIndex, 1);
         deleteTaskFromServer(currentTask);
         await includeHTML();
-        await init();
-        await initBoard();
+        await loadData();
+        updateHTML();
         document.getElementById('openTaskBackground').style.display = 'none';
     }
 }
