@@ -231,6 +231,11 @@ animation-name: startLogo;
   width: 110px;
 }
 
+#resetPwButton {
+  font-size: 17px;
+  font-weight: bold;
+}
+
 .signUpScreen h1 {
   margin-top: 10px;
 }

@@ -25,7 +25,7 @@
     <meta name="theme-color" content="#2a3647">
 
   </head>
-  <body>
+  <body onload="checkValidLink()">
     <div class="mainContainerLogin">
       <div class="header">
         <!-- ================================== LOGO  ==================================== -->
@@ -58,16 +58,16 @@
                   <input id="confirmPassword" class="inputFields" type="password" placeholder="Confirm password*" required/>
                 </div>
               </div>
-
-              <button class="buttonDark" type="submit">
-                <div class="buttonDarkText">Continue</div>
-              </button>
+              <input id="resetPwButton" class="buttonDark" type="submit" placeholder="Continue"/>
             </form>
           </div>
         </div>
       </div>
 
     </div>
+
+    <!-- ================================== SNACKBAR PASSWORD ALREADY RESET ======================================= -->
+    <div id="linkExpired">Your link has expired, please request a new one.</div>
 
     <!-- ================================== SNACKBAR USER DOES NOT EXIST ======================================= -->
     <div id="userDoesNotExist3">User does not exist</div>
@@ -78,5 +78,11 @@
     <!-- ================================== SNACKBAR PASSWORD NOT IDENTICAL ======================================= -->
     <div id="passwordsNotIdentical">Passwords are not identical</div>
 
+    <!-- ================================== SNACKBAR PASSWORD ALREADY RESET ======================================= -->
+    <div id="pwAlreadyReset">Passwords has already been reset! Link not valid.</div>
+
   </body>
+  <script>
+    checkValidLink();
+  </script>
 </html>

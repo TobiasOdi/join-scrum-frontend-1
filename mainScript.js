@@ -4,6 +4,7 @@ let tasks = [];
 let subtasksLoad = [];
 let assignedContacts = [];
 let id;
+let timestampReset;
 let black = "#000000";
 let white = "#FFFFFF";
 let orange = "#FF3D00";
@@ -438,16 +439,91 @@ async function checkForCorrectEmail() {
 }
 
 /* ================================================================= RESET PASSWORD ================================================================= */
+
+async function checkValidLink() {
+    let urlParams = new URLSearchParams(window.location.search);
+    let urlTimestamp = urlParams.get('ts');
+    let userId = urlParams.get('ikey');
+    let currentTimestamp = new Date();
+    let unixTimestamp = Math.floor(currentTimestamp.getTime()/1000);
+    //let token = localStorage.getItem('token', data.token);
+    if((unixTimestamp - urlTimestamp) > 900) {
+        document.getElementById('newPassword').disabled = true;
+        document.getElementById('confirmPassword').disabled = true;
+        document.getElementById('resetPwButton').disabled = true;
+        displaySnackbar('linkExpired');
+        setTimeout(() => {
+           window.location.href = "http://127.0.0.1:5500/login.html";
+        }, 2500);
+        //document.getElementById('pwAlreadyReset').disabled = false;
+        //document.getElementById('confirmPassword').disabled = false;
+        //document.getElementById('resetPwButton').disabled = false;
+    } else {
+        const csrfToken = getCookie("csrftoken");
+        try{
+            response = await fetch(`http://127.0.0.1:8000/user/get_timestamp/${userId}/`, {
+                method: 'GET',
+                headers:{
+                    "X-CSRFToken": csrfToken,
+                    //"Authorization": `Token ${token}`
+                }
+            });
+            let data = await response.json();
+            timestampReset = data['timestamp'];
+            console.log("Timestamp", timestampReset);
+        } catch {
+            let error = 'Fehler beim Laden!';
+            console.log(error);
+        }    
+    }
+}
+
 /**
  * This function validates the reset password form and throws an error if necessary.
  */
-function resetPassword() {
+async function resetPassword() {
     let urlParams = new URLSearchParams(window.location.search); 
     let ikey = urlParams.get('ikey');
     let tkey = urlParams.get('tkey');
+    let urlTimestamp = urlParams.get('ts');
     let newPassword = document.getElementById('newPassword').value;
     let confirmPassword = document.getElementById('confirmPassword').value;
-    validatePassword(newPassword, confirmPassword, ikey, tkey);
+    debugger;
+
+    if(timestampReset != urlTimestamp) {
+        await validatePassword(newPassword, confirmPassword, ikey, tkey);
+        timestampReset = urlParams.get('ts');
+        let timestampResetJson = {'user_id': ikey, 'timestamp': urlParams.get('ts')};
+        let timestampResetJsonAsString = JSON.stringify(timestampResetJson);
+        console.log(timestampResetJson);
+        console.log(timestampResetJsonAsString);
+        await saveTimestamp(ikey, timestampResetJsonAsString);
+
+    } else {
+        displaySnackbar('pwAlreadyReset');
+    }
+}
+
+async function saveTimestamp(ikey, timestampResetJsonAsString) {
+    const csrfToken = getCookie("csrftoken");
+    try{
+        response = await fetch(`http://127.0.0.1:8000/user/set_timestamp/`, {
+            method: 'POST',
+            headers:{
+                "X-CSRFToken": csrfToken,
+                "Accept":"application/json", 
+                "Content-Type":"application/json",
+                //"Authorization": `Token ${token}`
+            },
+            body: timestampResetJsonAsString
+        });
+        let data = await response.json();
+        console.log('OK');
+
+    } catch {
+        let error = 'Fehler beim Laden!';
+        console.log(error);
+    }
 }
 
 /**
