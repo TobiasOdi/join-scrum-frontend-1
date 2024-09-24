@@ -159,7 +159,7 @@ function generateUserId() {
  * @param {string} password - the passowrd of the user
  */
 async function validateSignup(userData) {
-    //document.getElementById('loginScreenLoading').style.display = 'flex';
+    document.getElementById('signUpScreenLoading').style.display = 'flex';
     disableFieldsSignUp();
     const csrfToken = getCookie("csrftoken");
     let userDataString = JSON.stringify(userData);
@@ -187,11 +187,11 @@ async function validateSignup(userData) {
             displaySnackbar('successfullySignedUp');
             setInterval(backToLoginScreen, 1200);
         }
-        //enableFieldsSignUp();  
     } catch(error) {
         console.log('An error occured', error);
         enableFieldsSignUp(); 
-    }    
+    }  
+    //document.getElementById('signUpScreenLoading').style.display = 'none';
 }
 
 /**
@@ -408,6 +408,9 @@ async function guestLogin() {
  * This function validates the forgot password form and throws an error if necessary.
  */
 async function checkForCorrectEmail() {
+    document.getElementById('sendEmailToResetPw').disabled = true;
+    document.getElementById('submitButton').disabled = true;
+    document.getElementById('submitButton').style.cursor = 'default';
     let userEmail = document.getElementById('sendEmailToResetPw');
     const csrfToken = getCookie("csrftoken");
     let fd = new FormData();
@@ -482,23 +485,23 @@ async function checkValidLink() {
  * This function validates the reset password form and throws an error if necessary.
  */
 async function resetPassword() {
+    document.getElementById('newPassword').disabled = true;
+    document.getElementById('confirmPassword').disabled = true;
+    document.getElementById('resetPwButton').disabled = true;
+    document.getElementById('resetPwButton').style.cursor = 'default';
+
     let urlParams = new URLSearchParams(window.location.search); 
     let ikey = urlParams.get('ikey');
     let tkey = urlParams.get('tkey');
     let urlTimestamp = urlParams.get('ts');
     let newPassword = document.getElementById('newPassword').value;
     let confirmPassword = document.getElementById('confirmPassword').value;
-    debugger;
-
     if(timestampReset != urlTimestamp) {
         await validatePassword(newPassword, confirmPassword, ikey, tkey);
         timestampReset = urlParams.get('ts');
         let timestampResetJson = {'user_id': ikey, 'timestamp': urlParams.get('ts')};
         let timestampResetJsonAsString = JSON.stringify(timestampResetJson);
-        console.log(timestampResetJson);
-        console.log(timestampResetJsonAsString);
         await saveTimestamp(ikey, timestampResetJsonAsString);
-
     } else {
         displaySnackbar('pwAlreadyReset');
     }
