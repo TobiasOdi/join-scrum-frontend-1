@@ -7,20 +7,19 @@
     <title>Join</title>
 
     <!-- ============================== CSS FILES ================================= -->
-    <link rel="stylesheet" href="./mainStyle.css" />
-    <link rel="stylesheet" href="./styles/login.css" />
-    <link rel="stylesheet" href="./styles/legalNotice.css" />
-    <link rel="stylesheet" href="./styles/fonts.css" />
+    <link rel="stylesheet" href="../mainStyle.css" />
+    <link rel="stylesheet" href="../styles/login.css" />
+    <link rel="stylesheet" href="../styles/legalNotice.css" />
+    <link rel="stylesheet" href="../styles/fonts.css" />
     <!-- ============================== SCRIPTS ================================= -->
-    <script src="./mainScript.js"></script>
-    <script src="./js/contacts.js"></script>
+    <script src="../mainScript.js"></script>
 
     <!-- ============================ Favicon =========================== -->
-    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon/apple-touch-icon.png"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon/favicon-16x16.png"/>
-    <link rel="manifest" href="./img/favicon/site.webmanifest" />   
-    <link rel="mask-icon" href="./img/favicon/safari-pinned-tab.svg" color="#2a3647"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png"/>
+    <link rel="manifest" href="../img/favicon/site.webmanifest" />   
+    <link rel="mask-icon" href="../img/favicon/safari-pinned-tab.svg" color="#2a3647"/>
     <meta name="msapplication-TileColor" content="#2a3647" />
     <meta name="theme-color" content="#2a3647" />
   </head>
@@ -28,7 +27,7 @@
   <body>
     <!-- ================================== STARTSCREEN  ==================================== -->
     <div class="startScreen">
-      <img id="startScreenLogo" class="logo" src="./img/blacklogo.svg" />
+      <img id="startScreenLogo" class="logo" src="../img/blacklogo.svg" />
     </div>
     <!-- ==================================================================================== -->
 
@@ -36,7 +35,7 @@
       <div class="header">
         <!-- ================================== LOGO  ==================================== -->
         <div class="loginLogo">
-          <img src="./img/blacklogo.svg">
+          <img src="../img/blacklogo.svg">
         </div>
 
         <!--============================== SIGN UP BANNER ================================-->
@@ -55,7 +54,7 @@
 
         <!-- == Legal Notice - w3-include-html ==-->
         <div class="mainLegalNoticeContainerDisplay" id="mainLegalNoticeContainerDisplay1" >
-          <div w3-include-html="./templates/legalNotice.html"></div>
+          <div w3-include-html="legalNotice.html"></div>
         </div>
         <!-- =================================== -->
 
@@ -73,14 +72,14 @@
             <div class="inputContainer">
               <div class="inputFieldContainer">
                 <input id="emailLog" class="inputFields" type="text" name="email" placeholder="Email" required/>
-                <img src="img/letter.svg" class="img" />
+                <img src="./img/letter.svg" class="img" />
               </div>
             </div>
 
             <div class="inputContainer">
               <div class="inputFieldContainer">
                 <input id="passwordLog" class="inputFields" type="password" name="password" placeholder="Password" required/>
-                <img src="img/lock.svg" class="img" />
+                <img src="./img/lock.svg" class="img" />
               </div>
             </div>
 
@@ -89,7 +88,7 @@
                 <input type="checkbox" />
                 <p>Remember me</p>
               </div>
-              <a class="forgotMyPassword" href="./templates/forgotPw.html"
+              <a class="forgotMyPassword" href="forgotPw.html"
                 >Forgot my Password</a
               >
             </div>

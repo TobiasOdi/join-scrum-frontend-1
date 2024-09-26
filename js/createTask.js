@@ -5,11 +5,11 @@ let allValueCheck = false;
 let categoryValue = "";
 let categoryColorValue = "";
 let categories = [
-/*     {'categoryName': 'Marketing', 'color': 'rgb(0, 56, 255)', 'categoryType': 'default'},
+    {'categoryName': 'Marketing', 'color': 'rgb(0, 56, 255)', 'categoryType': 'default'},
     {'categoryName': 'Media', 'color': 'rgb(255, 199, 2)', 'categoryType': 'default'},
     {'categoryName': 'Backoffice', 'color': 'rgb(31, 215, 193)', 'categoryType': 'default'},
     {'categoryName': 'Design', 'color': 'rgb(255, 122, 0)', 'categoryType': 'default'},
-    {'categoryName': 'Sales', 'color': 'rgb(252, 113, 255)', 'categoryType': 'default'} */
+    {'categoryName': 'Sales', 'color': 'rgb(252, 113, 255)', 'categoryType': 'default'}
 ];
 
 let statusCategory;

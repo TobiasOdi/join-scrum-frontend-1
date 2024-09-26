@@ -20,7 +20,7 @@ async function checkForLoggedInUser() {
     if(localStorage.getItem("token")) {
         console.log("User is authenticated");
     } else {
-        window.location.href = "login.html";
+        window.location.href = "./templates/login.html";
     } 
 }
 
@@ -94,8 +94,28 @@ async function loadData() {
         console.log("Subtasks", subtasksLoad);
         assignedContacts = data['assignedContacts'];
         console.log("Assigned Contacts", assignedContacts);
-        categories = data['categories'];
-        console.log("Categories", categories);
+        if(data['categories'] != []){
+            categories = data['categories'];
+            console.log("Categories", categories);
+        } else {
+            let categoriesAsString = JSON.stringify(categories);
+            const csrfToken = getCookie("csrftoken");
+            try {
+                let response = await fetch('http://127.0.0.1:8000/data/set_categories/', {
+                    method: 'POST',
+                    headers: {
+                        "X-CSRFToken": csrfToken,
+                        "Accept":"application/json", 
+                        "Content-Type":"application/json"
+                    },
+                    body: categoriesAsString
+                });
+                //let data = await response.json();
+            } catch(error) {
+                console.log('An error occured', error);
+                enableFieldsSignUp(); 
+            } 
+        }
         contacts = data['contacts'];
         console.log("Contacts", contacts);   
     } catch {
@@ -220,7 +240,7 @@ function enableFieldsSignUp() {
   * This function brings you back to the main login.html.
   */
 function backToLoginScreen() {
-    window.location.href = 'login.html'; // => IMMER ANPASSEN!!!
+    window.location.href = './templates/login.html'; // => IMMER ANPASSEN!!!
 }
 
 /**
@@ -269,7 +289,7 @@ window.addEventListener('keydown', (event) => {
  * This function navigates you to the sign up screen.
  */
 function goToSignup() {
-    window.location.href = './signup.html';
+    window.location.href = './templates/signup.html';
 }
 
 /**
@@ -420,9 +440,9 @@ async function checkForCorrectEmail() {
     try {
         let response = await fetch('http://127.0.0.1:8000/user/reset_password/', {
             method: 'POST',
-            //headers: {
-            //    "X-CSRFToken": csrfToken
-            //},
+            headers: {
+               "X-CSRFToken": csrfToken
+            },
             body: fd
         });
         let data = await response.json();        
@@ -433,7 +453,7 @@ async function checkForCorrectEmail() {
         } else {
             displaySnackbar("sendEmail");
             setTimeout(() => {
-                window.location.href = "http://127.0.0.1:5500/login.html";
+                window.location.href = "http://127.0.0.1:5500/templates/login.html";
             }, 1500);
         }
     } catch(error) {
@@ -456,7 +476,7 @@ async function checkValidLink() {
         document.getElementById('resetPwButton').disabled = true;
         displaySnackbar('linkExpired');
         setTimeout(() => {
-           window.location.href = "http://127.0.0.1:5500/login.html";
+           window.location.href = "http://127.0.0.1:5500/templates/login.html";
         }, 2500);
         //document.getElementById('pwAlreadyReset').disabled = false;
         //document.getElementById('confirmPassword').disabled = false;
@@ -557,7 +577,7 @@ async function validatePassword(newPassword, confirmPassword, ikey, tkey) {
             if(data.status == 1) {
                 displaySnackbar('passwordReset');
                 setTimeout(() => {
-                    window.location.href = "http://127.0.0.1:5500/login.html";
+                    window.location.href = "http://127.0.0.1:5500/templates/login.html";
                 }, 1500);
             }
         } catch (e) {
@@ -585,7 +605,7 @@ async function logout(){
     localStorage.removeItem("userName");
     localStorage.removeItem("userColor");
     localStorage.removeItem("token");
-    window.location.href = 'login.html';
+    window.location.href = './templates/login.html';
 }
 
 /* ================================================================= SIDE BAR FUNCTIONS ================================================================= */
