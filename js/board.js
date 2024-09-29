@@ -468,7 +468,6 @@ function editTask(currentTaskId, currentCategoryColor) {
     subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
     backupSubtasks = structuredClone(subtasksLoad);
     backupAssignedContacts = structuredClone(assignedContacts);
-
     document.getElementById('openTaskContainer').innerHTML = editOpenTaskTemplate(currentTask, currentCategoryColor);
     let selectCategoryContainer = document.getElementById('selectCategoryContainer');
     selectCategoryContainer.style.backgroundColor = currentCategoryColor;
@@ -672,10 +671,11 @@ async function saveEditedTask(currentTaskId, currentCategoryColor) {
     if(document.getElementById('titleEdit').value !== "" && selectedUsersEdit.length !== 0) {
         setEditedTaskParameters(index, currentTaskId);
         await saveEditedTaskToServer(currentTaskId);
-        updateHTML();
         priority = "";
         selectedUsersEdit = [];
         subtasksEdit = [];
+        await loadData();
+        updateHTML();
         document.getElementById('openTaskBackground').style.display = 'none';
     } else {
         highlightInputsEditTask(); 
@@ -692,9 +692,7 @@ function setEditedTaskParameters(index, currentTaskId) {
     tasks[index]['due_date'] = document.getElementById('editDueDate').value;
     tasks[index]['priorityValue'] = priorityValueEdit;
     let taskData = [tasks[index]];
-    assignedContacts = selectedUsersEdit;
     let assignedToData = selectedUsersEdit;
-    //let assignedToData = assignedContacts.filter(a => a.parent_task_id == currentTaskId);
     let subtaskData = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
     editedData = [{"taskData": taskData, "assignedToData": assignedToData, "subtaskData": subtaskData}];
 }

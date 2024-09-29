@@ -89,14 +89,14 @@ async function loadData() {
         });
         let data = await response.json();
         tasks = data['tasks'];
-        console.log("Tasks", tasks);
+        //console.log("Tasks", tasks);
         subtasksLoad = data['subtasks'];
-        console.log("Subtasks", subtasksLoad);
+        //console.log("Subtasks", subtasksLoad);
         assignedContacts = data['assignedContacts'];
-        console.log("Assigned Contacts", assignedContacts);
+        //console.log("Assigned Contacts", assignedContacts);
         if(data['categories'] != []){
             categories = data['categories'];
-            console.log("Categories", categories);
+            //console.log("Categories", categories);
         } else {
             let categoriesAsString = JSON.stringify(categories);
             const csrfToken = getCookie("csrftoken");
@@ -117,7 +117,7 @@ async function loadData() {
             } 
         }
         contacts = data['contacts'];
-        console.log("Contacts", contacts);   
+        //console.log("Contacts", contacts);   
     } catch {
         let error = 'Fehler beim Laden!';
         console.log(error);
@@ -240,7 +240,7 @@ function enableFieldsSignUp() {
   * This function brings you back to the main login.html.
   */
 function backToLoginScreen() {
-    window.location.href = './templates/login.html'; // => IMMER ANPASSEN!!!
+    window.location.href = 'login.html';
 }
 
 /**
@@ -289,7 +289,7 @@ window.addEventListener('keydown', (event) => {
  * This function navigates you to the sign up screen.
  */
 function goToSignup() {
-    window.location.href = './templates/signup.html';
+    window.location.href = 'signup.html';
 }
 
 /**
