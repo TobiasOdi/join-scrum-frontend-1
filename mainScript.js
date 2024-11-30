@@ -154,7 +154,7 @@ async function addUser() {
     let color = document.getElementById('userColor');
     let colorValue = color.options[color.selectedIndex].value;
     let userData = {first_name: name.value, last_name: surname.value, email: email.value, password: password.value, phone: '-', color: colorValue};
-    validateSignup(userData, name, surname, email, password);
+    validateSignup(userData);
 }
 
 /**
@@ -383,43 +383,49 @@ function setUserName(user) {
 /**
  * This function logs the user in as a guest (without email or password).
  */
-function guestLogin() {
+/* function guestLogin() {
     let userName = "Guest";
     localStorage.setItem('userName', userName);
     localStorage.setItem('userColor', '#29abe2');
     window.location.href = 'index.html';
     //let userIdLogin = '';
     //localStorage.setItem('userIdLogin', userIdLogin);
-}
+} */
 
 async function guestLogin() {
     document.getElementById('loginScreenLoading').style.display = 'flex';
     disableFields();
     const csrfToken = getCookie("csrftoken");
-    let fd = new FormData();
-    fd.append('email', "guest@guest.com");
-    fd.append('password', "Hallo_123");
-    fd.append('csrfmiddlewaretoken', csrfToken);
+        let guestUserData = {
+        first_name: 'Guest', 
+        last_name: 'Guest', 
+        email: 'guest@guest.com', 
+        password: 'Hallo_123', 
+        phone: '-', 
+        color: 'rgb(0, 128, 0)'
+    };
+    let guestUserDataString = JSON.stringify(guestUserData);
+
     try {
-        let response = await fetch('http://127.0.0.1:8000/login/', {
+        let response = await fetch('http://127.0.0.1:8000/user/guest_login/', {
             method: 'POST',
-            headers: {"X-CSRFToken": csrfToken},
-            body: fd
+            headers: {
+                "X-CSRFToken": csrfToken,
+                "Accept":"application/json", 
+                "Content-Type":"application/json"
+            },
+            body: guestUserDataString
         });
         let data = await response.json();
-        if(response.ok) {
-            console.log("response.ok", response.ok);
-            localStorage.setItem('userColor', data.userColor);
-            localStorage.setItem('userName', data.firstname);
-            localStorage.setItem('token', data.token);
-            window.location.href = "http://127.0.0.1:5500/index.html";
-            enableFields();      
-        }
+        localStorage.setItem('userColor', data.userColor);
+        localStorage.setItem('userName', data.firstname);
+        localStorage.setItem('token', data.token);
+        window.location.href = "http://127.0.0.1:5500/index.html";
+        enableFields();  
     } catch(error) {
         console.log('An error occured', error);
         enableFields(); 
-    }    
-    document.getElementById('loginScreenLoading').style.display = 'none';
+    }
 }
 
 

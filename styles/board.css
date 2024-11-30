@@ -577,7 +577,7 @@
   width: 150px;
   min-width: 80px;
   height: 25px;
-  border-radius: 10px 0 0 10px;
+  border-radius: 5px 0 0 5px;
   border: 1px solid #d1d1d1;
   padding: 5px;
   margin-left: 10px;
@@ -587,7 +587,7 @@
 .openTaskSubtaskEdit > div > div > button {
   width: 50px;
   height: 25px;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 5px 5px 0;
   border: 1px solid #d1d1d1;
   cursor: pointer;
 }
