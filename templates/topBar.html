@@ -1,6 +1,6 @@
 <div class="placeholderTop">
     <div>
-        <img src="./img/blacklogo.svg" class="blackLogo" />
+        <img src="./img/blacklogo.svg" class="blackLogo" style="borderColor: "/>
     </div>
     <div class="topNavBarLeftText">Kanban Project Management Tool</div>
     <div class="topNavBarRightImg">
@@ -10,7 +10,7 @@
         <a id="pageHelpTab" class="tab" onclick="displayPageHelp(), activeHelp('pageHelpTab')">
             <img src="./img/questionmark.svg" class="topNavBarRightImgQuestionmark">
         </a>
-        <img src="./img/user.svg" id="topNavBarRightImgPicture" class="topNavBarRightImgPicture" onclick="toggleLogoutButton()">
+        <img src="./img/user.svg" id="topNavBarRightImgPicture" class="topNavBarRightImgPicture" onclick="toggleLogoutButton(), doNotClose(event)">
         <div id="logoutButton" class="logoutButton" onclick="logout()">
             <div>Log out<div/>
         </div>

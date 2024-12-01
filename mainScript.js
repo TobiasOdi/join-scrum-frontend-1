@@ -88,16 +88,21 @@ async function loadData() {
             }
         });
         let data = await response.json();
+        console.log(data);
         tasks = data['tasks'];
         //console.log("Tasks", tasks);
         subtasksLoad = data['subtasks'];
         //console.log("Subtasks", subtasksLoad);
         assignedContacts = data['assignedContacts'];
         //console.log("Assigned Contacts", assignedContacts);
-        if(data['categories'] != []){
+        contacts = data['contacts'];
+        //console.log("Contacts", contacts);
+
+        if(data['categories'].length !== 0){
             categories = data['categories'];
-            //console.log("Categories", categories);
+            //console.log("Categories exist", categories);
         } else {
+            //console.log("Categories not exist", categories);
             let categoriesAsString = JSON.stringify(categories);
             const csrfToken = getCookie("csrftoken");
             try {
@@ -116,8 +121,7 @@ async function loadData() {
                 enableFieldsSignUp(); 
             } 
         }
-        contacts = data['contacts'];
-        //console.log("Contacts", contacts);   
+        console.log("Contacts", categories);   
     } catch {
         let error = 'Fehler beim Laden!';
         console.log(error);
@@ -125,10 +129,10 @@ async function loadData() {
 }
 
 function setUserColor() {
-    userColor = localStorage.getItem('userColor');
+    let userColor = localStorage.getItem('userColor');
     setTimeout(() => {
         document.getElementById('topNavBarRightImgPicture').style.borderColor = userColor;
-    }, 200);
+    }, 500);
 }
 
 // ================================================ GENERAL FUNCTIONS ==========================================================
@@ -607,13 +611,20 @@ function toggleLogoutButton() {
     }
 }
 
+function hideLogoutButton() {
+    let logoutButton = document.getElementById('logoutButton');
+    logoutButton.style.display = "none";
+}
+
+/**
+ * This function removes the variables in the local storage and forwards the user to the login screen.
+ */
 async function logout(){
     localStorage.removeItem("userName");
     localStorage.removeItem("userColor");
     localStorage.removeItem("token");
     window.location.href = './templates/login.html';
 }
-
 /* ================================================================= SIDE BAR FUNCTIONS ================================================================= */
 /**
  * 
