@@ -321,8 +321,10 @@
 
 .openTaskContainer {
   position: relative;
-  width: 500px;
-  height: 100%;
+  min-width: 500px;
+  min-height: 500px;
+  width: auto;
+  height: auto;
   border-radius: 30px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -689,8 +691,8 @@
 
 .openTaskButtonContainer {
   position: absolute;
-  right: 40px;
-  bottom: 30px;
+  right: 33px;
+  bottom: 32px;
   display: flex;
   justify-content: center;
   align-items: center;

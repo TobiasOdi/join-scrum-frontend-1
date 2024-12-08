@@ -201,16 +201,18 @@ function openTaskTemplate(currentTask, currentCategory, currentTaskIndex) {
                     </div>                
                 </div>
             </div>
+
+            <div class="openTaskButtonContainer">
+                <div class="deleteTaskButton" onclick="deleteTask(${currentTaskIndex})">
+                    <img src="./img/deleteTask.svg">
+                </div>
+                <div class="openTaskEditButton" onclick="editTask(${currentTask.id}, '${currentCategory.color}')">
+                    <img src="./img/editWhite.svg">
+                </div>
+            </div>
+            
         </div>
 
-        <div class="openTaskButtonContainer">
-            <div class="deleteTaskButton" onclick="deleteTask(${currentTaskIndex})">
-                <img src="./img/deleteTask.svg">
-            </div>
-            <div class="openTaskEditButton" onclick="editTask(${currentTask.id}, '${currentCategory.color}')">
-                <img src="./img/editWhite.svg">
-            </div>
-        </div>
      `;
 }
 

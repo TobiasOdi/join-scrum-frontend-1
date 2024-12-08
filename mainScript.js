@@ -147,6 +147,39 @@ function getFirstletter(i) {
 }
 
 // ================================================ SIGN UP ==========================================================
+
+function toggleValue() {
+    let privacyCheck = document.getElementById('privacyCheck');
+    if(privacyCheck.value == "on") {
+        privacyCheck.value = "active";
+    } else {
+        privacyCheck.value = "on";
+    }
+    console.log(privacyCheck.value);
+}
+
+function togglePassword() {
+    let password = document.getElementById('password');
+    if(password.type == "password") {
+        password.type = "text";
+        document.getElementById("passwordEye1").src = "../img/eye.png"; 
+    } else {
+        password.type = "password";
+        document.getElementById("passwordEye1").src = "../img/hidden.png"; 
+    }
+}
+
+function togglePasswordConfirm() {
+    let password = document.getElementById('passwordConfirm');
+    if(password.type == "password") {
+        password.type = "text";
+        document.getElementById("passwordEye2").src = "../img/eye.png"; 
+    } else {
+        password.type = "password";
+        document.getElementById("passwordEye2").src = "../img/hidden.png"; 
+    }
+}
+
 /**
  * This function adds a new user to the users array and saves it on the ftp server.
  */
@@ -155,10 +188,16 @@ async function addUser() {
     let surname = document.getElementById('surname');
     let email = document.getElementById('email');
     let password = document.getElementById('password');
+    let passwordConfirm = document.getElementById('passwordConfirm');
     let color = document.getElementById('userColor');
     let colorValue = color.options[color.selectedIndex].value;
     let userData = {first_name: name.value, last_name: surname.value, email: email.value, password: password.value, phone: '-', color: colorValue};
-    validateSignup(userData);
+
+    if(password == passwordConfirm) {
+        validateSignup(userData);
+    } else {
+        displaySnackbar('passwordsNotIdentical');
+    }
 }
 
 /**

@@ -246,8 +246,8 @@ animation-name: startLogo;
 
 .arrowBack {
   position: absolute;
-  top: 24px;
-  left: 20px;
+  top: 2rem;
+  left: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -381,16 +381,6 @@ animation-name: startLogo;
   color: white;
   text-align: center;
 }
-
-.arrowBack {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-} 
 
 .loginScreen > span {
     text-align: center;

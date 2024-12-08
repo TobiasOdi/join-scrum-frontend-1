@@ -67,11 +67,10 @@
             <div class="blueLigne"></div>
           </div>
 
-          <form name="login_form" onsubmit="login();return false">
-            <input id="csrfTokenfield" type="hidden" name="csrfmiddlewaretoken">
+          <form id="login_form" name="login_form" onsubmit="login();return false">
             <div class="inputContainer">
               <div class="inputFieldContainer">
-                <input id="emailLog" class="inputFields" type="text" name="email" placeholder="Email" required/>
+                <input id="emailLog" class="inputFields" type="text" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" placeholder="Email" required/>
                 <img src="../img/letter.svg" class="img" />
               </div>
             </div>
@@ -85,16 +84,15 @@
 
             <div class="rememberOrForgetFields">
               <div class="checkboxContainer">
-                <input type="checkbox" />
+                <input id="remember" type="checkbox" />
                 <p>Remember me</p>
               </div>
               <a class="forgotMyPassword" href="forgotPw.html"
-                >Forgot my Password</a
-              >
+                >Forgot my Password</a>
             </div>
 
             <div class="loginButtons">
-              <button type="submit" class="buttonDark" id="loginButton">
+              <button id="loginButton" type="submit" class="buttonDark" disabled="disabled">
                 <div class="buttonDarkText">Log in</div>
               </button>
               <button type="button" onclick="guestLogin()" class="buttonLight">
@@ -121,6 +119,24 @@
 
     <script>
       includeHTMLLogin();
+
+      const loginForm = document.getElementById('login_form');
+      loginForm.addEventListener("change", (e) => {
+        console.log(email, '//', pw, '//', remember);
+        let children = loginForm.querySelectorAll('input');
+        let findEmpty = Array.from(children).find((element)=>{
+          if(element.value.length < 1){
+            return true;
+          } else {
+            return false;  
+          }
+        });
+        if(findEmpty){
+          document.getElementById('loginButton').disabled = true;
+        } else {
+          document.getElementById('loginButton').disabled = false;
+        }
+      });
     </script>
   </body>
 </html>

@@ -58,7 +58,7 @@
             <div class="blueLigne"></div>
           </div>
 
-          <form onsubmit="addUser();return false">
+          <form id="signUpForm" onsubmit="addUser();return false" name="signUpForm">
             <div class="inputContainer">
               <div class="inputFieldContainer">
                 <input id="name" class="inputFields" type="text" placeholder="Name" required/>
@@ -75,7 +75,7 @@
   
             <div class="inputContainer">
               <div class="inputFieldContainer">
-                <input id="email" class="inputFields" type="email" placeholder="Email" required/>
+                <input id="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" class="inputFields" type="email" placeholder="Email" required/>
                 <img src="../img/letter.svg" class="img" />
               </div>
             </div>
@@ -83,10 +83,17 @@
             <div class="inputContainer">
               <div class="inputFieldContainer">
                 <input id="password" class="inputFields" type="password" placeholder="Password" required/>
-                <img src="../img/lock.svg" class="img" />
+                <img id="passwordEye1" src="../img/hidden.png" class="img" onclick="togglePassword()"/>
               </div>
             </div>
-  
+
+            <div class="inputContainer">
+              <div class="inputFieldContainer">
+                <input id="passwordConfirm" class="inputFields" type="password" placeholder="Password" required/>
+                <img id="passwordEye2" src="../img/hidden.png" class="img" onclick="togglePasswordConfirm()"/>
+              </div>
+            </div>
+   
             <div class="inputContainer">
               <div class="inputFieldContainer">
                 <select class="inputFields selectColor" id="userColor" required>
@@ -120,13 +127,13 @@
             </div>
 
             <div class="privacyPolicyContainer">
-              <input type="checkbox" required>
+              <input id="privacyCheck" type="checkbox" onclick="toggleValue()" required>
               <div>
                 <div>I accept the</div>
                 <div class="privacyPolicy">Privacy Policy</div></div>
             </div>
 
-            <button class="buttonDark" type="submit">
+            <button id="signUpButton" class="buttonDark" type="submit" disabled="disabled">
               <div class="buttonDarkText">Sign up</div>
             </button>
           </form>
@@ -141,6 +148,9 @@
       </div>
     </div>
 
+  <!-- ================================== SNACKBAR PASSWORDS NOT IDENTICAL ======================================= -->
+  <div id="passwordsNotIdentical">Passwords not identical</div>
+
   <!-- ================================== SNACKBAR ALREADY SIGNE UP ======================================= -->
   <div id="alreadySignedUp">You have already signed up, go back to login</div>
 
@@ -149,6 +159,27 @@
 
   <script>
     includeHTMLLogin();
+
+    const form = document.getElementById('signUpForm');
+    form.addEventListener("change", (e) => {
+      //const value = e.currentTarget.value;
+      // find inputs, textareas, and selects within the parent
+      let children = form.querySelectorAll('input, select');
+      // find if any of them are empty
+      let findEmpty = Array.from(children).find((element)=>{
+        if(element.value.length < 1 | element.value == "" | element.value == "on"){
+          return true;
+        }
+        return false
+      });
+      // check if found an empty child
+      if(findEmpty){
+        // if so alert
+        document.getElementById('signUpButton').disabled = true;
+      } else {
+        document.getElementById('signUpButton').disabled = false;
+      }
+    });
   </script>
 </body>
 </html>
