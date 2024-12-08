@@ -122,7 +122,6 @@
 
       const loginForm = document.getElementById('login_form');
       loginForm.addEventListener("change", (e) => {
-        console.log(email, '//', pw, '//', remember);
         let children = loginForm.querySelectorAll('input');
         let findEmpty = Array.from(children).find((element)=>{
           if(element.value.length < 1){

@@ -162,19 +162,14 @@
 
     const form = document.getElementById('signUpForm');
     form.addEventListener("change", (e) => {
-      //const value = e.currentTarget.value;
-      // find inputs, textareas, and selects within the parent
       let children = form.querySelectorAll('input, select');
-      // find if any of them are empty
       let findEmpty = Array.from(children).find((element)=>{
         if(element.value.length < 1 | element.value == "" | element.value == "on"){
           return true;
         }
         return false
       });
-      // check if found an empty child
       if(findEmpty){
-        // if so alert
         document.getElementById('signUpButton').disabled = true;
       } else {
         document.getElementById('signUpButton').disabled = false;
