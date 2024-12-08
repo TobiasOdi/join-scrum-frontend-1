@@ -161,7 +161,7 @@
     includeHTMLLogin();
 
     const form = document.getElementById('signUpForm');
-    form.addEventListener("change", (e) => {
+    form.addEventListener("keyup", (e) => {
       let children = form.querySelectorAll('input, select');
       let findEmpty = Array.from(children).find((element)=>{
         if(element.value.length < 1 | element.value == "" | element.value == "on"){
