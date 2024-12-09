@@ -310,10 +310,10 @@ function editOpenTaskTemplate(currentTask, currentCategoryColor) {
  * @param {number} currentTask - index of the current subtask
  * @returns 
  */
-function renderSubtasksUndoneTemplate(subtask){
+function renderSubtasksUndoneTemplate(currentTaskId, subtaskId, subtask){
     return `
-        <div class="openSubtask">
-            <input type="checkbox" disabled>
+        <div class="openSubtask" onclick="saveCompletedSubtasks(${currentTaskId}, ${subtaskId}, 'open')">
+            <input id="subtask${subtaskId}" type="checkbox" value="${subtaskId}" checked>
             <div>${subtask}</div>
         </div>
     `;
@@ -324,11 +324,10 @@ function renderSubtasksUndoneTemplate(subtask){
  * @param {number} currentTask - index of the current subtask
  * @returns 
  */
-function renderSubtasksTemplate(subtask) {
+function renderSubtasksTemplate(currentTaskId, subtaskId, subtask) {
     return `
-        <div class="openSubtask">
-            <div class="coverCheckbox" style="z-index: 2";></div>
-            <input type="checkbox" checked style="z-index: 0";>
+        <div class="openSubtask" onclick="saveCompletedSubtasks(${currentTaskId}, ${subtaskId}, 'open')">
+            <input id="subtask${subtaskId}" type="checkbox" value="${subtaskId}">
             <div>${subtask}</div>
         </div>
     `;
@@ -356,7 +355,7 @@ function editCategoryTemplate(categoryName, categoryColor) {
  */
 function subtasksEditUndoneTemplate(currentTaskId, subtask, subtaskId) {
     return `
-        <div class="openSubtask" onclick="saveCompletedSubtasks(${currentTaskId}, ${subtaskId})">
+        <div class="openSubtask" onclick="saveCompletedSubtasks(${currentTaskId}, ${subtaskId}, 'edit')">
             <input id="subtask${subtaskId}" type="checkbox" value="${subtaskId}" checked>
             <div>${subtask}</div>
             <img src="./img/delete.svg" onclick="deleteSubtaskEdit(${currentTaskId}, ${subtaskId}), doNotOpenTask(event)">
@@ -373,7 +372,7 @@ function subtasksEditUndoneTemplate(currentTaskId, subtask, subtaskId) {
  */
 function subtasksEditTemplate(currentTaskId, subtask, subtaskId) {
     return `
-        <div class="openSubtask" onclick="saveCompletedSubtasks(${currentTaskId}, ${subtaskId})">
+        <div class="openSubtask" onclick="saveCompletedSubtasks(${currentTaskId}, ${subtaskId}, 'edit')">
             <input id="subtask${subtaskId}" type="checkbox" value="${subtaskId}">
             <div>${subtask}</div>
             <img src="./img/delete.svg" onclick="deleteSubtaskEdit(${currentTaskId}, ${subtaskId}), doNotOpenTask(event)">

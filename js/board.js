@@ -7,6 +7,7 @@ let currentDraggedTaskId;
 let priorityValueEdit;
 let startWithLetter = [];
 let selectedUsersEdit = [];
+let userSubtasks = [];
 let subtasksEdit = [];
 let editedData = [];
 let backupSubtasks = [];
@@ -395,7 +396,10 @@ function renderAssignedUsers(currentTaskId) {
  */
 function renderSubtasks(currentTaskId){
     let taskForSubtaskId = currentTaskId;
-    let userSubtasks = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
+    userSubtasks = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
+    let backupUserSubtasks = structuredClone(subtasksLoad);
+    document.getElementById('subtaskContainer').innerHTML = "";
+
     if(userSubtasks == "") {
         document.getElementById('subtaskContainer').innerHTML += `
             <div>No subtasks</div>
@@ -403,11 +407,12 @@ function renderSubtasks(currentTaskId){
     } else {
         for (let j = 0; j < userSubtasks.length; j++) {
             let subtask = userSubtasks[j]['subtaskName'];
+            let subtaskId = userSubtasks[j]['id'];
             let subtaskStatus = userSubtasks[j]['status'];
-            if(subtaskStatus == 'undone') {
-                document.getElementById('subtaskContainer').innerHTML += renderSubtasksUndoneTemplate(subtask);
+            if (!subtaskStatus.includes('undone')) {
+                document.getElementById('subtaskContainer').innerHTML += renderSubtasksUndoneTemplate(currentTaskId, subtaskId, subtask);
             } else {
-                document.getElementById('subtaskContainer').innerHTML += renderSubtasksTemplate(subtask);
+                document.getElementById('subtaskContainer').innerHTML += renderSubtasksTemplate(currentTaskId, subtaskId, subtask);
             }
         }
     }
@@ -626,23 +631,57 @@ function saveSelectedUsersEdit(assignedContactId, currentTaskId) {
  * @param {index} subtaskIndex - index of the current subtask
  * @param {index} currentTask - index of the current task
  */
-async function saveCompletedSubtasks(currentTaskId, subtaskId) {
+async function saveCompletedSubtasks(currentTaskId, subtaskId, taskStatus) {
     let currentSubtaskElement = subtasksLoad.find(s => s.id == subtaskId);
     let index = subtasksLoad.indexOf(currentSubtaskElement);
     let currentSubtask = document.getElementById('subtask' + subtaskId);
+    console.log('TASK STATUS', taskStatus);
     if(!currentSubtask.checked == true) {
         //subtasksEdit[j]['status'] = 'undone';
         subtasksLoad[index]['status'] = 'undone';
-        subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
-        renderSubtasksEdit(currentTaskId);
+        if(taskStatus == "open") {
+            userSubtasks = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
+            renderSubtasks(currentTaskId);
+        } else {
+            subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
+            renderSubtasksEdit(currentTaskId);
+        }
+        await saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId);
     }
     if(currentSubtask.checked == true) {
         //subtasksEdit[j]['status'] = 'done';
         subtasksLoad[index]['status'] = 'done';
-        subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
-        renderSubtasksEdit(currentTaskId);   
+        if(taskStatus == "open") {
+            userSubtasks = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
+            renderSubtasks(currentTaskId);
+        } else {
+            subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
+            renderSubtasksEdit(currentTaskId);
+        }
+        await saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId);
     } 
 };
+
+async function saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId) {
+    let token = localStorage.getItem('token', data.token);
+    const csrfToken = getCookie("csrftoken");
+    let subtaskAsString = JSON.stringify(currentSubtaskElement);
+    console.log("subtaskAsString", subtaskAsString);
+    try {
+        let response = await fetch(`http://127.0.0.1:8000/tasks/save_subtask_status/${subtaskId}/`, {
+            method: 'POST',
+            headers: {
+                "X-CSRFToken": csrfToken,
+                "Accept":"application/json", 
+                "Content-Type":"application/json",
+                "Authorization": `Token ${token}`
+            },
+            body: subtaskAsString
+          });
+    } catch(e) {
+        console.log('Saving subtask status was not possible', error);
+    }
+}
 
 /**
  * This function prevents the selection of pasted dates.
@@ -677,6 +716,7 @@ async function saveEditedTask(currentTaskId, currentCategoryColor) {
         await loadData();
         updateHTML();
         document.getElementById('openTaskBackground').style.display = 'none';
+        document.getElementById('openTaskBackgroundEdit').style.display = 'none';
     } else {
         highlightInputsEditTask(); 
     }
@@ -748,10 +788,12 @@ function savePriorityValueEdit(priority, currentTask) {
  * @param {index} currentTask - index of the current task
  */
 function closeTask(priority, currentTask) {
-    subtasksLoad = backupSubtasks;
+    //subtasksLoad = backupSubtasks;
     assignedContacts = backupAssignedContacts;
     savePriorityValueEdit(priority, currentTask);
     document.getElementById('openTaskBackground').style.display = 'none';
+    document.getElementById('openTaskBackgroundEdit').style.display = 'none';
+    updateHTML();
 }
 
 /**
