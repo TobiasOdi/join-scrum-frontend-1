@@ -193,10 +193,10 @@ async function addUser() {
     let colorValue = color.options[color.selectedIndex].value;
     let userData = {first_name: name.value, last_name: surname.value, email: email.value, password: password.value, phone: '-', color: colorValue};
 
-    if(password == passwordConfirm) {
-        validateSignup(userData);
-    } else {
+    if(password.value != passwordConfirm.value) {
         displaySnackbar('passwordsNotIdentical');
+    } else {
+        validateSignup(userData);
     }
 }
 
@@ -226,7 +226,6 @@ async function validateSignup(userData) {
     disableFieldsSignUp();
     const csrfToken = getCookie("csrftoken");
     let userDataString = JSON.stringify(userData);
-
     try {
         let response = await fetch('http://127.0.0.1:8000/user/sign_up/', {
             method: 'POST',
@@ -239,13 +238,20 @@ async function validateSignup(userData) {
         });
         //localStorage.setItem('token', response['token']);
         let data = await response.json();
+        console.log(data);
+        debugger;
+        console.log(data);
         if(data.status == 1) {
             displaySnackbar('alreadySignedUp');
             document.getElementById('name').value = '';
             document.getElementById('surname').value = '';
             document.getElementById('email').value = '';
             document.getElementById('password').value = '';
+            document.getElementById('passwordConfirm').value = '';
             document.getElementById('userColor').value = '';
+            enableFieldsSignUp(); 
+            document.getElementById('signUpScreenLoading').style.display = 'none';
+
         } else {
             displaySnackbar('successfullySignedUp');
             setInterval(backToLoginScreen, 1200);
@@ -254,7 +260,6 @@ async function validateSignup(userData) {
         console.log('An error occured', error);
         enableFieldsSignUp(); 
     }  
-    //document.getElementById('signUpScreenLoading').style.display = 'none';
 }
 
 /**
@@ -265,6 +270,7 @@ function disableFieldsSignUp() {
     document.getElementById('surname').disabled = true;
     document.getElementById('email').disabled = true;
     document.getElementById('password').disabled = true;
+    document.getElementById('passwordConfirm').disabled = true;
     document.getElementById('userColor').disabled = true;
 }
 
@@ -276,6 +282,7 @@ function enableFieldsSignUp() {
     document.getElementById('surname').disabled = false;
     document.getElementById('email').disabled = false;
     document.getElementById('password').disabled = false;
+    document.getElementById('passwordConfirm').disabled = false;
     document.getElementById('userColor').disabled = false;
 }
 

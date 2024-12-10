@@ -175,6 +175,21 @@
         document.getElementById('signUpButton').disabled = false;
       }
     });
+
+    form.addEventListener("change", (e) => {
+      let children = form.querySelectorAll('input, select');
+      let findEmpty = Array.from(children).find((element)=>{
+        if(element.value.length < 1 | element.value == "" | element.value == "on"){
+          return true;
+        }
+        return false
+      });
+      if(findEmpty){
+        document.getElementById('signUpButton').disabled = true;
+      } else {
+        document.getElementById('signUpButton').disabled = false;
+      }
+    });
   </script>
 </body>
 </html>
