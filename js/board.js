@@ -346,6 +346,7 @@ async function pushToNextCategory(category, taskId) {
  */
 function openTask(currentTaskId) {
     document.getElementById('openTaskBackground').style.display = 'flex';
+    backupAssignedContacts = structuredClone(assignedContacts);
     let currentTask = tasks.find(u => u.id == currentTaskId);
     let currentTaskIndex = tasks.indexOf(currentTask)
     let currentCategory = categories.find(c => c.categoryName == currentTask.category);
@@ -635,7 +636,6 @@ async function saveCompletedSubtasks(currentTaskId, subtaskId, taskStatus) {
     let currentSubtaskElement = subtasksLoad.find(s => s.id == subtaskId);
     let index = subtasksLoad.indexOf(currentSubtaskElement);
     let currentSubtask = document.getElementById('subtask' + subtaskId);
-    console.log('TASK STATUS', taskStatus);
     if(!currentSubtask.checked == true) {
         //subtasksEdit[j]['status'] = 'undone';
         subtasksLoad[index]['status'] = 'undone';
@@ -645,7 +645,7 @@ async function saveCompletedSubtasks(currentTaskId, subtaskId, taskStatus) {
         } else {
             subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
             renderSubtasksEdit(currentTaskId);
-        }
+        }   
         await saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId);
     }
     if(currentSubtask.checked == true) {
