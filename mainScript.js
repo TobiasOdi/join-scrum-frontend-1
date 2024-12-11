@@ -447,7 +447,7 @@ async function guestLogin() {
     disableFields();
     const csrfToken = getCookie("csrftoken");
         let guestUserData = {
-        first_name: 'Guest', 
+        first_name: ' ', 
         last_name: 'Guest', 
         email: 'guest@guest.com', 
         password: 'Hallo_123', 
