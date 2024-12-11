@@ -2,7 +2,8 @@
 /**
  * This function runs all the counter functions for the summary.
  */
-function counters() {
+async function counters() {
+    await loadData();
     taskCounter();
     inProgressCounter();
     awaitingFeedbackCounter();
