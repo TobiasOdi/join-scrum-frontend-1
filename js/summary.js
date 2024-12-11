@@ -90,7 +90,7 @@ function deadlineDate() {
         .sort((a, b) => a.getTime() - b.getTime());
     
     if (sortedDueDate.length === 0) {
-        // console.log("No valid due dates found.");
+        //console.log("No valid due dates found.");
         return;
     }
     let currentDate = new Date();

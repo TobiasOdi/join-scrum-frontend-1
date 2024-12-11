@@ -88,7 +88,7 @@ async function loadData() {
             }
         });
         let data = await response.json();
-        console.log(data);
+        //console.log(data);
         tasks = data['tasks'];
         //console.log("Tasks", tasks);
         subtasksLoad = data['subtasks'];
@@ -121,7 +121,7 @@ async function loadData() {
                 enableFieldsSignUp(); 
             } 
         }
-        console.log("Contacts", categories);   
+        //console.log("Contacts", categories);   
     } catch {
         let error = 'Fehler beim Laden!';
         console.log(error);
@@ -155,7 +155,7 @@ function toggleValue() {
     } else {
         privacyCheck.value = "on";
     }
-    console.log(privacyCheck.value);
+    //console.log(privacyCheck.value);
 }
 
 function togglePassword() {
@@ -238,9 +238,6 @@ async function validateSignup(userData) {
         });
         //localStorage.setItem('token', response['token']);
         let data = await response.json();
-        console.log(data);
-        debugger;
-        console.log(data);
         if(data.status == 1) {
             displaySnackbar('alreadySignedUp');
             document.getElementById('name').value = '';
@@ -549,7 +546,7 @@ async function checkValidLink() {
             });
             let data = await response.json();
             timestampReset = data['timestamp'];
-            console.log("Timestamp", timestampReset);
+            //console.log("Timestamp", timestampReset);
         } catch {
             let error = 'Fehler beim Laden!';
             console.log(error);

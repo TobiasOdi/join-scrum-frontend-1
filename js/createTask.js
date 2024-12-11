@@ -688,7 +688,7 @@ async function deleteNewCategory(i, categoryName, categoryId) {
 
     categories.splice(i, 1);
     let currentCategory = categories[i];
-    console.log('currentCategory', currentCategory);
+    //console.log('currentCategory', currentCategory);
     let deleteCategoryAsString = JSON.stringify(currentCategory);
 
     try {
