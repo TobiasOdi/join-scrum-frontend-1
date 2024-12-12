@@ -17,10 +17,29 @@ let green = "#7AE229";
  * redirected to the login page.
  */
 async function checkForLoggedInUser() {
-    if(localStorage.getItem("token")) {
-        console.log("User is authenticated");
-    } else {
+    let tokenCheck = {'token': localStorage.getItem("token")};
+    let tokenCheckAsString = JSON.stringify(tokenCheck);
+    const csrfToken = getCookie("csrftoken");
+    try {
+        let response = await fetch('http://127.0.0.1:8000/token_check/', {
+            method: 'POST',
+            headers: {
+                "X-CSRFToken": csrfToken,
+                "Accept":"application/json", 
+                "Content-Type":"application/json"
+            },
+            body: tokenCheckAsString
+        });
+        let data = await response.json();
+        if(localStorage.getItem("token") && data.status == 1) {
+            console.log("User is authenticated");
+        } else {
+            window.location.href = "./templates/login.html";
+        }
+    } catch(error) {
         window.location.href = "./templates/login.html";
+        console.log('An error occured', error);
+        enableFieldsSignUp(); 
     } 
 }
 
@@ -427,25 +446,13 @@ function setUserName(user) {
     localStorage.setItem('userIdLogin', userIdLogin);
 }
 
-/**
- * This function logs the user in as a guest (without email or password).
- */
-/* function guestLogin() {
-    let userName = "Guest";
-    localStorage.setItem('userName', userName);
-    localStorage.setItem('userColor', '#29abe2');
-    window.location.href = 'index.html';
-    //let userIdLogin = '';
-    //localStorage.setItem('userIdLogin', userIdLogin);
-} */
-
 async function guestLogin() {
     document.getElementById('loginScreenLoading').style.display = 'flex';
     disableFields();
     const csrfToken = getCookie("csrftoken");
         let guestUserData = {
-        first_name: ' ', 
-        last_name: 'Guest', 
+        first_name: 'Guest', 
+        last_name: ' ', 
         email: 'guest@guest.com', 
         password: 'Hallo_123', 
         phone: '-', 
