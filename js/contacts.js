@@ -404,7 +404,7 @@ async function deleteContact(c) {
     activeUserContact = currentContact['active_user']
 
     if(activeUserContact != null) {
-        displaySnackbar('activeUser');
+        displaySnackbar('activeUserDelete');
     } else {
         contacts.splice(c, 1);  
         let contactToDeleteAsString = JSON.stringify(currentContact);
