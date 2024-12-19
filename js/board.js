@@ -430,6 +430,10 @@ async function deleteTask(currentTaskIndex) {
     }
 }
 
+/**
+ * This function deltes the current task from the database.
+ * @param {*} currentTask - Current task object
+ */
 async function deleteTaskFromServer(currentTask) {
     let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
@@ -516,7 +520,7 @@ function changeCategoryColor() {
 }
 
 /**
- * This function renders the subtasks and lets you mark them as done.
+ * This function renders the subtasks and lets you mark them.
  * @param {index} currentTask - index of the current task
  */
 function renderSubtasksEdit(currentTaskId){
@@ -530,6 +534,10 @@ function renderSubtasksEdit(currentTaskId){
     }
 };
 
+/**
+ * This function renders the correct subtasks template.
+ * @param {*} currentTaskId 
+ */
 function renderAllSubtasks(currentTaskId) {
     for (let j = 0; j < subtasksEdit.length; j++) {
         let subtask = subtasksEdit[j]['subtaskName'];
@@ -690,6 +698,11 @@ async function saveCompletedSubtasks(currentTaskId, subtaskId, taskStatus) {
     } 
 };
 
+/**
+ * This function saves the status of the subtask to the database.
+ * @param {*} currentSubtaskElement 
+ * @param {*} subtaskId 
+ */
 async function saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId) {
     let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
@@ -765,7 +778,10 @@ function setEditedTaskParameters(index, currentTaskId) {
     editedData = [{"taskData": taskData, "assignedToData": assignedToData, "subtaskData": subtaskData}];
 }
 
-
+/**
+ * This function saves all the edited task data to the database.
+ * @param {*} currentTaskId 
+ */
 async function saveEditedTaskToServer(currentTaskId) {
     let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
@@ -785,7 +801,6 @@ async function saveEditedTaskToServer(currentTaskId) {
         console.log('Creating task was not possible', error);
     }
 }
-
 
 /**
  * This function saves the chosen priority.

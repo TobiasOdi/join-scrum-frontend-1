@@ -87,16 +87,6 @@ async function includeHTML() {
 
 // ================================================ INIT FUNCTION ==========================================================
 
-//window.addEventListener('load', clearStorage);
-/* function clearStorage() {
-    let session = sessionStorage.getItem('register');
-    if (session == null) {
-    
-        localStorage.removeItem('remove');
-    }
-    sessionStorage.setItem('register', 1);
-} */
-
 /**
  * This function accesses the database and fetches the data form the tasks, subtasks, assignedContacts, categories and contacts.
  */
@@ -144,6 +134,9 @@ async function loadData() {
     }
 }
 
+/**
+ * This function gets the user color from the local storage.
+ */
 function setUserColor() {
     let userColor = localStorage.getItem('userColor');
     setTimeout(() => {
@@ -163,7 +156,9 @@ function getFirstletter(i) {
 }
 
 // ================================================ SIGN UP ==========================================================
-
+/**
+ * This function toggles the value of the privacy checkbox. 
+ */
 function toggleValue() {
     let privacyCheck = document.getElementById('privacyCheck');
     if(privacyCheck.value == "on") {
@@ -174,6 +169,9 @@ function toggleValue() {
     //console.log(privacyCheck.value);
 }
 
+/**
+ * This function toggles the passowrd input to be visible.
+ */
 function togglePassword() {
     let password = document.getElementById('password');
     if(password.type == "password") {
@@ -185,6 +183,9 @@ function togglePassword() {
     }
 }
 
+/**
+ * This function toggles the passowrd confirm input to be visible.
+ */
 function togglePasswordConfirm() {
     let password = document.getElementById('passwordConfirm');
     if(password.type == "password") {
@@ -397,6 +398,11 @@ async function login() {
     document.getElementById('loginScreenLoading').style.display = 'none';
 }
 
+/**
+ * This function greates a cookie value.
+ * @param {*} name 
+ * @returns 
+ */
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -443,6 +449,9 @@ function setUserName(user) {
     localStorage.setItem('userIdLogin', userIdLogin);
 }
 
+/**
+ * This function logs you in as a guest user. If the guest user does not already exist, it creates one.
+ */
 async function guestLogin() {
     document.getElementById('loginScreenLoading').style.display = 'flex';
     disableFields();
@@ -520,6 +529,9 @@ async function checkForCorrectEmail() {
 
 /* ================================================================= RESET PASSWORD ================================================================= */
 
+/**
+ * This function checks if the password reset link is still valid. The link only is valid for a cerain time.
+ */
 async function checkValidLink() {
     let urlParams = new URLSearchParams(window.location.search);
     let urlTimestamp = urlParams.get('ts');
@@ -584,6 +596,11 @@ async function resetPassword() {
     }
 }
 
+/**
+ * This function saves the timestamp to evaluate the validity of the password reset link. 
+ * @param {*} ikey 
+ * @param {*} timestampResetJsonAsString 
+ */
 async function saveTimestamp(ikey, timestampResetJsonAsString) {
     const csrfToken = getCookie("csrftoken");
     try{
@@ -599,7 +616,6 @@ async function saveTimestamp(ikey, timestampResetJsonAsString) {
         });
         let data = await response.json();
         console.log('OK');
-
     } catch {
         let error = 'Fehler beim Laden!';
         console.log(error);
@@ -658,6 +674,9 @@ function toggleLogoutButton() {
     }
 }
 
+/**
+ * This function hides the logout button.
+ */
 function hideLogoutButton() {
     let logoutButton = document.getElementById('logoutButton');
     logoutButton.style.display = "none";
