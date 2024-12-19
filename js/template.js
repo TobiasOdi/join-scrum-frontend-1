@@ -314,7 +314,7 @@ function renderSubtasksUndoneTemplate(currentTaskId, subtaskId, subtask){
     return `
         <div class="openSubtask">
             <input id="subtask${subtaskId}" type="checkbox" value="${subtaskId}" onclick="saveCompletedSubtasks(${currentTaskId}, ${subtaskId}, 'open')" checked>
-            <div>${subtask}</div>
+            <div class="subtaskContent">${subtask}</div>
         </div>
     `;
 }
@@ -328,7 +328,7 @@ function renderSubtasksTemplate(currentTaskId, subtaskId, subtask) {
     return `
         <div class="openSubtask">
             <input id="subtask${subtaskId}" type="checkbox" value="${subtaskId}" onclick="saveCompletedSubtasks(${currentTaskId}, ${subtaskId}, 'open')">
-            <div>${subtask}</div>
+            <div class="subtaskContent">${subtask}</div>
         </div>
     `;
 }
@@ -357,8 +357,15 @@ function subtasksEditUndoneTemplate(currentTaskId, subtask, subtaskId) {
     return `
         <div class="openSubtask">
             <input id="subtask${subtaskId}" type="checkbox" value="${subtaskId}" onclick="saveCompletedSubtasks(${currentTaskId}, ${subtaskId}, 'edit')" checked>
-            <div>${subtask}</div>
-            <img src="./img/delete.svg" onclick="deleteSubtaskEdit(${currentTaskId}, ${subtaskId}), doNotOpenTask(event)">
+            <div class="subtaskContent" id="subtaskBody${subtaskId}">${subtask}</div>
+            <div class="iconWrapper"> 
+                <div id="iconContainer${subtaskId}"> 
+                    <img src="./img/edit.png" onclick="editSubtask(${currentTaskId}, ${subtaskId}), doNotOpenTask(event)">
+                </div>
+                <div> 
+                    <img src="./img/delete.svg" onclick="deleteSubtaskEdit(${currentTaskId}, ${subtaskId}), doNotOpenTask(event)">
+                </div>
+            </div>
         </div>
     `;
 }
@@ -374,11 +381,20 @@ function subtasksEditTemplate(currentTaskId, subtask, subtaskId) {
     return `
         <div class="openSubtask">
             <input id="subtask${subtaskId}" type="checkbox" value="${subtaskId}" onclick="saveCompletedSubtasks(${currentTaskId}, ${subtaskId}, 'edit')">
-            <div>${subtask}</div>
-            <img src="./img/delete.svg" onclick="deleteSubtaskEdit(${currentTaskId}, ${subtaskId}), doNotOpenTask(event)">
+            <div class="subtaskContent" id="subtaskBody${subtaskId}">${subtask}</div>
+            <div class="iconWrapper"> 
+                <div id="iconContainer${subtaskId}"> 
+                    <img src="./img/edit.png" onclick="editSubtask(${currentTaskId}, ${subtaskId}), doNotOpenTask(event)">
+                </div>
+                <div> 
+                    <img src="./img/delete.svg" onclick="deleteSubtaskEdit(${currentTaskId}, ${subtaskId}), doNotOpenTask(event)">
+                </div>
+            </div>
         </div>
     `;
 }
+
+
 
 /* ========================================= OPEN TASK - ASSIGNED USERS TEMPLATE ========================================= */
 /**

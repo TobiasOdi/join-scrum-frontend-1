@@ -17,30 +17,35 @@ let green = "#7AE229";
  * redirected to the login page.
  */
 async function checkForLoggedInUser() {
-    let tokenCheck = {'token': localStorage.getItem("token")};
-    let tokenCheckAsString = JSON.stringify(tokenCheck);
-    const csrfToken = getCookie("csrftoken");
-    try {
-        let response = await fetch('http://127.0.0.1:8000/token_check/', {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json"
-            },
-            body: tokenCheckAsString
-        });
-        let data = await response.json();
-        if(localStorage.getItem("token") && data.status == 1) {
-            console.log("User is authenticated");
-        } else {
-            window.location.href = "./templates/login.html";
-        }
-    } catch(error) {
+    if(localStorage.getItem("token") == null) {
         window.location.href = "./templates/login.html";
-        console.log('An error occured', error);
         enableFieldsSignUp(); 
-    } 
+    } else {
+        let tokenCheck = {'token': localStorage.getItem("token")};
+        let tokenCheckAsString = JSON.stringify(tokenCheck);
+        const csrfToken = getCookie("csrftoken");
+    
+        try {
+            let response = await fetch('http://127.0.0.1:8000/token_check/', {
+                method: 'POST',
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                    "Accept":"application/json", 
+                    "Content-Type":"application/json"
+                },
+                body: tokenCheckAsString
+            });
+            let data = await response.json();
+            if(localStorage.getItem("token") && data.status == 1) {
+                console.log("User is authenticated");
+            } else {
+                window.location.href = "./templates/login.html";
+            }
+        } catch(error) {
+            console.log('An error occured', error);
+        }
+    }
+
 }
 
 /**
@@ -107,21 +112,14 @@ async function loadData() {
             }
         });
         let data = await response.json();
-        //console.log(data);
         tasks = data['tasks'];
-        //console.log("Tasks", tasks);
         subtasksLoad = data['subtasks'];
-        //console.log("Subtasks", subtasksLoad);
         assignedContacts = data['assignedContacts'];
-        //console.log("Assigned Contacts", assignedContacts);
         contacts = data['contacts'];
-        //console.log("Contacts", contacts);
 
         if(data['categories'].length !== 0){
             categories = data['categories'];
-            //console.log("Categories exist", categories);
         } else {
-            //console.log("Categories not exist", categories);
             let categoriesAsString = JSON.stringify(categories);
             const csrfToken = getCookie("csrftoken");
             try {
@@ -140,7 +138,6 @@ async function loadData() {
                 enableFieldsSignUp(); 
             } 
         }
-        //console.log("Contacts", categories);   
     } catch {
         let error = 'Fehler beim Laden!';
         console.log(error);

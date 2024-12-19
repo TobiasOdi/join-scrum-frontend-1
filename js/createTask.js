@@ -151,31 +151,12 @@ function setTaskParameters() {
     //let assignTo = selectedUsers;
     let dueDate = document.getElementById('dueDate');
     let priorityValue = priority;
-    //subtasks array> is beeing set wehn adding an subtask
-    //taskData = {taskId: taskId, statusCategory: statusCategory, title: title.value, description: description.value, category: category, categoryColor: categoryColor, assignTo: assignTo, dueDate: dueDate.value, priorityValue: priorityValue, subtasks: subtasks};
+    //subtasks array > is beeing set wehn adding an subtask
     let taskData = [{statusCategory: statusCategory, title: title.value, description: description.value, category: category, due_date: dueDate.value, priorityValue: priorityValue}];
     let assignedToData = selectedUsers;
     let subtaskData = subtasks;
     data = [{"taskData": taskData, "assignedToData": assignedToData, "subtaskData": subtaskData}];
 }
-
-/* function compileAssigendToData() {
-    let assignedToDataRaw = [];
-    for (let i = 0; i < selectedUsers.length; i++) {
-        const element = selectedUsers[i];
-        let existingUser = contacts.find(u => u.pk == element);
-
-        if(existingUser) {
-            assignedToDataRaw.push({
-                "user_id": existingUser.pk,
-                "contactColor": existingUser.color,
-                "first_name": existingUser.first_name,
-                "last_name": existingUser.last_name
-            })
-        }
-    }
-    return assignedToDataRaw;
-} */
 
 async function saveCreatedTask() {
     const csrfToken = getCookie("csrftoken");
@@ -350,18 +331,6 @@ function renderAvailableUsers() {
         avatarPicker.innerHTML += assignUserTemplate(availableUserId, userColor, firstLetters, userName, userSurname);
     }
 }
-
-/**
- * This function returns the first letter of the name and surname of the current user.
- * @param {index} i - index of the current user
- */
-/* function getFirstLetterAvailableUser(i) {
-    let x = contacts[i]['name'];
-    x = x.split(' ').map(word => word.charAt(0)).join('');
-    let y = contacts[i]['surname'];
-    y = y.split(' ').map(word => word.charAt(0)).join('');
-    firstLettersAvailableUser = x.toUpperCase() + y.toUpperCase();
-} */
 
 /**
  * This function selects a user. Adds classes to the div's and pushes the user id to the "selectedUsers" array.

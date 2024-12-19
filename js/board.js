@@ -99,18 +99,6 @@ function createBubbles(taskId) {
         userBubbles(bubbleTaskId, bubbleCount, assignedUsers);
         getRemainingCount(bubbleTaskId, assignedUserCount);
     }
-/*     for (let j = 0; j < tasks.length; j++) {
-        let bubbleTaskId = tasks[j]["id"];
-        let assignedUsers = assignedContacts.filter(c => c["parent_task_id"] == tasks[j]["id"]);
-        if(assignedUsers.length <= 3) {
-            let bubbleCount = assignedUsers.length;    
-            userBubbles(j, bubbleTaskId, bubbleCount, assignedUsers);
-        } else if (assignedUsers.length > 3) {
-            let bubbleCount = 2;
-            userBubbles(j, bubbleTaskId, bubbleCount, assignedUsers);
-            getRemainingCount(j, bubbleTaskId);
-        }
-    } */
 }
 
 /**
@@ -444,7 +432,6 @@ async function deleteTask(currentTaskIndex) {
 
 async function deleteTaskFromServer(currentTask) {
     let token = localStorage.getItem('token', data.token);
-    //let taskAsString = JSON.stringify(currentTask);
     const csrfToken = getCookie("csrftoken");
     try {
         let response = await fetch(`http://127.0.0.1:8000/tasks/delete_task/${currentTask.id}/`, {
@@ -455,7 +442,6 @@ async function deleteTaskFromServer(currentTask) {
                 "X-CSRFToken": csrfToken,
                 "Authorization": `Token ${token}`
             },
-            //body: taskAsString
             });
     } catch(e) {
         console.log('Deleting task was not possible', error);
@@ -571,6 +557,48 @@ async function addSubtaskEdit(currentTaskId) {
     } else {
         displaySnackbar('missingInput');
     }
+}
+
+/**
+ * This function deletes the subtask.
+ */
+function editSubtask(currentTaskId, subtaskId) {
+    let currentSubtask = subtasksLoad.find(s => s.id == subtaskId);
+    let index = subtasksLoad.indexOf(currentSubtask);
+    document.getElementById('subtaskBody' + subtaskId).innerHTML = "";
+    document.getElementById('iconContainer' + subtaskId).innerHTML = "";
+    document.getElementById('subtaskBody' + subtaskId).innerHTML += `<input id="subtaskBodyEdit${subtaskId}" type="text" value="${currentSubtask['subtaskName']}">`;
+    document.getElementById('iconContainer' + subtaskId).innerHTML += `
+        <img src="./img/discard.png" onclick="discardEditedSubtask(${currentTaskId}, ${subtaskId}), doNotOpenTask(event)">
+        <img src="./img/download.png" onclick="saveEditedSubtask(${currentTaskId}, ${subtaskId}, ${index}), doNotOpenTask(event)">
+    `;
+}
+
+/**
+ * This function saves the content of the subtask.
+ * @param {*} currentTaskId - Id of the current task
+ * @param {*} subtaskId - Id of the current subtask
+ * @param {*} index
+ */
+function saveEditedSubtask(currentTaskId, subtaskId, index) {
+    let subtaskText = document.getElementById('subtaskBodyEdit' + subtaskId);
+    if(subtaskText.value == "") {
+        //Snackbar
+    } else {
+        subtasksLoad[index]['subtaskName'] = subtaskText.value;
+        subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);   
+        renderSubtasksEdit(currentTaskId);
+    }
+}
+
+/**
+ * This function discards the content change of the subtask.
+ * @param {*} currentTaskId - Id of the current task
+ * @param {*} subtaskId - Id of the current subtask
+ */
+function discardEditedSubtask(currentTaskId, subtaskId) {
+    subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);   
+    renderSubtasksEdit(currentTaskId);
 }
 
 /**
@@ -736,20 +764,6 @@ function setEditedTaskParameters(index, currentTaskId) {
     let subtaskData = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
     editedData = [{"taskData": taskData, "assignedToData": assignedToData, "subtaskData": subtaskData}];
 }
-
-
-/**
- * This function returns the current category color.
- * @param {string} editCategory - name of the chosen category
- * @returns 
- */
-/* function addBackgroundColorCategory(editCategory) {
-    let existingCategory = categories.find(c => c.categoryName == editCategory);
-    let currentCategory = categories.indexOf(existingCategory);
-    let currentCategoryColor = categories[currentCategory]['color'];
-    return currentCategoryColor;
-}
- */
 
 
 async function saveEditedTaskToServer(currentTaskId) {

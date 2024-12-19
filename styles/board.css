@@ -671,7 +671,7 @@
   cursor: pointer;
 }
 
-.openSubtask > div:last-of-type {
+.subtaskContent {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -680,7 +680,27 @@
   border-radius: 50%;
 }
 
-.openSubtask > img {
+.subtaskContent > input {
+  width: 100%;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.iconWrapper,
+.iconWrapper div  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.iconWrapper div {
+  border-radius: 50%;
+
+}
+
+.openSubtask img {
   width: 15px;
   height: 15px;
   cursor: pointer;
