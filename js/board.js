@@ -870,8 +870,6 @@ function searchFunction() {
             return task.title.toLowerCase().includes(document.getElementById('searchValue').value) || task.description.toLowerCase().includes(document.getElementById('searchValue').value) || task.category.toLowerCase().includes(document.getElementById('searchValue').value);
         });
         tasks = newSearchArray;
-        //console.log(newSearchArray);
-        //console.log(tasks);
         updateHTML();
         tasks = originalTasks;
     } else {

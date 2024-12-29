@@ -36,11 +36,11 @@ async function checkForLoggedInUser() {
                 body: tokenCheckAsString
             });
             let data = await response.json();
-            if(localStorage.getItem("token") && data.status == 1) {
-                console.log("User is authenticated");
-            } else {
+
+            if(localStorage.getItem("token") && data.status != 1) {
                 window.location.href = "./templates/login.html";
             }
+
         } catch(error) {
             console.log('An error occured', error);
         }
@@ -166,7 +166,6 @@ function toggleValue() {
     } else {
         privacyCheck.value = "on";
     }
-    //console.log(privacyCheck.value);
 }
 
 /**
@@ -562,7 +561,6 @@ async function checkValidLink() {
             });
             let data = await response.json();
             timestampReset = data['timestamp'];
-            //console.log("Timestamp", timestampReset);
         } catch {
             let error = 'Fehler beim Laden!';
             console.log(error);
@@ -615,7 +613,6 @@ async function saveTimestamp(ikey, timestampResetJsonAsString) {
             body: timestampResetJsonAsString
         });
         let data = await response.json();
-        console.log('OK');
     } catch {
         let error = 'Fehler beim Laden!';
         console.log(error);
