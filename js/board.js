@@ -9,6 +9,7 @@ let startWithLetter = [];
 let selectedUsersEdit = [];
 let userSubtasks = [];
 let subtasksEdit = [];
+let openSubtask = 0;
 let editedData = [];
 let backupSubtasks = [];
 let backupAssignedContacts = [];
@@ -571,6 +572,7 @@ async function addSubtaskEdit(currentTaskId) {
  * This function deletes the subtask.
  */
 function editSubtask(currentTaskId, subtaskId) {
+    openSubtask = 1;
     let currentSubtask = subtasksLoad.find(s => s.id == subtaskId);
     let index = subtasksLoad.indexOf(currentSubtask);
     document.getElementById('subtaskBody' + subtaskId).innerHTML = "";
@@ -583,30 +585,32 @@ function editSubtask(currentTaskId, subtaskId) {
 }
 
 /**
+ * This function discards the content change of the subtask.
+ * @param {*} currentTaskId - Id of the current task
+ * @param {*} subtaskId - Id of the current subtask
+ */
+function discardEditedSubtask(currentTaskId, subtaskId) {
+    openSubtask = 0;
+    subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);   
+    renderSubtasksEdit(currentTaskId);
+}
+
+/**
  * This function saves the content of the subtask.
  * @param {*} currentTaskId - Id of the current task
  * @param {*} subtaskId - Id of the current subtask
  * @param {*} index
  */
 function saveEditedSubtask(currentTaskId, subtaskId, index) {
+    openSubtask = 0;
     let subtaskText = document.getElementById('subtaskBodyEdit' + subtaskId);
     if(subtaskText.value == "") {
-        //Snackbar
+        displaySnackbar('emptySubtaskText');
     } else {
         subtasksLoad[index]['subtaskName'] = subtaskText.value;
         subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);   
         renderSubtasksEdit(currentTaskId);
     }
-}
-
-/**
- * This function discards the content change of the subtask.
- * @param {*} currentTaskId - Id of the current task
- * @param {*} subtaskId - Id of the current subtask
- */
-function discardEditedSubtask(currentTaskId, subtaskId) {
-    subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);   
-    renderSubtasksEdit(currentTaskId);
 }
 
 /**
@@ -748,18 +752,23 @@ async function saveEditedTask(currentTaskId, currentCategoryColor) {
     editedData = [];
     let currentTask = tasks.find(t => t.id == currentTaskId);
     let index = tasks.indexOf(currentTask);
-    if(document.getElementById('titleEdit').value !== "" && selectedUsersEdit.length !== 0) {
-        setEditedTaskParameters(index, currentTaskId);
-        await saveEditedTaskToServer(currentTaskId);
-        priority = "";
-        selectedUsersEdit = [];
-        subtasksEdit = [];
-        await loadData();
-        updateHTML();
-        document.getElementById('openTaskBackground').style.display = 'none';
-        document.getElementById('openTaskBackgroundEdit').style.display = 'none';
+    
+    if(openSubtask == 0) {
+        if(document.getElementById('titleEdit').value !== "" && selectedUsersEdit.length !== 0) {
+            setEditedTaskParameters(index, currentTaskId);
+            await saveEditedTaskToServer(currentTaskId);
+            priority = "";
+            selectedUsersEdit = [];
+            subtasksEdit = [];
+            await loadData();
+            updateHTML();
+            document.getElementById('openTaskBackground').style.display = 'none';
+            document.getElementById('openTaskBackgroundEdit').style.display = 'none';
+        } else {
+            highlightInputsEditTask(); 
+        }
     } else {
-        highlightInputsEditTask(); 
+        displaySnackbar('openSubtask');
     }
 }
 
@@ -818,6 +827,7 @@ function savePriorityValueEdit(priority, currentTask) {
  */
 function closeTask(priority, currentTask) {
     //subtasksLoad = backupSubtasks;
+    openSubtask = 0;
     assignedContacts = backupAssignedContacts;
     savePriorityValueEdit(priority, currentTask);
     document.getElementById('openTaskBackground').style.display = 'none';

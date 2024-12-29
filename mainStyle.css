@@ -467,7 +467,9 @@ button[disabled]{
 #activeUserDelete,
 #pwAlreadyReset,
 #linkExpired,
-#passwordsNotIdentical {
+#passwordsNotIdentical,
+#openSubtask,
+#emptySubtaskText {
   visibility: hidden; /* Hidden by default. Visible on click */
   min-width: 280px; /* Set a default minimum width */
   margin-left: -140px; /* Divide value of min-width by 2 */
@@ -494,7 +496,7 @@ button[disabled]{
   height: 25px;
 }
 
-#missingInput, #missingSignedUp, #contactAllreadyExists, #activeUser, #activeUserDelete, #pwAlreadyReset, #passwordsNotIdentical {
+#missingInput, #missingSignedUp, #contactAllreadyExists, #activeUser, #activeUserDelete, #pwAlreadyReset, #passwordsNotIdentical, #openSubtask, #emptySubtaskText {
   background-color: red;
 }
 
@@ -522,7 +524,9 @@ button[disabled]{
 #activeUserDelete.show,
 #pwAlreadyReset.show,
 #linkExpired.show,
-#passwordsNotIdentical.show {
+#passwordsNotIdentical.show,
+#openSubtask.show,
+#emptySubtaskText.show {
   visibility: visible; /* Show the snackbar */
   /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
   However, delay the fade out process for 2.5 seconds */
