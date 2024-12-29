@@ -9,7 +9,7 @@ let startWithLetter = [];
 let selectedUsersEdit = [];
 let userSubtasks = [];
 let subtasksEdit = [];
-let openSubtask = 0;
+let openSubtasks = [];
 let editedData = [];
 let backupSubtasks = [];
 let backupAssignedContacts = [];
@@ -572,7 +572,7 @@ async function addSubtaskEdit(currentTaskId) {
  * This function deletes the subtask.
  */
 function editSubtask(currentTaskId, subtaskId) {
-    openSubtask = 1;
+    openSubtasks.push(subtaskId);
     let currentSubtask = subtasksLoad.find(s => s.id == subtaskId);
     let index = subtasksLoad.indexOf(currentSubtask);
     document.getElementById('subtaskBody' + subtaskId).innerHTML = "";
@@ -590,7 +590,10 @@ function editSubtask(currentTaskId, subtaskId) {
  * @param {*} subtaskId - Id of the current subtask
  */
 function discardEditedSubtask(currentTaskId, subtaskId) {
-    openSubtask = 0;
+    let currentOpenSubtask = openSubtasks.find(s => s == subtaskId);
+    let index = openSubtasks.indexOf(currentOpenSubtask);
+    openSubtasks.splice(index, 1);
+
     subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);   
     renderSubtasksEdit(currentTaskId);
 }
@@ -602,7 +605,10 @@ function discardEditedSubtask(currentTaskId, subtaskId) {
  * @param {*} index
  */
 function saveEditedSubtask(currentTaskId, subtaskId, index) {
-    openSubtask = 0;
+    let currentOpenSubtask = openSubtasks.find(s => s == subtaskId);
+    let indexOpenSubtask = openSubtasks.indexOf(currentOpenSubtask);
+    openSubtasks.splice(indexOpenSubtask, 1);
+
     let subtaskText = document.getElementById('subtaskBodyEdit' + subtaskId);
     if(subtaskText.value == "") {
         displaySnackbar('emptySubtaskText');
@@ -753,7 +759,7 @@ async function saveEditedTask(currentTaskId, currentCategoryColor) {
     let currentTask = tasks.find(t => t.id == currentTaskId);
     let index = tasks.indexOf(currentTask);
     
-    if(openSubtask == 0) {
+    if(openSubtasks.length == 0) {
         if(document.getElementById('titleEdit').value !== "" && selectedUsersEdit.length !== 0) {
             setEditedTaskParameters(index, currentTaskId);
             await saveEditedTaskToServer(currentTaskId);
@@ -827,7 +833,7 @@ function savePriorityValueEdit(priority, currentTask) {
  */
 function closeTask(priority, currentTask) {
     //subtasksLoad = backupSubtasks;
-    openSubtask = 0;
+    openSubtasks = [];
     assignedContacts = backupAssignedContacts;
     savePriorityValueEdit(priority, currentTask);
     document.getElementById('openTaskBackground').style.display = 'none';
