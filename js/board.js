@@ -717,7 +717,6 @@ async function saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId) {
     let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     let subtaskAsString = JSON.stringify(currentSubtaskElement);
-    console.log("subtaskAsString", subtaskAsString);
     try {
         let response = await fetch(`http://127.0.0.1:8000/tasks/save_subtask_status/${subtaskId}/`, {
             method: 'POST',
