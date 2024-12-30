@@ -216,13 +216,14 @@ function openContactInfo(c) {
     activeContact(c);
     let contactInformation = document.getElementById('contactsContent');
     contactInformation.innerHTML = '';
+    let contactId = contacts[c]['id'];
     let contactInfoName = contacts[c]['first_name'];
     let contactInfoSurname = contacts[c]['last_name'];
     let contactInfoEmail = contacts[c]['email'];
     let contactInfoPhone = contacts[c]['phone'];
     let contactInfoBgColor = contacts[c]['color'];
     getFirstletter(c);
-    contactInformation.innerHTML += contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, c, contactInfoEmail, contactInfoPhone, contactInfoBgColor);
+    contactInformation.innerHTML += contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, c, contactInfoEmail, contactInfoPhone, contactInfoBgColor, contactId);
     document.getElementById('contactIconBig' + c).style.backgroundColor = contactInfoBgColor;
     document.getElementById('contactDetails' + c).style.animation = 'flying 225ms ease-in-out';
     checkWindowWidth();

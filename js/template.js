@@ -635,7 +635,7 @@ function sortedContactsTemplate(c, contactBgColor, firstLetters, contactListName
  * @param {string} contactInfoBgColor - color of the contact
  * @returns 
  */
-function contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, c, contactInfoEmail, contactInfoPhone, contactInfoBgColor) {
+function contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, c, contactInfoEmail, contactInfoPhone, contactInfoBgColor, contactId) {
     return `
             <div class="contactDetails" id="contactDetails${c}">
                 <div>
@@ -651,7 +651,7 @@ function contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, 
                                 <span>${contactInfoSurname}</span>
                             </div>
                         </div>
-                        <div onclick="initCreateTask(), displayPage('mainAddTaskContainerDisplay'), activeTab('addTask')" class="addTask">
+                        <div onclick="initCreateTask(), displayPage('mainAddTaskContainerDisplay'), activeTab('addTask'), selectUser(${contactId})" class="addTask">
                             <img src="./img/plus.svg"><span>Add Task</span>
                         </div>
                     </div>
