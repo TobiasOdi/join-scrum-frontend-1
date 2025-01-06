@@ -128,12 +128,13 @@ async function createTask() {
     if (document.getElementById('title').value && document.getElementById('description').value && document.getElementById('dueDate').value && priority && categoryValue != "" && selectedUsers.length !== 0) {
         setTaskParameters();
         await saveCreatedTask();
+        await loadData();
         displaySnackbar('taskCreated');
         clearAllInputs();
         document.getElementById('avatarPicker').classList.add('d-none');
-        await includeHTML();
-        updateHTML();
         displayPage('mainBoardContainerDisplay');
+        updateHTML();
+        activeTab('board');
     } else {
         highlightInputs(); 
     }

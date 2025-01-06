@@ -416,18 +416,16 @@ async function deleteTask(currentTaskIndex) {
     let currentTask = tasks[currentTaskIndex];
     if(tasks.length > 1) {
         tasks.splice(currentTaskIndex, 1);
-        deleteTaskFromServer(currentTask);
-        await includeHTML();
+        await deleteTaskFromServer(currentTask);
         await loadData();
         updateHTML();
         document.getElementById('openTaskBackground').style.display = 'none';
     } else {
         tasks.splice(currentTaskIndex, 1);
-        deleteTaskFromServer(currentTask);
-        document.getElementById('openTaskBackground').style.display = 'none';
-        await includeHTML();
+        await deleteTaskFromServer(currentTask);
         await loadData();
         updateHTML();
+        document.getElementById('openTaskBackground').style.display = 'none';
     }
 }
 
