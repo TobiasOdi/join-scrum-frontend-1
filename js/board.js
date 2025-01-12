@@ -118,6 +118,7 @@ function userBubbles(bubbleTaskId, bubbleCount, assignedUsers) {
             <div class="userBubbleOne" id="userBubbleOne${bubbleTaskId}${[i]}">${name}</div>`;
         let userBubble = document.getElementById(`userBubbleOne${bubbleTaskId}${[i]}`);
         userBubble.style.backgroundColor = getUserColor(ac);
+        userBubble.style.color = getUserTextColor(ac);
     }
 }
 
@@ -145,12 +146,19 @@ function getName(assignedUser) {
  * @returns 
  */
 function getUserColor(assignedUser) {
-    //let assignedUser = assignedUser[i];
-    //let existingUser = contacts.find(u => u.contactId == parseInt(assignedUser));
-    //let correctUser = contacts.indexOf(existingUser);
-    //let assignColor = contacts[correctUser]['contactColor'];
     let assignColor = assignedUser['color'];
     return assignColor;
+}
+
+/**
+ * This function returns the color of the user.
+ * @param {array} assignedUsers - array of the assigned users ot the current task
+ * @param {index} i - index
+ * @returns 
+ */
+function getUserTextColor(assignedUser) {
+    let assignTextColor = assignedUser['text_color'];
+    return assignTextColor;
 }
 
 /**
@@ -165,17 +173,6 @@ function getRemainingCount(bubbleTaskId, assignedUserCount) {
         `;
     let userBubbleOne = document.getElementById(`userBubbleOne${bubbleTaskId}${[2]}`);
     userBubbleOne.style.backgroundColor = "black";
-}
-
-/**
- * This function generates and returns a random color.
- * @returns 
- */
-function generateRandomColor() {
-    let r = Math.floor(Math.random() * 256);
-    let g = Math.floor(Math.random() * 256);
-    let b = Math.floor(Math.random() * 256);
-    return `rgb(${r}, ${g}, ${b})`;
 }
 
 /**
@@ -376,7 +373,8 @@ function renderAssignedUsers(currentTaskId) {
         let assignName = ac['first_name'];
         let assignSurname = ac['last_name'];
         let assignColor = ac['color'];
-        document.getElementById('assignedToContainer').innerHTML += renderAssignedUserTemplate(assignColor, firstLetters, assignName, assignSurname);
+        let assignTextColor = ac['text_color'];
+        document.getElementById('assignedToContainer').innerHTML += renderAssignedUserTemplate(assignColor, assignTextColor, firstLetters, assignName, assignSurname);
     }
 }
 
@@ -578,7 +576,7 @@ function editSubtask(currentTaskId, subtaskId) {
     document.getElementById('subtaskBody' + subtaskId).innerHTML += `<input id="subtaskBodyEdit${subtaskId}" type="text" value="${currentSubtask['subtaskName']}">`;
     document.getElementById('iconContainer' + subtaskId).innerHTML += `
         <img src="./img/discard.png" onclick="discardEditedSubtask(${currentTaskId}, ${subtaskId}), doNotOpenTask(event)">
-        <img src="./img/download.png" onclick="saveEditedSubtask(${currentTaskId}, ${subtaskId}, ${index}), doNotOpenTask(event)">
+        <img id="${'saveSubtaskIcon' + subtaskId}" class="saveSubtaskIcon" src="./img/download.png" onclick="saveEditedSubtask(${currentTaskId}, ${subtaskId}, ${index}), doNotOpenTask(event)">
     `;
 }
 
@@ -688,7 +686,6 @@ async function saveCompletedSubtasks(currentTaskId, subtaskId, taskStatus) {
             renderSubtasks(currentTaskId);
         } else {
             subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
-            //renderSubtasksEdit(currentTaskId);
         }   
         await saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId);
     }
@@ -700,7 +697,6 @@ async function saveCompletedSubtasks(currentTaskId, subtaskId, taskStatus) {
             renderSubtasks(currentTaskId);
         } else {
             subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
-            //renderSubtasksEdit(currentTaskId);
         }
         await saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId);
     } 
@@ -772,6 +768,14 @@ async function saveEditedTask(currentTaskId, currentCategoryColor) {
         }
     } else {
         displaySnackbar('openSubtask');
+        for (let i = 0; i < openSubtasks.length; i++) {
+            const openSubtask = openSubtasks[i];
+            let icon = document.getElementById('saveSubtaskIcon' + openSubtask);
+            icon.style.boxShadow = '0 0 2px 2px red';
+            setTimeout(() => {
+                icon.style.boxShadow = 'none';
+            }, 3000);
+        }
     }
 }
 

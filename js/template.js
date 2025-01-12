@@ -405,11 +405,11 @@ function subtasksEditTemplate(currentTaskId, subtask, subtaskId) {
  * @param {string} assignSurname - surname of the assigned user
  * @returns 
  */
-function renderAssignedUserTemplate(assignColor, firstLetters, assignName, assignSurname){
+function renderAssignedUserTemplate(assignColor, assignTextColor, firstLetters, assignName, assignSurname){
     return `
         <div class="openTaskAssignedPerson">
             <div style="background-color: ${assignColor};">
-                <span>${firstLetters.toUpperCase()}</span>
+                <span style="color: ${assignTextColor}">${firstLetters.toUpperCase()}</span>
             </div>
             <div>${assignName} ${assignSurname}</div>
         </div>
@@ -428,7 +428,7 @@ function selectedAssignedUsersEditTemplate(assignedContactId, i, firstLetters, c
     return `
         <div id="edit${assignedContactId}" class="avatarContainer avatarSelected" onclick="saveSelectedUsersEdit(${assignedContactId}, ${currentTaskId})">
             <div id="editIcon${assignedContactId}" class="avatar avatarSelectedIcon" style="background-color: ${contacts[i]['color']};">
-                <div>${firstLetters}</div>
+                <div style="color: ${contacts[i]['text_color']};">${firstLetters}</div>
             </div>
             <div class="nameText">
                 <div>${contacts[i]['first_name']} ${contacts[i]['last_name']}</div>
@@ -448,7 +448,7 @@ function notSelectedAssignedUsersEditTemplate(assignedContactId, i, firstLetters
     return `
         <div id="edit${assignedContactId}" class="avatarContainer" onclick="saveSelectedUsersEdit(${assignedContactId}, ${currentTaskId})">
             <div id="editIcon${assignedContactId}" class="avatar" style="background-color: ${contacts[i]['color']};">
-                <div>${firstLetters}</div>
+                <div style="color: ${contacts[i]['text_color']};">${firstLetters}</div>
             </div>
             <div class="nameText">
                 <div>${contacts[i]['first_name']} ${contacts[i]['last_name']}</div>

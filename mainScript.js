@@ -106,7 +106,6 @@ async function loadData() {
         subtasksLoad = data['subtasks'];
         assignedContacts = data['assignedContacts'];
         contacts = data['contacts'];
-        console.log(contacts);
 
         if(data['categories'].length !== 0){
             categories = data['categories'];
@@ -274,15 +273,9 @@ async function validateSignup(userData) {
         let data = await response.json();
         if(data.status == 1) {
             displaySnackbar('alreadySignedUp');
-            document.getElementById('name').value = '';
-            document.getElementById('surname').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('passwordConfirm').value = '';
-            document.getElementById('userColor').value = '';
+            clearAllSignupInputs();
             enableFieldsSignUp(); 
             document.getElementById('signUpScreenLoading').style.display = 'none';
-
         } else {
             displaySnackbar('successfullySignedUp');
             setInterval(backToLoginScreen, 1200);
@@ -315,6 +308,20 @@ function enableFieldsSignUp() {
     document.getElementById('password').disabled = false;
     document.getElementById('passwordConfirm').disabled = false;
     document.getElementById('userColor').disabled = false;
+}
+
+/**
+ * This function clears all input fields.
+ */
+function clearAllSignupInputs() {
+    document.getElementById('name').value = '';
+    document.getElementById('surname').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('passwordConfirm').value = '';
+    document.getElementById('userColor').value = '';
+    document.getElementById('privacyCheck').value = "on";
+    document.getElementById('privacyCheck').checked = false;
 }
 
  /**
@@ -355,6 +362,14 @@ async function saveUsers() {
 }
 
 // ================================================ LOGIN ==========================================================
+/**
+ * This function clears all input fields.
+ */
+function clearAllLoginInputs() {
+    document.getElementById('emailLog').value = '';
+    document.getElementById('passwordLog').value = '';
+}
+
 /**
  * This event listener lets you lets you login with the enter key.
  */
@@ -481,7 +496,8 @@ async function guestLogin() {
         email: 'guest@guest.com', 
         password: 'Hallo_123', 
         phone: '-', 
-        color: 'rgb(0, 128, 0)'
+        color: 'rgb(0, 128, 0)',
+        text_color: 'rgb(255, 255, 255)'
     };
     let guestUserDataString = JSON.stringify(guestUserData);
 
@@ -497,6 +513,7 @@ async function guestLogin() {
         });
         let data = await response.json();
         localStorage.setItem('userColor', data.userColor);
+        localStorage.setItem('userTextColor', data.userTextColor);
         localStorage.setItem('userName', data.firstname);
         localStorage.setItem('token', data.token);
         window.location.href = "http://127.0.0.1:5500/index.html";
