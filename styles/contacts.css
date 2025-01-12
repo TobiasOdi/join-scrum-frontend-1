@@ -127,7 +127,7 @@
 
 .contactIcon > span {
   font-size: 14px;
-  color: white;
+  /* color: white; */
 }
 
 .contact > div:last-of-type > div {
@@ -234,6 +234,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: 30px;
 }
 
 .contactDetails > div:first-of-type > div:first-of-type {
@@ -242,7 +243,6 @@
   align-items: center;
   width: 120px;
   height: 120px;
-  margin-right: 30px;
 }
 
 .contactIconBig {
@@ -624,7 +624,7 @@
   cursor: pointer;
 }
 
-.cancleButton {
+.cancelButton {
   background-color: white;
   width: 145px;
   height: 51px;
@@ -720,9 +720,6 @@
     margin-top: 5px;
   }
 
-  .contactDetails > div:first-of-type > div:first-of-type {
-    margin-right: 40px;
-  }
   .contactInformationHeader {
     justify-content: space-between;
     gap: 0;
@@ -880,7 +877,7 @@
     padding: 0;
   }
 
-  .cancleButton,
+  .cancelButton,
   .createContact {
     width: auto;
   }
@@ -967,10 +964,6 @@
   .editContact img {
     height: 27px;
     width: 18px;
-  }
-
-  .contactDetails > div:first-of-type > div:first-of-type {
-    margin-right: 20px;
   }
 
   .deleteContact span {

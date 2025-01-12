@@ -327,9 +327,10 @@ function renderAvailableUsers() {
         let userName = contacts[i]['first_name'];
         let userSurname = contacts[i]['last_name'];
         let userColor = contacts[i]['color'];
+        let userTextColor = contacts[i]['text_color'];
         getFirstletter(i);
         //getFirstLetterAvailableUser(i);
-        avatarPicker.innerHTML += assignUserTemplate(availableUserId, userColor, firstLetters, userName, userSurname);
+        avatarPicker.innerHTML += assignUserTemplate(availableUserId, userColor, userTextColor,firstLetters, userName, userSurname);
     }
 }
 
@@ -394,9 +395,10 @@ function selectedUsersAvailableLessThenTen() {
         let existingUser = contacts.find(u => u.id == contactId);
         let currentUser = contacts.indexOf(existingUser);
         let userColor = contacts[currentUser]['color'];
+        let userTextColor = contacts[currentUser]['text_color'];
         //getFirstLetterAvailableUser(currentUser);
         getFirstletter(currentUser);
-        selectedUsersPlaceholder.innerHTML += selectedUsersPlaceholderTemplate(userColor, firstLetters);
+        selectedUsersPlaceholder.innerHTML += selectedUsersPlaceholderTemplate(userColor, userTextColor, firstLetters);
     }
 }
 
@@ -410,9 +412,10 @@ function selectedUsersAvailableMoreThenTen() {
         let existingUser = contacts.find(u => u.contactId == contactId);
         let currentUser = contacts.indexOf(existingUser);
         let userColor = contacts[currentUser]['contactColor'];
+        let userTextColor = contacts[currentUser]['text_color'];
         //getFirstLetterAvailableUser(currentUser);
         getFirstletter(currentUser);
-        selectedUsersPlaceholder.innerHTML += selectedUsersPlaceholderTemplate(userColor, firstLetters);
+        selectedUsersPlaceholder.innerHTML += selectedUsersPlaceholderTemplate(userColor, userTextColor, firstLetters);
     }
     let remainingUsers = selectedUsers.length - 9;
     selectedUsersPlaceholder.innerHTML += selectedUsersPlaceholderTemplateOthers(remainingUsers);

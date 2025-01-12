@@ -531,11 +531,11 @@ function assignToPlaceholderTemplate() {
  * @param {string} userSurname  - surname of the user
  * @returns 
  */
-function assignUserTemplate(availableUserId, userColor, firstLetters, userName, userSurname) {
+function assignUserTemplate(availableUserId, userColor, userTextColor, firstLetters, userName, userSurname) {
     return `
         <div id="${availableUserId}" class="avatarContainer" onclick="selectUser(${availableUserId}), doNotAdd(event)">
             <div id="icon${availableUserId}"class="avatar" style="background-color: ${userColor};">
-                <div>${firstLetters}</div>
+                <div style="color: ${userTextColor};">${firstLetters}</div>
             </div>
             <div class="nameText">
                 <div>${userName} ${userSurname}</div>
@@ -550,11 +550,11 @@ function assignUserTemplate(availableUserId, userColor, firstLetters, userName, 
  * @param {string} firstLetters  - first letter of the name and surname
  * @returns 
  */
-function selectedUsersPlaceholderTemplate(userColor, firstLetters) {
+function selectedUsersPlaceholderTemplate(userColor, userTextColor, firstLetters) {
     return `
         <div class="avatarContainer avatarContainerSelected">
             <div class="avatar avatarSelectedIconPlaceholder" style="background-color: ${userColor};">
-                <div>${firstLetters}</div>
+                <div style="color: ${userTextColor};">${firstLetters}</div>
             </div>
         </div>
     `;
@@ -605,12 +605,12 @@ function contactContainerTemplate(i, letter) {
  * @param {string} contactEmail - email address of the contact
  * @returns 
  */
-function sortedContactsTemplate(c, contactBgColor, firstLetters, contactListName, contactListSurname, contactEmail) {
+function sortedContactsTemplate(c, contactBgColor, contactTextColor, firstLetters, contactListName, contactListSurname, contactEmail) {
     return `
         <div id="contactID${c}" class="contact" onclick="openContactInfo(${c})">
             <div>
                 <div style="background-color:${contactBgColor};"class="contactIcon">
-                    <span>${firstLetters.toUpperCase()}</span>
+                    <span style="color:${contactTextColor}">${firstLetters.toUpperCase()}</span>
                 </div>
             </div>
             <div>
@@ -635,13 +635,13 @@ function sortedContactsTemplate(c, contactBgColor, firstLetters, contactListName
  * @param {string} contactInfoBgColor - color of the contact
  * @returns 
  */
-function contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, c, contactInfoEmail, contactInfoPhone, contactInfoBgColor, contactId) {
+function contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, c, contactInfoEmail, contactInfoPhone, contactInfoBgColor, contactTextColor, contactId) {
     return `
             <div class="contactDetails" id="contactDetails${c}">
                 <div>
                     <div>
                         <div id="contactIconBig${c}" class="contactIconBig" style="background-color: ${contactInfoBgColor};">
-                            <span>${firstLetters}</span>
+                            <span style="color: ${contactTextColor};">${firstLetters}</span>
                         </div>
                     </div>
                     <div class="contactDetailsName">
@@ -686,12 +686,9 @@ function contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, 
                                 <img src="./img/delete.svg">
                             </div>
                         </div>
-        
                     </div>
-                   
                 </div>
             </div>
-
         `;
 }
 
@@ -704,7 +701,7 @@ function contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, 
 function contactBigImgTemplate(i, firstLetters) {
     return `
         <div id="contactImgBg${i}" class="contactImgBg">
-            <span>${firstLetters}</span>
+            <span id="contactImgText${i}">${firstLetters}</span>
         </div>
     `;
 }

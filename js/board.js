@@ -688,7 +688,7 @@ async function saveCompletedSubtasks(currentTaskId, subtaskId, taskStatus) {
             renderSubtasks(currentTaskId);
         } else {
             subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
-            renderSubtasksEdit(currentTaskId);
+            //renderSubtasksEdit(currentTaskId);
         }   
         await saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId);
     }
@@ -700,7 +700,7 @@ async function saveCompletedSubtasks(currentTaskId, subtaskId, taskStatus) {
             renderSubtasks(currentTaskId);
         } else {
             subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
-            renderSubtasksEdit(currentTaskId);
+            //renderSubtasksEdit(currentTaskId);
         }
         await saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId);
     } 

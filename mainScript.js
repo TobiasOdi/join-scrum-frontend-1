@@ -106,6 +106,7 @@ async function loadData() {
         subtasksLoad = data['subtasks'];
         assignedContacts = data['assignedContacts'];
         contacts = data['contacts'];
+        console.log(contacts);
 
         if(data['categories'].length !== 0){
             categories = data['categories'];
@@ -207,24 +208,41 @@ async function addUser() {
     let passwordConfirm = document.getElementById('passwordConfirm');
     let color = document.getElementById('userColor');
     let colorValue = color.options[color.selectedIndex].value;
-    let userData = {first_name: name.value, last_name: surname.value, email: email.value, password: password.value, phone: '-', color: colorValue};
+    let bgColorArray = getColorArray(colorValue);
+    let textColorValue = checkBrightnessSignup(bgColorArray);
+    let userData = {first_name: name.value, last_name: surname.value, email: email.value, password: password.value, phone: '-', color: colorValue, text_color: textColorValue};
 
     if(password.value != passwordConfirm.value) {
         displaySnackbar('passwordsNotIdentical');
     } else {
-        validateSignup(userData);
+        await validateSignup(userData);
     }
 }
 
 /**
- * This function generates the user id.
+ * This function gets each rgb value of the selected color.
+ * @param {*} colorValue 
+ * @returns 
  */
-function generateUserId() {
-    id = Math.floor((Math.random() * 1000000) + 1);
-    for (let i = 0; i < users.length; i++) {
-        if (users[i]['userId'].includes === id || contacts[i]['contactId'].includes === id) {
-            id = Math.floor((Math.random() * 1000000) + 1);
-        }
+function getColorArray(colorValue) {
+    let colorValue1 = colorValue.split(',')[0];
+    let colorValue2 = colorValue.split(',')[1];
+    let colorValue3 = colorValue.split(',')[2];
+    colorValue1 = colorValue1.substring(4);
+    colorValue3 = colorValue3.substring(0, colorValue3.length - 1);
+    return [colorValue1, colorValue2, colorValue3];
+}
+
+/**
+ * This function checks if the generated backgroundcolor needs a white or black text.
+ * @param {*} bgColorArray - Array with every rgb color value
+ */
+function checkBrightnessSignup(bgColorArray){
+    const brightness = Math.round(((parseInt(bgColorArray[0]) * 299) + (parseInt(bgColorArray[1]) * 587) + (parseInt(bgColorArray[2]) * 114)) / 1000);
+    if(brightness < 150){
+        return 'rgb(255, 255, 255)';
+    } else {
+        return "rgb(0, 0, 0)";
     }
 }
 
@@ -378,12 +396,14 @@ async function login() {
               body: fd
             });
             let data = await response.json();
+
             if(data.status == 1) {
               displaySnackbar('pwEmailIncorrect');
             } else if(data.status == 2) {
                 displaySnackbar('userDoesNotExist');
             } else {
                 localStorage.setItem('userColor', data.userColor);
+                localStorage.setItem('userTextColor', data.userTextColor);
                 localStorage.setItem('userName', data.firstname);
                 localStorage.setItem('token', data.token);
                 window.location.href = "http://127.0.0.1:5500/index.html";

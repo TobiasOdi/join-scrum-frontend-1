@@ -22,6 +22,7 @@ let newContactPopUp = document.getElementById('addContactBackground');
 let editContactPopUp = document.getElementById('editContactBackground');
 
 let bgColor;
+let textColor;
 let firstLetters;
 
 // ================================================ INIT CONTACTS ==========================================================
@@ -72,10 +73,10 @@ function sortContacts(letter, sortedContacts) {
         let contactListSurname = contacts[c]['last_name'];
         let contactEmail = contacts[c]['email'];
         let contactBgColor = contacts[c]['color'];
-        randomBackgroundColor()
+        let contactTextColor = contacts[c]['text_color']
         getFirstletter(c);
         if(firstLetters.charAt(0).toUpperCase() == letter) {
-            sortedContacts.innerHTML += sortedContactsTemplate(c, contactBgColor, firstLetters, contactListName, contactListSurname, contactEmail);
+            sortedContacts.innerHTML += sortedContactsTemplate(c, contactBgColor, contactTextColor, firstLetters, contactListName, contactListSurname, contactEmail);
         }
     }
 }
@@ -140,7 +141,7 @@ async function createContact() {
     if(existingContact) {
         displaySnackbar('contactAllreadyExists');
     } else {
-        randomBackgroundColor();
+        generateBackgroundColor();
         checkForPhoneNumber();    
         contactData = {
             first_name: document.getElementById('contactName').value, 
@@ -148,6 +149,7 @@ async function createContact() {
             email: document.getElementById('contactEmail').value, 
             phone: contactPhoneValue, 
             color: bgColor,
+            text_color: textColor,
             active_user: null
         };
         await saveContact();
@@ -158,31 +160,36 @@ async function createContact() {
         document.getElementById('contactPhone').value = '';
         renderLetters();
         displaySnackbar('contactCreated');
-        document.getElementById('addContactBackground').style.display = 'none';   
+        document.getElementById('addContactBackground').style.display = 'none';  
+        bgColor = "";
+        textColor = "";
     }
 }
 
 /**
  * This function generates a random color.
  */
-function randomBackgroundColor() {
+function generateBackgroundColor() {
     let x = Math.floor(Math.random() * 256)
     let y = Math.floor(Math.random() * 256)
     let z = Math.floor(Math.random() * 256)
     bgColor = `rgb(${x}, ${y}, ${z})`;
+    let bgColorArray = [x, x, z];
+    textColor = checkBrightness(bgColorArray);
 }
 
 /**
- * This function generates a contact id.
+ * This function checks if the generated backgroundcolor needs a white or black text.
+ * @param {*} bgColorArray - Array with every rgb color value
  */
-/* function generateContactId() {
-    idContact = Math.floor((Math.random() * 1000000) + 1);
-    for (let i = 0; i < contacts.length; i++) {
-        if(contacts[i]['contactId'].includes === idContact) {
-            generateContactId();
-        }
+function checkBrightness(bgColorArray){
+    const brightness = Math.round(((parseInt(bgColorArray[0]) * 299) + (parseInt(bgColorArray[1]) * 587) + (parseInt(bgColorArray[2]) * 114)) / 1000);
+    if(brightness < 150){
+        return 'rgb(255, 255, 255)';
+    } else {
+        return "rgb(0, 0, 0)";
     }
-} */
+}
 
 /**
  * This function saves the contact data on the ftp server.
@@ -213,7 +220,6 @@ async function saveContact() {
  * @param {index} c - index of the current contact
  */
 function openContactInfo(c) {
-    activeContact(c);
     let contactInformation = document.getElementById('contactsContent');
     contactInformation.innerHTML = '';
     let contactId = contacts[c]['id'];
@@ -222,8 +228,10 @@ function openContactInfo(c) {
     let contactInfoEmail = contacts[c]['email'];
     let contactInfoPhone = contacts[c]['phone'];
     let contactInfoBgColor = contacts[c]['color'];
+    let contactTextColor = contacts[c]['text_color'];
+    activeContact(c, contactTextColor);
     getFirstletter(c);
-    contactInformation.innerHTML += contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, c, contactInfoEmail, contactInfoPhone, contactInfoBgColor, contactId);
+    contactInformation.innerHTML += contactInfoTemplate(firstLetters, contactInfoName, contactInfoSurname, c, contactInfoEmail, contactInfoPhone, contactInfoBgColor, contactTextColor, contactId);
     document.getElementById('contactIconBig' + c).style.backgroundColor = contactInfoBgColor;
     document.getElementById('contactDetails' + c).style.animation = 'flying 225ms ease-in-out';
     checkWindowWidth();
@@ -244,15 +252,15 @@ function checkWindowWidth() {
  * This function highlights the acitve contact.
  * @param {index} c - index of the current contact
  */
-function activeContact(c) {
+function activeContact(c, contactTextColor) {
     let currentElement = document.getElementById('contactID' + c);
     let allElements = document.querySelectorAll('.contact');
     allElements.forEach((element) => {
         element.style.backgroundColor = '#F6F7F8';
-        element.style.color = 'black';
+        element.style.color = contactTextColor;
     })
     currentElement.style.backgroundColor = '#2A3647';
-    currentElement.style.color = 'white';
+    currentElement.style.color = contactTextColor;
 }
 
 /**
@@ -273,9 +281,11 @@ function editContact(i) {
     renderSaveChangesForm(i);
     getCurrentContactData(i);
     let contactInfoBgColor = contacts[i]['color'];
+    let contactInfoTextColor = contacts[i]['text_color'];
     getFirstletter(i);
     document.getElementById('contactImg').innerHTML = contactBigImgTemplate(i, firstLetters);
     document.getElementById('contactImgBg' + i).style.backgroundColor = contactInfoBgColor;
+    document.getElementById('contactImgText' + i).style.color = contactInfoTextColor;
     existingUserEmail = document.getElementById('editContactEmail').value;
     activeUserContact = contacts[i]['active_user'];
 }
