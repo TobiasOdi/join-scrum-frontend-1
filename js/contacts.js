@@ -93,18 +93,6 @@ function checkForEmptyLetters(i) {
     }
 }
 
-/**
- * This function returns the first letter form the name and surname of the contact.
- * @param {index} c - index of the current contact of the "contactsSorted" array.
- */
-/* function nameGetFirstLetter(i) {
-    let x = contacts[i]['name'];
-    x = x.split(' ').map(word => word.charAt(0)).join('');
-    let y = contacts[i]['surname'];
-    y = y.split(' ').map(word => word.charAt(0)).join('');
-    firstLetters = x.toUpperCase() + y.toUpperCase();
-} */
-
 // ================================================ ADD NEW CONTACT ==========================================================
 /**
  * This function displays the add contacts overlay.
@@ -278,7 +266,9 @@ function backToContactsList() {
  * @param {index} i - index of the current contact
  */
 function editContact(i) {
-    renderSaveChangesForm(i);
+    let saveChangesFormContainer = document.getElementById('saveChangesFormContainer');
+    saveChangesFormContainer.innerHTML = "";
+    saveChangesFormContainer.innerHTML += saveChangesFormTemplate(i);
     getCurrentContactData(i);
     let contactInfoBgColor = contacts[i]['color'];
     let contactInfoTextColor = contacts[i]['text_color'];
@@ -288,12 +278,6 @@ function editContact(i) {
     document.getElementById('contactImgText' + i).style.color = contactInfoTextColor;
     existingUserEmail = document.getElementById('editContactEmail').value;
     activeUserContact = contacts[i]['active_user'];
-}
-
-function renderSaveChangesForm(i) {
-    let saveChangesFormContainer = document.getElementById('saveChangesFormContainer');
-    saveChangesFormContainer.innerHTML = "";
-    saveChangesFormContainer.innerHTML += saveChangesFormTemplate(i);
 }
 
 /**
@@ -359,6 +343,9 @@ async function saveChanges(i) {
     }
 }
 
+/**
+ * Saves the changed contact data on the server.
+ */
 async function saveChangesToServer() {
     let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");

@@ -11,7 +11,6 @@ let categories = [
     {'categoryName': 'Design', 'color': 'rgb(255, 122, 0)', 'categoryType': 'default'},
     {'categoryName': 'Sales', 'color': 'rgb(252, 113, 255)', 'categoryType': 'default'}
 ];
-
 let statusCategory;
 let editedTaskPriority = [];
 let firstLettersAvailableUser;
@@ -53,6 +52,9 @@ function openDropdown(id) {
     }
 }
 
+/**
+ * Closes the dopndown of the categories.
+ */
 function closeDropdown() {
     if(!document.getElementById('categoryChoices').classList.contains('d-none') || !document.getElementById('avatarPicker').classList.contains('d-none') ) {
         document.getElementById('categoryChoices').classList.add('d-none');
@@ -61,7 +63,7 @@ function closeDropdown() {
 }
 
 /**
- * This function sets the date.
+ * This function sets the todays date.
  */
 function setDateToday() {
     let today = new Date().toISOString().split('T')[0];
@@ -159,6 +161,9 @@ function setTaskParameters() {
     data = [{"taskData": taskData, "assignedToData": assignedToData, "subtaskData": subtaskData}];
 }
 
+/**
+ * Saves the task data to the database on the server.
+ */
 async function saveCreatedTask() {
     const csrfToken = getCookie("csrftoken");
     let token = localStorage.getItem('token', data.token);

@@ -145,6 +145,11 @@ function setUserColor() {
 }
 
 // ================================================ GENERAL FUNCTIONS ==========================================================
+/**
+ * This function provides the first letters of the name and surname of a contact.
+ * @param {index} i - index of the needed contact
+ * @returns 
+ */
 function getFirstletter(i) {
     firstLetters = "";
     let x = contacts[i]['first_name'];
