@@ -267,7 +267,7 @@ async function saveTaskCategory(id) {
     let currentTask = tasks.find(i => i.id == id);
     let currentTaskAsString = JSON.stringify(currentTask);
     try {
-        let response = await fetch(`http://127.0.0.1:8000/tasks/save_task_category/${id}/`, {
+        let response = await fetch(`http://127.0.0.1:8000/board/save_task_category/${id}/`, {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,
@@ -435,7 +435,7 @@ async function deleteTaskFromServer(currentTask) {
     let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     try {
-        let response = await fetch(`http://127.0.0.1:8000/tasks/delete_task/${currentTask.id}/`, {
+        let response = await fetch(`http://127.0.0.1:8000/board/delete_task/${currentTask.id}/`, {
             method: 'POST',
             headers: {
                 "Accept":"application/json", 
@@ -712,7 +712,7 @@ async function saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId) {
     const csrfToken = getCookie("csrftoken");
     let subtaskAsString = JSON.stringify(currentSubtaskElement);
     try {
-        let response = await fetch(`http://127.0.0.1:8000/tasks/save_subtask_status/${subtaskId}/`, {
+        let response = await fetch(`http://127.0.0.1:8000/board/save_subtask_status/${subtaskId}/`, {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,
@@ -803,7 +803,7 @@ async function saveEditedTaskToServer(currentTaskId) {
     const csrfToken = getCookie("csrftoken");
     let editedTaskAsString = JSON.stringify(editedData);
     try {
-        let response = await fetch(`http://127.0.0.1:8000/tasks/save_edited_task/${currentTaskId}/`, {
+        let response = await fetch(`http://127.0.0.1:8000/board/save_edited_task/${currentTaskId}/`, {
             method: 'POST',
             headers: {
                 "X-CSRFToken": csrfToken,

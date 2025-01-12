@@ -26,7 +26,7 @@ async function checkForLoggedInUser() {
         const csrfToken = getCookie("csrftoken");
     
         try {
-            let response = await fetch('http://127.0.0.1:8000/token_check/', {
+            let response = await fetch('http://127.0.0.1:8000/user/token_check/', {
                 method: 'POST',
                 headers: {
                     "X-CSRFToken": csrfToken,
@@ -94,7 +94,7 @@ async function loadData() {
     let token = localStorage.getItem('token', data.token);
     const csrfToken = getCookie("csrftoken");
     try{
-        response = await fetch('http://127.0.0.1:8000/data/', {
+        response = await fetch('http://127.0.0.1:8000/board/data/', {
             method: 'GET',
             headers:{
                 "X-CSRFToken": csrfToken,
@@ -113,7 +113,7 @@ async function loadData() {
             let categoriesAsString = JSON.stringify(categories);
             const csrfToken = getCookie("csrftoken");
             try {
-                let response = await fetch('http://127.0.0.1:8000/data/set_categories/', {
+                let response = await fetch('http://127.0.0.1:8000/board/data/set_categories/', {
                     method: 'POST',
                     headers: {
                         "X-CSRFToken": csrfToken,
