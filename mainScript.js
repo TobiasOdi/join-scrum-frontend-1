@@ -24,28 +24,17 @@ async function checkForLoggedInUser() {
         let tokenCheck = {'token': localStorage.getItem("token")};
         let tokenCheckAsString = JSON.stringify(tokenCheck);
         const csrfToken = getCookie("csrftoken");
-    
         try {
-            let response = await fetch('http://127.0.0.1:8000/user/token_check/', {
-                method: 'POST',
-                headers: {
-                    "X-CSRFToken": csrfToken,
-                    "Accept":"application/json", 
-                    "Content-Type":"application/json"
-                },
-                body: tokenCheckAsString
-            });
+            let path = 'user/token_check';
+            let response = await fetchApiHelper(path, tokenCheckAsString);
             let data = await response.json();
-
             if(localStorage.getItem("token") && data.status != 1) {
                 window.location.href = "./templates/login.html";
             }
-
         } catch(error) {
             console.log('An error occured', error);
         }
     }
-
 }
 
 /**
@@ -106,31 +95,30 @@ async function loadData() {
         subtasksLoad = data['subtasks'];
         assignedContacts = data['assignedContacts'];
         contacts = data['contacts'];
-
-        if(data['categories'].length !== 0){
-            categories = data['categories'];
-        } else {
-            let categoriesAsString = JSON.stringify(categories);
-            const csrfToken = getCookie("csrftoken");
-            try {
-                let response = await fetch('http://127.0.0.1:8000/board/data/set_categories/', {
-                    method: 'POST',
-                    headers: {
-                        "X-CSRFToken": csrfToken,
-                        "Accept":"application/json", 
-                        "Content-Type":"application/json"
-                    },
-                    body: categoriesAsString
-                });
-                //let data = await response.json();
-            } catch(error) {
-                console.log('An error occured', error);
-                enableFieldsSignUp(); 
-            } 
-        }
+        setCategories(data);
     } catch {
         let error = 'Fehler beim Laden!';
         console.log(error);
+    }
+}
+
+/**
+ * Checks if the task categories already exist in the data json array. If yes, the categories array the categories array is filled 
+ * with the category data from the data json array. If not, the task categories are saved in the database on the server.  
+ * @param {*} data - json array whith all task, subtask, contact, categories data
+ */
+function setCategories(data) {
+    if(data['categories'].length !== 0){
+        categories = data['categories'];
+    } else {
+        let categoriesAsString = JSON.stringify(categories);
+        try {
+            let path = 'board/data/set_categories';
+            let response = fetchApiHelper(path, categoriesAsString);
+        } catch(error) {
+            console.log('An error occured', error);
+            enableFieldsSignUp(); 
+        } 
     }
 }
 
@@ -145,6 +133,29 @@ function setUserColor() {
 }
 
 // ================================================ GENERAL FUNCTIONS ==========================================================
+
+/**
+ * Helper function for the fetch request to reduce redundant code.
+ * @param {*} path 
+ * @param {*} body 
+ * @returns 
+ */
+async function fetchApiHelper(path, body) {
+    const csrfToken = getCookie("csrftoken");
+    let token = localStorage.getItem('token', data.token);
+    
+    return await fetch(`http://127.0.0.1:8000/${path}/`, {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": csrfToken,
+            "Accept":"application/json", 
+            "Content-Type":"application/json",
+            "Authorization": `Token ${token}`
+        },
+        body: body
+    });
+}
+
 /**
  * This function provides the first letters of the name and surname of a contact.
  * @param {index} i - index of the needed contact
@@ -262,19 +273,10 @@ function checkBrightnessSignup(bgColorArray){
 async function validateSignup(userData) {
     document.getElementById('signUpScreenLoading').style.display = 'flex';
     disableFieldsSignUp();
-    const csrfToken = getCookie("csrftoken");
     let userDataString = JSON.stringify(userData);
     try {
-        let response = await fetch('http://127.0.0.1:8000/user/sign_up/', {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json"
-            },
-            body: userDataString
-        });
-        //localStorage.setItem('token', response['token']);
+        let path = 'user/sign_up';
+        let response = await fetchApiHelper(path, userDataString);
         let data = await response.json();
         if(data.status == 1) {
             displaySnackbar('alreadySignedUp');
@@ -410,22 +412,15 @@ async function login() {
         displaySnackbar('missingSignedUp');
     } else {
         try {
-            let response = await fetch('http://127.0.0.1:8000/user/login/', {
-              method: 'POST',
-              headers: {"X-CSRFToken": csrfToken},
-              body: fd
-            });
+            let path = 'user/login';
+            let response = await fetchApiHelper(path, fd);
             let data = await response.json();
-
             if(data.status == 1) {
-              displaySnackbar('pwEmailIncorrect');
+                displaySnackbar('pwEmailIncorrect');
             } else if(data.status == 2) {
                 displaySnackbar('userDoesNotExist');
             } else {
-                localStorage.setItem('userColor', data.userColor);
-                localStorage.setItem('userTextColor', data.userTextColor);
-                localStorage.setItem('userName', data.firstname);
-                localStorage.setItem('token', data.token);
+                setLoclStorageData(data);
                 window.location.href = "http://127.0.0.1:5500/index.html";
             }
             enableFields();  
@@ -435,6 +430,16 @@ async function login() {
           }    
     }
     document.getElementById('loginScreenLoading').style.display = 'none';
+}
+
+/**
+ * This function saves necessary data in the local storage.
+ * @param {json} data - user data
+ */
+function setLoclStorageData(data) {
+    localStorage.setItem('userColor', data.userColor);
+    localStorage.setItem('userName', data.firstname);
+    localStorage.setItem('token', data.token);
 }
 
 /**
@@ -494,8 +499,7 @@ function setUserName(user) {
 async function guestLogin() {
     document.getElementById('loginScreenLoading').style.display = 'flex';
     disableFields();
-    const csrfToken = getCookie("csrftoken");
-        let guestUserData = {
+    let guestUserData = {
         first_name: 'Guest', 
         last_name: ' ', 
         email: 'guest@guest.com', 
@@ -505,22 +509,11 @@ async function guestLogin() {
         text_color: 'rgb(255, 255, 255)'
     };
     let guestUserDataString = JSON.stringify(guestUserData);
-
     try {
-        let response = await fetch('http://127.0.0.1:8000/user/guest_login/', {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json"
-            },
-            body: guestUserDataString
-        });
+        let path = 'user/guest_login';
+        let response = await fetchApiHelper(path, guestUserDataString);
         let data = await response.json();
-        localStorage.setItem('userColor', data.userColor);
-        localStorage.setItem('userTextColor', data.userTextColor);
-        localStorage.setItem('userName', data.firstname);
-        localStorage.setItem('token', data.token);
+        setLoclStorageData(data);
         window.location.href = "http://127.0.0.1:5500/index.html";
         enableFields();  
     } catch(error) {
@@ -532,7 +525,8 @@ async function guestLogin() {
 
 /* ================================================================= FORGOT PASSWORD ================================================================= */
 /**
- * This function validates the forgot password form and throws an error if necessary.
+ * This function validates the user email and returns the status 1(user does not exist) or 2(sending mail not possible) 
+ * or sends the email to reset the password.
  */
 async function checkForCorrectEmail() {
     document.getElementById('sendEmailToResetPw').disabled = true;
@@ -543,15 +537,9 @@ async function checkForCorrectEmail() {
     let fd = new FormData();
     fd.append('email', userEmail.value);
     fd.append('csrfmiddlewaretoken', csrfToken);
-
     try {
-        let response = await fetch('http://127.0.0.1:8000/user/reset_password/', {
-            method: 'POST',
-            headers: {
-               "X-CSRFToken": csrfToken
-            },
-            body: fd
-        });
+        let path = 'user/rest_password';
+        let response = await fetchApiHelper(path, fd);
         let data = await response.json();        
         if(data.status == 1) {
             displaySnackbar('userDoesNotExist2');
@@ -579,7 +567,6 @@ async function checkValidLink() {
     let userId = urlParams.get('ikey');
     let currentTimestamp = new Date();
     let unixTimestamp = Math.floor(currentTimestamp.getTime()/1000);
-    //let token = localStorage.getItem('token', data.token);
     if((unixTimestamp - urlTimestamp) > 900) {
         document.getElementById('newPassword').disabled = true;
         document.getElementById('confirmPassword').disabled = true;
@@ -588,9 +575,6 @@ async function checkValidLink() {
         setTimeout(() => {
            window.location.href = "http://127.0.0.1:5500/templates/login.html";
         }, 2500);
-        //document.getElementById('pwAlreadyReset').disabled = false;
-        //document.getElementById('confirmPassword').disabled = false;
-        //document.getElementById('resetPwButton').disabled = false;
     } else {
         const csrfToken = getCookie("csrftoken");
         try{
@@ -598,7 +582,6 @@ async function checkValidLink() {
                 method: 'GET',
                 headers:{
                     "X-CSRFToken": csrfToken,
-                    //"Authorization": `Token ${token}`
                 }
             });
             let data = await response.json();
@@ -642,18 +625,9 @@ async function resetPassword() {
  * @param {*} timestampResetJsonAsString 
  */
 async function saveTimestamp(ikey, timestampResetJsonAsString) {
-    const csrfToken = getCookie("csrftoken");
     try{
-        response = await fetch(`http://127.0.0.1:8000/user/set_timestamp/`, {
-            method: 'POST',
-            headers:{
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                //"Authorization": `Token ${token}`
-            },
-            body: timestampResetJsonAsString
-        });
+        let path = 'user/set_timestamp';
+        let response = await fetchApiHelper(path, timestampResetJsonAsString);
         let data = await response.json();
     } catch {
         let error = 'Fehler beim Laden!';
@@ -677,14 +651,8 @@ async function validatePassword(newPassword, confirmPassword, ikey, tkey) {
         fd.append('uid', ikey);
 
         try {
-            let response = await fetch('http://127.0.0.1:8000/user/set_new_password/', {
-                method: 'POST',
-                headers: {
-                    "X-CSRFToken": csrfToken,
-                    "Authorization": `Token ${token}`
-                },
-                body: fd
-            });
+            let path = 'user/set_new_password';
+            let response = await fetchApiHelper(path, fd);
             let data = await response.json();
             if(data.status == 1) {
                 displaySnackbar('passwordReset');

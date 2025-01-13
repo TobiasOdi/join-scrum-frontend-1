@@ -165,20 +165,10 @@ function setTaskParameters() {
  * Saves the task data to the database on the server.
  */
 async function saveCreatedTask() {
-    const csrfToken = getCookie("csrftoken");
-    let token = localStorage.getItem('token', data.token);
     let newTaskAsString = JSON.stringify(data);
     try {
-        let response = await fetch('http://127.0.0.1:8000/tasks/save_created_task/', {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "Authorization": `Token ${token}`
-            },
-            body: newTaskAsString
-          });
+        let path = 'tasks/save_created_task';
+        let response = await fetchApiHelper(path, newTaskAsString);
     } catch(e) {
         console.log('Creating task was not possible', error);
     }
@@ -634,20 +624,10 @@ function generateCategoryColor() {
  * This function saves the "categories" array on the server.
  */
 async function saveCategories(categoryData) {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
     let newCategoryAsString = JSON.stringify(categoryData);
     try {
-        let response = await fetch('http://127.0.0.1:8000/tasks/save_created_category/', {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "Authorization": `Token ${token}`
-            },
-            body: newCategoryAsString
-          });
+        let path = 'tasks/save_created_category';
+        let response = await fetchApiHelper(path, newCategoryAsString);
     } catch(e) {
         console.log('Creating category was not possible', error);
     }
@@ -657,35 +637,24 @@ async function saveCategories(categoryData) {
  * This function deletes an added category.
  */
 async function deleteNewCategory(i, categoryName, categoryId) {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
     if(categoryValue == categoryName) {
         categoryValue = "";
         categoryColorValue = "";
     }
-
     categories.splice(i, 1);
     let currentCategory = categories[i];
     let deleteCategoryAsString = JSON.stringify(currentCategory);
 
     try {
-        let response = await fetch(`http://127.0.0.1:8000/tasks/delete_category/${categoryId}/`, {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "Authorization": `Token ${token}`
-            },
-            body: deleteCategoryAsString
-          });
-          let placeholderCategory = document.getElementById('placeholderCategory')
-          placeholderCategory.innerHTML = `
-              <div class="sectorTop" id='placeholderCategory'>
-              <p>Select task category</p>
-              <img src="./img/arrow.svg">
-              </div>`;
-          renderCategories();
+        let path = `tasks/delete_category/${categoryId}`;
+        let response = await fetchApiHelper(path, deleteCategoryAsString);
+        let placeholderCategory = document.getElementById('placeholderCategory')
+        placeholderCategory.innerHTML = `
+            <div class="sectorTop" id='placeholderCategory'>
+            <p>Select task category</p>
+            <img src="./img/arrow.svg">
+            </div>`;
+        renderCategories();
     } catch(error) {
         console.log('Creating category was not possible', error);
     }

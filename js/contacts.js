@@ -183,20 +183,10 @@ function checkBrightness(bgColorArray){
  * This function saves the contact data on the ftp server.
  */
 async function saveContact() {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
     let contactsAsString = JSON.stringify(contactData);
     try {
-        let response = await fetch('http://127.0.0.1:8000/contacts/save_created_contact/', {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "Authorization": `Token ${token}`
-            },
-            body: contactsAsString
-          });
+        let path = 'contacts/save_created_contact';
+        let response = await fetchApiHelper(path, contactsAsString);
     } catch(e) {
         console.log('Creating task was not possible', error);
     }
@@ -355,16 +345,8 @@ async function saveChangesToServer() {
     const csrfToken = getCookie("csrftoken");
     let editedContactAsString = JSON.stringify(editedContactData);
     try {
-        let response = await fetch('http://127.0.0.1:8000/contacts/save_edited_contact/', {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "Authorization": `Token ${token}`
-            },
-            body: editedContactAsString
-          });
+        let path = 'contacts/save_edited_contact';
+        let response = await fetchApiHelper(path, editedContactAsString);
     } catch(e) {
         console.log('Creating task was not possible', error);
     }
@@ -400,8 +382,6 @@ function checkForPhoneNumberEdit(i) {
  * @param {index} i - index of the current contact
  */
 async function deleteContact(c) {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
     let currentContact = contacts[c];
     activeUserContact = currentContact['active_user']
 
@@ -411,19 +391,11 @@ async function deleteContact(c) {
         contacts.splice(c, 1);  
         let contactToDeleteAsString = JSON.stringify(currentContact);
         try {
-            let response = await fetch('http://127.0.0.1:8000/contacts/delete_contact/', {
-                method: 'POST',
-                headers: {
-                    "X-CSRFToken": csrfToken,
-                    "Accept":"application/json", 
-                    "Content-Type":"application/json",
-                    "Authorization": `Token ${token}`
-                },
-                body: contactToDeleteAsString
-              });
-              document.getElementById('contactsContent').innerHTML = '';
-              renderLetters();
-              await loadData();
+            let path = 'contacts/delete_contact';
+            let response = await fetchApiHelper(path, contactToDeleteAsString);
+            document.getElementById('contactsContent').innerHTML = '';
+            renderLetters();
+            await loadData();
         } catch(e) {
             console.log('Deleting contact was not possible', error);
         }

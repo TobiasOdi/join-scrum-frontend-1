@@ -262,27 +262,14 @@ function doNotOpenTask(event) {
  * This function saves the task data in the "tasks" array on the ftp server.
  */
 async function saveTaskCategory(id) {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
     let currentTask = tasks.find(i => i.id == id);
     let currentTaskAsString = JSON.stringify(currentTask);
     try {
-        let response = await fetch(`http://127.0.0.1:8000/board/save_task_category/${id}/`, {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "Authorization": `Token ${token}`
-            },
-            body: currentTaskAsString
-          });
+        let path = `save_task_category/${id}`;
+        let response = await fetchApiHelper(path, currentTaskAsString);
     } catch(e) {
         console.log('Saving task was not possible', error);
     }
- 
-
-    //await backend.setItem('tasks', tasksAsString);
 }
 
 
@@ -432,18 +419,9 @@ async function deleteTask(currentTaskIndex) {
  * @param {*} currentTask - Current task object
  */
 async function deleteTaskFromServer(currentTask) {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
     try {
-        let response = await fetch(`http://127.0.0.1:8000/board/delete_task/${currentTask.id}/`, {
-            method: 'POST',
-            headers: {
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "X-CSRFToken": csrfToken,
-                "Authorization": `Token ${token}`
-            },
-            });
+        let path = `board/delete_task/${currentTask.id}`;
+        let response = fetchApiHelper(path);
     } catch(e) {
         console.log('Deleting task was not possible', error);
     }
@@ -456,8 +434,6 @@ async function deleteTaskFromServer(currentTask) {
  */
 function editTask(currentTaskId, currentCategoryColor) {
     let currentTask = tasks.find(t => t.id == currentTaskId);
-    //let currentCategory = categories.find(c => c.categoryName == currentTask.category);
-    //let categoryColor = currentCategory.color;
     subtasksEdit = subtasksLoad.filter(s => s.parent_task_id == currentTaskId);
     backupSubtasks = structuredClone(subtasksLoad);
     backupAssignedContacts = structuredClone(assignedContacts);
@@ -708,20 +684,10 @@ async function saveCompletedSubtasks(currentTaskId, subtaskId, taskStatus) {
  * @param {*} subtaskId 
  */
 async function saveCompletedSubtasksToServer(currentSubtaskElement, subtaskId) {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
     let subtaskAsString = JSON.stringify(currentSubtaskElement);
     try {
-        let response = await fetch(`http://127.0.0.1:8000/board/save_subtask_status/${subtaskId}/`, {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "Authorization": `Token ${token}`
-            },
-            body: subtaskAsString
-          });
+        let path = `board/save_subtask_status/${subtaskId}`;
+        let response = await fetchApiHelper(path, subtaskAsString);
     } catch(e) {
         console.log('Saving subtask status was not possible', error);
     }
@@ -799,20 +765,10 @@ function setEditedTaskParameters(index, currentTaskId) {
  * @param {*} currentTaskId 
  */
 async function saveEditedTaskToServer(currentTaskId) {
-    let token = localStorage.getItem('token', data.token);
-    const csrfToken = getCookie("csrftoken");
     let editedTaskAsString = JSON.stringify(editedData);
     try {
-        let response = await fetch(`http://127.0.0.1:8000/board/save_edited_task/${currentTaskId}/`, {
-            method: 'POST',
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Accept":"application/json", 
-                "Content-Type":"application/json",
-                "Authorization": `Token ${token}`
-            },
-            body: editedTaskAsString
-          });
+        let path = `board/save_edited_task/${currentTaskId}`;
+        let response = await fetchApiHelper(path, editedTaskAsString);
     } catch(e) {
         console.log('Creating task was not possible', error);
     }
@@ -850,7 +806,6 @@ function highlightInputsEditTask() {
     highlightEmptySelectedUsersInputEdit();
     displaySnackbar('missingInput');
 }
-
 
 /**
  * This function highlights the title input field if empty when the form is beeing submitted.
