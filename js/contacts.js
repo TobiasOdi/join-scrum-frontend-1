@@ -266,18 +266,22 @@ function backToContactsList() {
  * @param {index} i - index of the current contact
  */
 function editContact(i) {
-    let saveChangesFormContainer = document.getElementById('saveChangesFormContainer');
-    saveChangesFormContainer.innerHTML = "";
-    saveChangesFormContainer.innerHTML += saveChangesFormTemplate(i);
-    getCurrentContactData(i);
-    let contactInfoBgColor = contacts[i]['color'];
-    let contactInfoTextColor = contacts[i]['text_color'];
-    getFirstletter(i);
-    document.getElementById('contactImg').innerHTML = contactBigImgTemplate(i, firstLetters);
-    document.getElementById('contactImgBg' + i).style.backgroundColor = contactInfoBgColor;
-    document.getElementById('contactImgText' + i).style.color = contactInfoTextColor;
-    existingUserEmail = document.getElementById('editContactEmail').value;
-    activeUserContact = contacts[i]['active_user'];
+    if(contacts[i]['email'] == 'guest@guest.com') {
+        displaySnackbar('guestUsterLocked');
+    } else {
+        let saveChangesFormContainer = document.getElementById('saveChangesFormContainer');
+        saveChangesFormContainer.innerHTML = "";
+        saveChangesFormContainer.innerHTML += saveChangesFormTemplate(i);
+        getCurrentContactData(i);
+        let contactInfoBgColor = contacts[i]['color'];
+        let contactInfoTextColor = contacts[i]['text_color'];
+        getFirstletter(i);
+        document.getElementById('contactImg').innerHTML = contactBigImgTemplate(i, firstLetters);
+        document.getElementById('contactImgBg' + i).style.backgroundColor = contactInfoBgColor;
+        document.getElementById('contactImgText' + i).style.color = contactInfoTextColor;
+        existingUserEmail = document.getElementById('editContactEmail').value;
+        activeUserContact = contacts[i]['active_user'];
+    }
 }
 
 /**
