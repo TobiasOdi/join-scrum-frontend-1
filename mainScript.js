@@ -143,7 +143,6 @@ function setUserColor() {
 async function fetchApiHelper(path, body) {
     const csrfToken = getCookie("csrftoken");
     let token = localStorage.getItem('token', data.token);
-    
     return await fetch(`http://127.0.0.1:8000/${path}/`, {
         method: 'POST',
         headers: {
@@ -151,6 +150,42 @@ async function fetchApiHelper(path, body) {
             "Accept":"application/json", 
             "Content-Type":"application/json",
             "Authorization": `Token ${token}`
+        },
+        body: body
+    });
+}
+
+/**
+ * Helper function for the fetch request to reduce redundant code.
+ * @param {*} path 
+ * @param {*} body 
+ * @returns 
+ */
+async function fetchApiHelperNoToken(path, body) {
+    const csrfToken = getCookie("csrftoken");
+    return await fetch(`http://127.0.0.1:8000/${path}/`, {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": csrfToken,
+            "Accept":"application/json", 
+            "Content-Type":"application/json",
+        },
+        body: body
+    });
+}
+
+/**
+ * Helper function for the fetch request to reduce redundant code.
+ * @param {*} path 
+ * @param {*} body 
+ * @returns 
+ */
+async function fetchApiHelperFormData(path, body) {
+    const csrfToken = getCookie("csrftoken");
+    return await fetch(`http://127.0.0.1:8000/${path}/`, {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": csrfToken,
         },
         body: body
     });
@@ -276,7 +311,7 @@ async function validateSignup(userData) {
     let userDataString = JSON.stringify(userData);
     try {
         let path = 'user/sign_up';
-        let response = await fetchApiHelper(path, userDataString);
+        let response = await fetchApiHelperNoToken(path, userDataString);
         let data = await response.json();
         if(data.status == 1) {
             displaySnackbar('alreadySignedUp');
@@ -413,7 +448,7 @@ async function login() {
     } else {
         try {
             let path = 'user/login';
-            let response = await fetchApiHelper(path, fd);
+            let response = await fetchApiHelperFormData(path, fd);
             let data = await response.json();
             if(data.status == 1) {
                 displaySnackbar('pwEmailIncorrect');
@@ -511,7 +546,7 @@ async function guestLogin() {
     let guestUserDataString = JSON.stringify(guestUserData);
     try {
         let path = 'user/guest_login';
-        let response = await fetchApiHelper(path, guestUserDataString);
+        let response = await fetchApiHelperNoToken(path, guestUserDataString);
         let data = await response.json();
         setLoclStorageData(data);
         window.location.href = "http://127.0.0.1:5500/index.html";
@@ -538,8 +573,8 @@ async function checkForCorrectEmail() {
     fd.append('email', userEmail.value);
     fd.append('csrfmiddlewaretoken', csrfToken);
     try {
-        let path = 'user/rest_password';
-        let response = await fetchApiHelper(path, fd);
+        let path = 'user/reset_password';
+        let response = await fetchApiHelperFormData(path, fd);
         let data = await response.json();        
         if(data.status == 1) {
             displaySnackbar('userDoesNotExist2');
@@ -649,10 +684,9 @@ async function validatePassword(newPassword, confirmPassword, ikey, tkey) {
         let fd = new FormData();
         fd.append('newPw', newPassword);
         fd.append('uid', ikey);
-
         try {
             let path = 'user/set_new_password';
-            let response = await fetchApiHelper(path, fd);
+            let response = await fetchApiHelperFormData(path, fd);
             let data = await response.json();
             if(data.status == 1) {
                 displaySnackbar('passwordReset');
