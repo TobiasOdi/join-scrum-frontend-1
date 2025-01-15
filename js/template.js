@@ -469,7 +469,9 @@ function categoryPlaceholderTemplate() {
         <img src="./img/arrow.svg">
     </div>
 
-    <div class="categoryChoices d-none" id="categoryChoices"></div>
+    <div class="categoryChoices d-none" id="categoryChoices">
+    
+    </div>
     `;
 }
 
@@ -512,15 +514,28 @@ function newCategoryTemplate(categoryName, categoryColor, i, categoryId){
 function assignToPlaceholderTemplate() {
     return `
         <div class="sectorTop">
+            <div id="placeholderText">
+                <div>Select contacts to assign</div>
+                <img src="./img/arrow.svg">
+            </div>
+            <div id="selectedUsersPlaceholder" class="selectedUsersPlaceholder">
+
+            </div>
+        </div>
+
+        <div class="assignedToChoices d-none" id="avatarPicker">
+        
+        </div>
+       `;
+}
+
+/* 
             <div id="selectedUsersPlaceholder" class="selectedUsersPlaceholder">
                 <div id="assignedToHeader">Select contacts to assign</div>
             </div>
             <img src="./img/Vector 2.png">
-        </div>
+*/
 
-        <div class="assignedToChoices d-none" id="avatarPicker"></div>
-       `;
-}
 
 /**
  * This function returns the template for the available users.

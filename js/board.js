@@ -265,7 +265,7 @@ async function saveTaskCategory(id) {
     let currentTask = tasks.find(i => i.id == id);
     let currentTaskAsString = JSON.stringify(currentTask);
     try {
-        let path = `save_task_category/${id}`;
+        let path = `board/save_task_category/${id}`;
         let response = await fetchApiHelper(path, currentTaskAsString);
     } catch(e) {
         console.log('Saving task was not possible', error);

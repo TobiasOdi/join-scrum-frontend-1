@@ -129,7 +129,15 @@ textarea {
   height: 50px;
 }
 
-.sectorTop > div {
+.sectorTop > div:first-of-type {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: -50px;
+}
+
+.selectedUsersPlaceholder {
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -138,6 +146,16 @@ textarea {
   min-width: 40px;
   width: auto;
 }
+
+/* .sectorTop > div {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  min-width: 40px;
+  width: auto;
+} */
 
 .sectorTopSelectedUsers {
   justify-content: flex-start;

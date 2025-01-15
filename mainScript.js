@@ -578,8 +578,12 @@ async function checkForCorrectEmail() {
         let data = await response.json();        
         if(data.status == 1) {
             displaySnackbar('userDoesNotExist2');
+            document.getElementById('sendEmailToResetPw').disabled = false;
+            document.getElementById('submitButton').disabled = false;        
         } else if(data.status == 2) {
             displaySnackbar('sendingMailNotPossible');
+            document.getElementById('sendEmailToResetPw').disabled = false;
+            document.getElementById('submitButton').disabled = false;        
         } else {
             displaySnackbar("sendEmail");
             setTimeout(() => {

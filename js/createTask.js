@@ -340,20 +340,28 @@ function selectUser(availableUserId) {
     userIcon.classList.toggle('avatarSelectedIcon');
     if(selectedUsers.includes(availableUserId)){
         selectedUsers = selectedUsers.filter(a => a != availableUserId);
+        if(selectedUsers.length == 0) {
+            document.getElementById('placeholderText').style.display = 'flex';  
+        }
         checkForSelectedUsers();
     } else {
         selectedUsers.push(availableUserId);
         checkForSelectedUsers();
+    }
+    if(selectedUsers.length != 0) {
+        document.getElementById('placeholderText').style.display = 'none';  
     }
 }
 
 /**
  * This function renders the selected users into the placeholder div.
  */
+
+
 function checkForSelectedUsers() {
     let selectedUsersPlaceholder = document.getElementById('selectedUsersPlaceholder');
     if(selectedUsers == []) {
-        selectedUsersEmpty();
+        selectedUsersEmpty() 
     } else if (selectedUsers != []) {
         selectedUsersAvailable();
     }
@@ -362,6 +370,7 @@ function checkForSelectedUsers() {
 /**
  * This function renders the placeholder when the "selectedUsers" array is empty.
  */
+
 function selectedUsersEmpty() {
     selectedUsersPlaceholder.innerHTML = "";
     selectedUsersPlaceholder.innerHTML += `
@@ -542,7 +551,6 @@ function renderCategories() {
     let categoryConatiner = document.getElementById('categoryChoices');
     categoryConatiner.innerHTML = "";
     
-    
     for (let i = 0; i < categories.length; i++) {
         let categoryName = categories[i]['categoryName'];
         let categoryColor = categories[i]['color'];
@@ -567,12 +575,12 @@ function saveSelectedCategory(categoryName, categoryColor) {
     categoryColorValue = categoryColor;
     document.getElementById('categoryChoices').classList.add('d-none');
     let placeholderCategory = document.getElementById('placeholderCategory')
+    placeholderCategory.innerHTML = '';
     placeholderCategory.innerHTML = `
         <div class="category">
             <div>${categoryName}</div>
             <div class="circle" style="background: ${categoryColor};"></div>
         </div>
-        <img src="./img/arrow.svg">
     `;
 }
 
